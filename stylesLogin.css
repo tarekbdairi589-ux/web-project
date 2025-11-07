@@ -1,0 +1,182 @@
+:root {
+    --bg: #0f1115;
+    --panel: #161a22;
+    --text: #e8ecf3;
+    --muted: #8b93a7;
+    --border: #232838;
+    --input: #0d1016;
+    --brand: #6aa1ff;
+}
+
+body {
+    height: 100vh;
+    /* make body fill full screen height */
+    display: flex;
+    /* activate flexbox layout */
+    justify-content: center;
+    /* center horizontally */
+    align-items: center;
+    /* center vertically */
+    background-color: var(--bg);
+}
+
+.login {
+    background-color: var(--panel);
+    display: flex;
+    flex-wrap: wrap;
+    padding: 20px;
+    width: 350px;
+    padding: 2rem;
+    border-radius: 12px;
+    flex-direction: column;
+    /* stack items vertically */
+    align-items: stretch;
+    /* make them take full width */
+    justify-content: flex-start;
+    align-items: center;
+    /* center everything horizontally */
+    text-align: center;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--border);
+}
+
+.title {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+/* base fields only (NOT checkboxes) */
+input[type="text"],
+input[type="password"],
+input[type="email"] {
+    background-color: var(--input);
+    color: var(--text);
+    border: 1px solid var(--border);
+}
+
+/* styled width/rounded/glow ONLY for text-like fields inside .login */
+.login input[type="text"],
+.login input[type="password"],
+.login input[type="email"] {
+    display: block;
+    margin-top: 6px;
+    width: 260px;
+    box-sizing: border-box;
+    text-align: center;
+    margin-bottom: 10px;
+    border-radius: 20px;
+    outline: none;
+    box-shadow: 0 0 5px #4b6ef5;
+    transition: 0.2s;
+}
+
+
+.login input::placeholder {
+    color: #8b93a7;
+    /* softer gray-blue */
+}
+
+.btnlogin {
+    padding: 10px;
+    width: 100%;
+    /* makes the button stretch the full width of the div */
+    padding: 12px;
+    /* gives it height and good spacing */
+    background-color: var(--brand);
+    color: #0b1220;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.btnlogin:hover {
+    background-color: #3b5cd6;
+}
+
+.btnsignup:hover {
+    background-color: #3b5cd6;
+}
+
+.login label {
+    color: #a9c5ff;
+    /* soft glowing blue-white */
+    font-weight: 600;
+}
+
+.login h2 {
+    color: #ffffff;
+    /* bright white for the header */
+    letter-spacing: 1px;
+}
+
+.toggle {
+    margin-top: 12px;
+    color: #cfe0ff;
+    cursor: pointer;
+}
+
+.btnsignup {
+    padding: 10px;
+    width: 100%;
+    /* makes the button stretch the full width of the div */
+    padding: 12px;
+    /* gives it height and good spacing */
+    background-color: var(--brand);
+    color: #0b1220;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+/* show one form at a time */
+.login-form,
+.signup-form {
+    display: none;
+}
+
+.login.active-login .login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.login.active-signup .signup-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.showpass {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    /* right side under the input */
+    gap: 8px;
+    width: 260px;
+    /* match the input width */
+    margin: 6px auto 10px;
+    /* center the row; small spacing */
+    color: #cfe0ff;
+    font-size: 14px;
+}
+
+/* remove big borders/glow from the checkbox itself */
+.showpass input[type="checkbox"] {
+    width: auto;
+    height: auto;
+    border: none;
+    box-shadow: none;
+    outline: none;
+    background: transparent;
+    accent-color: var(--brand);
+    /* nice blue check (supported browsers) */
+}

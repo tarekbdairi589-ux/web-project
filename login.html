@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome</title>
+    <link rel="stylesheet" href="stylesLogin.css">
+    <script src="loginscript.js" defer></script>
+</head>
+
+<body>
+    <div class="login" id="log">
+        <form class="login-form">
+            <h2 class="title">LOGIN</h2>
+            <label for="">Username:
+                <input type="text" placeholder="Enter Your Username">
+            </label>
+            <label for="">Password:
+                <input type="password" id="loginPassword" placeholder="Enter Your Password">
+            </label>
+            <label class="showpass">
+                <input type="checkbox" id="showPass"> Show Password
+            </label>
+            <button class="btnlogin">Log in</button>
+            <div class="toggle" id="toSignup">Create account</div>
+        </form>
+
+        <form class="signup-form">
+            <h2>Sign Up</h2>
+            <label for="">Full Name:
+                <input type="text" placeholder="Full Name">
+            </label>
+            <label for="">Email:
+                <input type="email" placeholder="Email">
+            </label>
+            <label for="">Password:
+                <input type="password" id="signupPassword" placeholder="Password">
+            </label>
+            <label class="showpass">
+                <input type="checkbox" id="showPasss"> Show Password
+            </label>
+            <button class="btnsignup">Sign Up</button>
+            <div class="toggle" id="toLogin">Back to login</div>
+        </form>
+
+    </div>
+</body>
+
+</html>
