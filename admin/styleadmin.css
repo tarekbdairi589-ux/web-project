@@ -59,13 +59,13 @@ main{
     gap: 20px;
     flex: 1;
     flex-wrap: wrap;
+    height: auto;
 }
 #add-edit-form{
     background-color: #1d3160;
     opacity: 0.95;
     border-radius: 10px;
-    width: 600px;
-    height: 500px;
+
 }
 #form2{
     background-color: #1d3160;
@@ -224,7 +224,7 @@ button:hover {
 
 flex: 1 1 250px;
 min-width: 200px;
-
 }
+
 
 
