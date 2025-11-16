@@ -11,7 +11,7 @@ let status = $('#Status');
 let adminfiltercategory=$('#adminfiltercategory');
 let filterStatus=$('#filterStatus');
 let currentpage=1;
-let rowpage=10;
+let rowpage=5;
 
 let categories = JSON.parse(localStorage.getItem('categories')) || ['Hoodies', 'T-Shirts'];
 
