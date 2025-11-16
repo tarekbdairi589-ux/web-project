@@ -26,27 +26,41 @@
             <div class="value">Up to <span id="rangevalue">0</span></div>
             <label for="">size</label>
             <select name="" id="selectsize">
-                <option value=""disabled selected hidden>Any</option>
+                <option value="Any"selected>Any</option>
                 <option value=""></option>
                 <option value=""></option>
             </select>
-                <label for="">Color</label>
             <div class="">
-                <label for="">Red</label>
+                <label for="" >Newest</label>
                 <input type="radio" name="select">
-                <label for="">Black</label>
-                <input type="radio" name="select">
-                <label for="">White</label>
+                <label for="">Oldest</label>
                 <input type="radio" name="select">
             </div>
              <select name="" id="pricerange">
-                <option value="">Price:High→Low</option>
-                <option value="">Price:Low→High</option>
+                <option value="Price:High→Low" selected>Price:High→Low</option>
+                <option value="Price:Low→High">Price:Low→High</option>
             </select>
         </div>
     </div>
     <main>
-        <div id="cardcontainer"></div>
+    <div class="Card"><!--dynamiclly-->
+        <div class="ProductImg">
+            <img src="" alt="Hoodie">
+        </div>
+        <div class="ProductContent">
+            <div class="Title">Oversize Hoodie</div>
+            <div class="ReadMore">Cozy Fleece</div>
+            <div class="row">
+                <span class="price"> $39.99</span>
+                <div class="RowBtns">
+                    <button class="ReadMoreBtn">Read More</button>
+                    <button class="AddItemBtn">Add To Cart</button>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
 
     </main>
 </body>
