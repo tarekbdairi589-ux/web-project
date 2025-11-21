@@ -159,13 +159,19 @@ $('#addbtn').on('click',function(e){
     tabledata.append($('<td></td>').text($('#Status').val()));
     $('#product-table-body').append(tabledata);
      let newProduct = {
-        id: index,
-        name: name.val().trim(),
-        category: categoryy.val(),
-        price: parseFloat(price.val().trim()),
-        quantity: parseInt(quantity.val().trim()),
-        status: status.val()
-    };
+    id: Date.now(),
+    name: name.val().trim(),
+    sku: sku.val().trim(),
+    category: categoryy.val(),
+    price: parseFloat(price.val().trim()),
+    quantity: parseInt(quantity.val().trim()),
+    status: status.val(),
+    size: $("#selectsize").val(),
+    description: description.val().trim(),
+    readmore: readmore.val().trim(),
+    image: $("#preview-image").attr("src") || ""
+};
+
 
     products.push(newProduct);
     localStorage.setItem('products', JSON.stringify(products));//into json
