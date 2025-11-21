@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin page</title>
     <link rel="stylesheet" href="styleadmin.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 <body>
    <header id="admin-header">
@@ -34,36 +35,51 @@
                     <div class="form1-div">
                         <div id="section1-div1">
                                 <label for="">Name *</label>
-                                <input type="text" placeholder="eg., Oversized Hoodie">
+                                <input type="text" placeholder="eg., Oversized Hoodie" id="name">
                                 <label for="">SKU</label>
-                                <input type="text" placeholder="eg., HD-OVR-001">
+                                <input type="text" placeholder="eg., HD-OVR-001" id="sku">
                                 <label for="">Category *</label>
-                            <select>
+                            <select id="selectcategory">
                                 <option value="" disabled selected hidden>Select a category...</option>
-                                <option value="">Hoodies</option>
-                                <option value="">T-Shirts</option>
-                                <option value="" id="adminaddcategory"></option>
+                                <option value="Hoodies">Hoodies</option>
+                                <option value="T-Shirts">T-Shirts</option>
                             </select>
+                                <input type="text" placeholder="Add category name" id="addcategory">
+                                <button id="addcategorybtn" class="addbtn-category">Add</button>
                         </div>
                         <div id="section1-div1">
                                 <label for="">Price (USD) *</label>
-                                <input type="number" placeholder="eg., 39.99" step="any">
+                                <input type="number" placeholder="eg., 39.99" step="any" id="price">
                                 <label for="">Quantity *</label>
-                                <input type="number" placeholder="eg., 50">
+                                <input type="number" placeholder="eg., 50" id="quantity">
                                 <label for="">Status *</label>
-                            <select>
-                                <option value="">Published</option>
-                                <option value="">Out of Stock</option>
-                                <option value="">Draft</option>
-                                <option value="">Discounted</option>
+                            <select id="Status">
+                                <option value="Published">Published</option>
+                                <option value="Out of Stock">Out of Stock</option>
+                                <option value="Draft">Draft</option>
+                                <option value="Discounted">Discounted</option>
                             </select>
+                            <label for="">size</label>
+                              <select name="" id="selectsize">
+                            <option value="Any"selected>Any</option>
+                            <option value="Small">Small</option>
+                                <option value="Medium">Medium</option>
+                                 <option value="Large">Large</option>
+                                    <option value="X-Large">X-Large</option>
+                            
+                              </select>
+                        <div id="image-upload-container">
+                                <p>Drag & Drop an image here or click to upload</p>
+                                <input type="file" id="image-upload-input" accept="image/*" style="display:none;">
+                                <img id="preview-image" src="" alt="Preview" style="display:none; max-width:200px; margin-top:10px;">
+                        </div>
                         </div>           
                     </div>
                     <div id="section1-div1" class="divlabel">
                         <label for="">Catchy Title/Short Description</label>
-                        <input type="text" placeholder="eg., Cozy fleece hoodie for all seasons">
+                        <input type="text" id="description" placeholder="eg., Cozy fleece hoodie for all seasons">
                         <label for="">Read more (long discription)</label>
-                        <textarea name="" id="" placeholder="Fabric, fit, care, and story behined the product..."></textarea>
+                        <textarea name="" id="readmore" placeholder="Fabric, fit, care, and story behined the product..."></textarea>
                     </div>
                         <footer id="form1-footer">
                             <button id="resetbtn">Reset</button>
@@ -82,21 +98,20 @@
                     <div class="form1-div">
                         <div id="section1-div1">
                             <label for="">Fillter by Category</label>
-                            <select>
-                                <option value="" disabled selected hidden>All</option>
-                                <option value="">Hoodies</option>
-                                <option value="">T-Shirts</option>
-                                <option value="" id="adminfiltercategory"></option>
+                            <select id="adminfiltercategory">
+                                
+                                <option value="Hoodies">Hoodies</option>
+                                <option value="T-Shirts">T-Shirts</option>
                             </select>
                         </div>
                         <div id="section1-div1">
                             <label for="">Fillter by Status</label>
-                            <select>
-                                <option value="" disabled selected hidden>All</option>
-                                <option value="">Published</option>
-                                <option value="">Out of Stock</option>
-                                <option value="">Draft</option>
-                                <option value="">Discounted</option>
+                            <select id="filterStatus">
+                                <option value="All">All</option>
+                                <option value="Published">Published</option>
+                                <option value="Out of Stock">Out of Stock</option>
+                                <option value="Draft">Draft</option>
+                                <option value="Discounted">Discounted</option>
                             </select>
                         </div>
                     </div>
@@ -111,17 +126,19 @@
                                     <th>Status</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="product-table-body">
                                 <!-- Product rows will be dynamically added here -->
                             </tbody>
                         </table>
+                        <div id="pagination" style="display:flex; gap:10px; margin-top:20px;"></div>
+
                 </form>
             </section>
 
         </main>
             <div class="fixed-buttons">
-            <button class="btn update">Update</button>
-            <button class="btn delete">Remove</button>
+            <button class="btnupdate">Update</button>
+            <button class="delete">Remove</button>
             </div>
         <div class="form1-div" id="footer-div">
             <div id="section1-div1">
@@ -144,6 +161,6 @@
         <footer id="mainfooter">
             <p>&copy; 2024 Clothing Admin. All rights reserved.</p>
         </footer>
-                    
+                    <script src="adminscript.js"></script>
 </body>
 </html>

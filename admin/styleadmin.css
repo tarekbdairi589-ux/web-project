@@ -59,13 +59,13 @@ main{
     gap: 20px;
     flex: 1;
     flex-wrap: wrap;
+    height: auto;
 }
 #add-edit-form{
     background-color: #1d3160;
     opacity: 0.95;
     border-radius: 10px;
-    width: 600px;
-    height: 500px;
+
 }
 #form2{
     background-color: #1d3160;
@@ -224,7 +224,24 @@ button:hover {
 
 flex: 1 1 250px;
 min-width: 200px;
-
 }
+#image-upload-container {
+    border: 2px dashed #aaa;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background 0.3s;
+}
+
+#image-upload-container.dragover {
+    background: #f0f0f0;
+}
+
+#preview-image {
+    display: block;
+    margin: 10px auto;
+}
+
 
 
