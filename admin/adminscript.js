@@ -219,3 +219,48 @@ $('.btnupdate').on('click', function() {
     localStorage.setItem('products', JSON.stringify(products));
     loadProducts(adminfiltercategory.val(), filterStatus.val());
 });
+let container = document.getElementById("image-upload-container");
+let input = document.getElementById("image-upload-input");
+let preview = document.getElementById("preview-image");
+
+// Click container to open file picker
+container.addEventListener("click", () => input.click());
+
+// Handle file selection
+input.addEventListener("change", () => {
+    let file = input.files[0];
+    if (file) {
+        let reader = new FileReader();
+        reader.onload = e => {
+            preview.src = e.target.result;
+            preview.style.display = "block";
+        };
+        reader.readAsDataURL(file);
+    }
+});
+
+// Drag & Drop
+container.addEventListener("dragover", e => {
+    e.preventDefault();
+    container.classList.add("dragover");
+});
+
+container.addEventListener("dragleave", e => {
+    e.preventDefault();
+    container.classList.remove("dragover");
+});
+
+container.addEventListener("drop", e => {
+    e.preventDefault();
+    container.classList.remove("dragover");
+    let file = e.dataTransfer.files[0];
+    if (file) {
+        input.files = e.dataTransfer.files; // update input so form can submit
+        let reader = new FileReader();
+        reader.onload = e => {
+            preview.src = e.target.result;
+            preview.style.display = "block";
+        };
+        reader.readAsDataURL(file);
+    }
+});
