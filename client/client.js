@@ -12,6 +12,27 @@ let loginBtn = document.getElementById("LoginBtn");
 let addButtons = document.querySelectorAll(".AddItemBtn");
 let cartBtn = document.getElementById("Cart-Btn");
 
+let CartBtn = document.getElementById("Cart-Btn");
+let CartSideBar = document.getElementById("CartSideBar");
+let Overlay = document.getElementById("Overlay");
+let CloseBtn = document.getElementById("CloseBtn");
+
+
+CartBtn.addEventListener('click',()=>{
+    CartSideBar.classList.add("open");
+    Overlay.classList.add('active');
+})
+
+CloseBtn.addEventListener('click',()=>{
+    Overlay.classList.remove('active');
+    CartSideBar.classList.remove('open');
+})
+
+Overlay.addEventListener('click',()=>{
+    CartSideBar.classList.remove('open');
+    Overlay.classList.remove('active');
+})
+
 // Update the cart number on page load
 function updateCartUI() {
     if (cartCountSpan) {
@@ -62,10 +83,3 @@ addButtons.forEach(function (btn) {
     });
 });
 
-// Optional: open cart page if cart button clicked
-if (cartBtn) {
-    cartBtn.addEventListener("click", function () {
-        // You can change this when you create cart.html
-        alert("Cart page not created yet!");
-    });
-}

@@ -288,3 +288,120 @@ footer{
   padding: 10px;
 }
 
+.CartSideBar{
+  height: 100%;
+  position: fixed;
+  top: 0;
+  right: -400px;
+  width: 350px;
+  padding: 20px;
+  color: white;
+  background-color: #111d3c;
+  z-index: 20;/* Sits on top of overlay */
+  transition: right 0.5s ease;
+  
+}
+.CartSideBar.open{
+right: 0;
+}
+#Overlay{
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  background: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  z-index: 15; /*sits behind sidebar*/
+  pointer-events: none;
+}
+#Overlay.active{
+  opacity:1;
+  pointer-events: auto;
+}
+.SideBarHeader{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid white;
+}
+#CloseBtn{
+padding: 7px 12px;
+border-radius: 8px;
+}
+.ProductsListing{
+  margin-top: 20px;
+  max-height: 60vh;
+  overflow-y: auto;
+}
+.ListingCard{
+  display: flex;
+  align-items: center;
+  background-color: #292f46;
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+}
+.ListingImg{
+  height: 50px;
+  width: 50px;
+  margin-right: 10px;
+  border-radius: 5px;
+}
+.ListingContent{
+  flex: 1;
+}
+.ListingTitle{ 
+  font-weight: 600;
+}
+.ListingDescription{
+  font-size: 11px;
+  color: grey;
+  margin-bottom: 4px;
+}
+.ListingBtns{
+  display: flex;
+  align-items: center;
+  
+}
+.Increment-decrementbtn{
+  display: flex;
+  align-items: center;
+  margin-right: 10px;
+}
+.NumberOfProducts{
+  font-weight: 600;
+}
+.RemoveProduct{
+  border-radius: 8px;
+  padding: 5px 10px;
+  font-size: 13px;
+}
+.ListingPrice{
+  font-weight: bold;
+}
+.CartFooter{
+  border-top: 1px solid white;
+  margin-top: 15px;
+  padding-top: 10px ; 
+}
+.Subtotal{
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+  font-weight: 800;
+}
+#TaxesFees{
+  font-size: 12px;
+  color: grey;
+  margin-bottom: 10px;
+}
+#CheckOutBtn{
+  width: 100%;
+  background-color: lightcyan;
+  color: #22283a;
+  border-radius: 8px;
+  font-size: 15px;  
+}
+
