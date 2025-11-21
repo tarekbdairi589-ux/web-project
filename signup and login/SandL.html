@@ -11,10 +11,10 @@
 
 <body>
     <div class="login" id="log">
-        <form class="login-form">
+        <form class="login-form" id="loginForm">
             <h2 class="title">LOGIN</h2>
             <label for="">Username:
-                <input type="text" placeholder="Enter Your Username">
+                <input type="text" id="loginUsername" placeholder="Enter Your Username">
             </label>
             <label for="">Password:
                 <input type="password" id="loginPassword" placeholder="Enter Your Password">
@@ -22,17 +22,17 @@
             <label class="showpass">
                 <input type="checkbox" id="showPass"> Show Password
             </label>
-            <button class="btnlogin">Log in</button>
+            <button class="btnlogin" type="submit">Log in</button>
             <div class="toggle" id="toSignup">Create account</div>
         </form>
 
-        <form class="signup-form">
+        <form class="signup-form" id="signupForm">
             <h2>Sign Up</h2>
             <label for="">Full Name:
-                <input type="text" placeholder="Full Name">
+                <input type="text" id="signupFullName" placeholder="Full Name">
             </label>
             <label for="">Email:
-                <input type="email" placeholder="Email">
+                <input type="email" id="signupEmail" placeholder="Email">
             </label>
             <label for="">Password:
                 <input type="password" id="signupPassword" placeholder="Password">
@@ -40,7 +40,7 @@
             <label class="showpass">
                 <input type="checkbox" id="showPasss"> Show Password
             </label>
-            <button class="btnsignup">Sign Up</button>
+            <button class="btnsignup" type="submit">Sign Up</button>
             <div class="toggle" id="toLogin">Back to login</div>
         </form>
 
