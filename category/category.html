@@ -3,65 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Shop Categories</title>
     <link rel="stylesheet" href="categorystyle.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 <body>
     <div id="headertitle">
         <h1>Shop-Categories</h1>
-        <div class="shownumitem">shownumitemtest</div>
+        <div class="shownumitem">0 items</div>
     </div>
+
     <div class="category">
         <div class="lin1">
-            <button class="categorybtn">Accessories</button>
-            <button class="categorybtn">Shoes</button>
-            <button class="categorybtn">T-Shirts</button>
-            <button class="categorybtn">Hoodies</button>
-            <div id="categoryadd"></div>
-        <input type="text" placeholder="Search products, keywords..." id="searchinput">
-        </div>
-        <div class="specification">
-            <label for="">Price </label>
-            <input type="range" min="0" max="2000" id="range">
-            <div class="value">Up to <span id="rangevalue">0</span></div>
-            <label for="">size</label>
+            <!-- Category buttons -->
+<div id="category-buttons"></div>
+
+            <input type="text" placeholder="Search products, keywords..." id="searchinput">
+
+            <label for="selectsize">Size:</label>
             <select name="" id="selectsize">
-                <option value="Any"selected>Any</option>
-                <option value=""></option>
-                <option value=""></option>
+                <option value="Any" selected>Any</option>
+                <option value="Small">Small</option>
+                <option value="Medium">Medium</option>
+                <option value="Large">Large</option>
+                <option value="X-Large">X-Large</option>
             </select>
-            <div class="">
-                <label for="" >Newest</label>
-                <input type="radio" name="select">
-                <label for="">Oldest</label>
-                <input type="radio" name="select">
-            </div>
-             <select name="" id="pricerange">
-                <option value="Price:High→Low" selected>Price:High→Low</option>
-                <option value="Price:Low→High">Price:Low→High</option>
+
+            <label for="range">Price:</label>
+            <input type="range" min="0" max="2000" id="range" value="2000">
+            <div class="value">Up to $<span id="rangevalue">2000</span></div>
+
+            <label for="pricerange">Sort:</label>
+            <select name="" id="pricerange">
+                <option value="Price:High→Low" selected>Price: High → Low</option>
+                <option value="Price:Low→High">Price: Low → High</option>
+                <option value="Newest">Newest</option>
+                <option value="Oldest">Oldest</option>
             </select>
         </div>
     </div>
+
     <main>
-    <div class="Card"><!--dynamiclly-->
-        <div class="ProductImg">
-            <img src="" alt="Hoodie">
-        </div>
-        <div class="ProductContent">
-            <div class="Title">Oversize Hoodie</div>
-            <div class="ReadMore">Cozy Fleece</div>
-            <div class="row">
-                <span class="price"> $39.99</span>
-                <div class="RowBtns">
-                    <button class="ReadMoreBtn">Read More</button>
-                    <button class="AddItemBtn">Add To Cart</button>
-                </div>
-            </div>
-
-        </div>
-
-    </div>
-
+       <div id="category-container"></div>
     </main>
+
+    <script src="categoryscript.js"></script>
 </body>
 </html>

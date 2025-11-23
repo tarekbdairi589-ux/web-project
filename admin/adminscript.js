@@ -22,7 +22,7 @@ function loadCategories() {
 
     select.empty();
     filterSelect.empty();
-    select.append('<option value="" disabled selected hidden>Select a category...</option>');
+    select.append('<option value="" selected>Select a category...</option>');
     filterSelect.append('<option value="All" selected>All</option>');
 
     categories.forEach(cat => {
@@ -59,6 +59,7 @@ addcategorr.on('click',function(e){
     localStorage.setItem('categories',JSON.stringify(categories));
     loadCategories();       
     category.val('');
+    loadCategoryProducts();
 
 });
 
@@ -143,64 +144,63 @@ filterStatus.on('change', function() {
     loadProducts(adminfiltercategory.val(), filterStatus.val());
 });
 
-$('#addbtn').on('click',function(e){
+$('#addbtn').on('click', function(e) {
     e.preventDefault();
-    if(name.val().trim()==='' || price.val().trim()==='' || quantity.val().trim()==='' || $('#selectcategory').val()===null || $('#Status').val()===null){
+
+    if(name.val().trim() === '' || price.val().trim() === '' || quantity.val().trim() === '' || categoryy.val() === '' || status.val() === null) {
         alert('Please fill all required fields!');
         return;
     }
-     let index = $('#product-table-body tr').length + 1;
-    let tabledata=$('<tr></tr>');
-    tabledata.append($('<td></td>').text(index));
-    tabledata.append($('<td></td>').text(name.val().trim()));
-    tabledata.append($('<td></td>').text($('#selectcategory').val()));
-    tabledata.append($('<td></td>').text(parseFloat(price.val().trim()).toFixed(2)));
-    tabledata.append($('<td></td>').text(parseInt(quantity.val().trim())));
-    tabledata.append($('<td></td>').text($('#Status').val()));
-    $('#product-table-body').append(tabledata);
-     let newProduct = {
-<<<<<<< HEAD
+
+    // Determine new product ID
+    let index = products.length ? Math.max(...products.map(p => p.id)) + 1 : 1;
+
+    // Create new product object
+    let newProduct = {
         id: index,
         name: name.val().trim(),
+        sku: sku.val().trim(),
         category: categoryy.val(),
         price: parseFloat(price.val().trim()),
         quantity: parseInt(quantity.val().trim()),
-        status: Status.val(),
-        size:$('#selectsize').val(),
+        status: status.val(),
+        size: $('#selectsize').val(),
         description: description.val().trim() || '',
         readmore: readmore.val().trim() || '',
-        impage: preview.src || ''
-
-
+        image: preview.src || ''
     };
-=======
-    id: Date.now(),
-    name: name.val().trim(),
-    sku: sku.val().trim(),
-    category: categoryy.val(),
-    price: parseFloat(price.val().trim()),
-    quantity: parseInt(quantity.val().trim()),
-    status: status.val(),
-    size: $("#selectsize").val(),
-    description: description.val().trim(),
-    readmore: readmore.val().trim(),
-    image: $("#preview-image").attr("src") || ""
-};
 
->>>>>>> 6be6f6ab564970c5d05956dcbcdbd109394448c1
-
+    // Save product
     products.push(newProduct);
-    localStorage.setItem('products', JSON.stringify(products));//into json
-    name.val('');
-    sku.val('');
-    price.val('');
-    quantity.val('');
-    description.val('');
-    readmore.val('');
-    categoryy.prop('selectedIndex', 0);
-   $('#Status').prop('selectedIndex', 0);
-   loadProducts(adminfiltercategory.val(), filterStatus.val());
+    localStorage.setItem('products', JSON.stringify(products));
+    window.dispatchEvent(new Event("storageUpdate"));
+
+    // Reload tables
+    loadProducts(adminfiltercategory.val(), filterStatus.val());
+    loadCategoryProducts();
+
+    // --- RESET ALL INPUTS ---
+   // --- RESET ALL INPUTS ---
+name.val('');        // reset text
+sku.val('');
+price.val('');
+quantity.val('');
+description.val('');
+readmore.val('');
+
+// Reset selects
+$('#selectcategory').prop('selectedIndex', 0); // will now select the placeholder
+$('#Status').prop('selectedIndex', 0); // default status
+$('#selectsize').prop('selectedIndex', 0);   // default size
+
+// Reset image preview
+preview.src = '';
+preview.style.display = 'none';
+
+input.value = '';
 });
+
+
 $('.delete').on('click', function() {
     let numberToRemove = prompt('Enter the number of the product to remove:');
     if(!numberToRemove) return;
@@ -286,3 +286,58 @@ container.addEventListener("drop", e => {
         reader.readAsDataURL(file);
     }
 });
+function loadCategoryProducts(filterCategory = 'All') {
+    let products = JSON.parse(localStorage.getItem('products')) || [];
+
+    // Get filter values from UI
+    let search = $('#searchinput').val().trim().toLowerCase() || '';
+    let sizeFilter = $('#selectsize').val() || 'Any';
+    let maxPrice = parseFloat($('#range').val()) || Infinity;
+    let sort = $('#pricerange').val() || 'Price:High→Low';
+
+    // Filter products
+    let filtered = products.filter(p => {
+        let matchesCategory = (filterCategory === 'All' || p.category === filterCategory);
+        let matchesSearch = (search === '' || p.name.toLowerCase().includes(search));
+        let matchesSize = (sizeFilter === 'Any' || (p.size || 'Any') === sizeFilter);
+        let matchesPrice = (p.price <= maxPrice);
+        return matchesCategory && matchesSearch && matchesSize && matchesPrice;
+    });
+
+    // Sort products
+    filtered.sort((a, b) => {
+        if (sort === 'Price:High→Low') return b.price - a.price;
+        if (sort === 'Price:Low→High') return a.price - b.price;
+        if (sort === 'Newest') return b.id - a.id; // higher id = newer
+        if (sort === 'Oldest') return a.id - b.id;
+        return 0;
+    });
+
+    // Display the number of items
+    $('.shownumitem').text(`${filtered.length} items`);
+
+    // Container for cards
+    let container = $('#category-container');
+    container.empty();
+
+    // Add cards
+    filtered.forEach(p => {
+        let card = $(`
+            <div class="Card">
+                <img class="ProductImg" src="${p.image || 'default-image.jpg'}" alt="${p.name}">
+                <div class="ProductContent">
+                    <div class="Title">${p.name}</div>
+                    <div class="ReadMore">${p.readmore || p.description || ''}</div>
+                    <div class="row">
+                        <div class="price">$${p.price.toFixed(2)}</div>
+                        <div class="RowBtns">
+                            <button class="ReadMoreBtn">Read More</button>
+                            <button class="AddItemBtn">Add</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `);
+        container.append(card);
+    });
+}
