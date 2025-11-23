@@ -159,6 +159,7 @@ $('#addbtn').on('click',function(e){
     tabledata.append($('<td></td>').text($('#Status').val()));
     $('#product-table-body').append(tabledata);
      let newProduct = {
+<<<<<<< HEAD
         id: index,
         name: name.val().trim(),
         category: categoryy.val(),
@@ -172,6 +173,21 @@ $('#addbtn').on('click',function(e){
 
 
     };
+=======
+    id: Date.now(),
+    name: name.val().trim(),
+    sku: sku.val().trim(),
+    category: categoryy.val(),
+    price: parseFloat(price.val().trim()),
+    quantity: parseInt(quantity.val().trim()),
+    status: status.val(),
+    size: $("#selectsize").val(),
+    description: description.val().trim(),
+    readmore: readmore.val().trim(),
+    image: $("#preview-image").attr("src") || ""
+};
+
+>>>>>>> 6be6f6ab564970c5d05956dcbcdbd109394448c1
 
     products.push(newProduct);
     localStorage.setItem('products', JSON.stringify(products));//into json
