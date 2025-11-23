@@ -164,7 +164,13 @@ $('#addbtn').on('click',function(e){
         category: categoryy.val(),
         price: parseFloat(price.val().trim()),
         quantity: parseInt(quantity.val().trim()),
-        status: status.val()
+        status: Status.val(),
+        size:$('#selectsize').val(),
+        description: description.val().trim() || '',
+        readmore: readmore.val().trim() || '',
+        impage: preview.src || ''
+
+
     };
 
     products.push(newProduct);
