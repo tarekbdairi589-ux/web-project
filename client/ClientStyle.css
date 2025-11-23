@@ -176,7 +176,17 @@ h3{
 .ProductImg{
   width: 100%;
   height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(32, 47, 71);
+  border-radius: 8px;
 
+}
+.ProductImg img{
+  width: 80%;
+  height: 95%;
+  object-fit: cover;
 }
 .ProductContent{
   display: flex;
@@ -206,13 +216,13 @@ h3{
 
 }
 .RowBtns button{
-  padding: 6px 12px;
+  padding: 6px 7px;
   border-radius: 4px;
   font-size: 14px;
   cursor: pointer;
-
-
+  margin: 5px;
 }
+
 .ReadMoreBtn{
   background-color: #101523;
   color: white;
@@ -313,7 +323,7 @@ right: 0;
   background: rgba(0, 0, 0, 0.5);
   opacity: 0;
   transition: opacity 0.5s ease;
-  z-index: 15; /*sits behind sidebar*/
+  z-index: 15; /*sits behind sidebar and Product Modal (Read More button)*/
   pointer-events: none;
 }
 #Overlay.active{
@@ -347,6 +357,12 @@ border-radius: 8px;
   height: 50px;
   width: 50px;
   margin-right: 10px;
+  border-radius: 5px;
+}
+.ListingImg img{
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
   border-radius: 5px;
 }
 .ListingContent{
@@ -403,5 +419,101 @@ border-radius: 8px;
   color: #22283a;
   border-radius: 8px;
   font-size: 15px;  
+}
+.SizeWrap{
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: white;
+}
+.sizeSelect{
+  color: white;
+  background-color: #101523;
+  border: 1px solid grey;
+  border-radius: 8px;
+  padding: 2px;
+}
+.ProductModal{
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); 
+  background-color: #22283a;
+  padding: 20px;
+  width: 750px;
+  z-index: 18;
+  color: white;
+  border-radius: 10px;
+   display: none;
+
+}
+.ProductModal.active{
+  display: block;
+}
+.ModalContent{
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}
+.ModalImg{
+  flex: 1;
+}
+.ModalImg img{
+  width: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+  height: auto;
+}
+.ModalDetails{
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.CloseModal{
+  display: flex;
+  justify-content: flex-end;
+}
+.CloseProduct{
+  background: none;
+  border: none;
+  color: white;
+  font-weight: 700;
+  font-size: 20px;
+}
+#ModalTitle{
+  font-size: 25px;
+  font-weight: 800;
+}
+#ModalDesc{
+  font-size: 15px;
+  color: beige;
+}
+#ModalPrice{
+  font-weight: 700;
+  font-size: 20px;
+}
+.BottomOfModal{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+}
+.QtyWrap{
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.QtyBtn{
+  color: white;
+  border: none;
+
+}
+#ProductDetailsLink{
+  color: lightcyan;
+  font-size: 14px;
+  margin-top: 8px;
+  display: inline-block;
+  text-decoration: underline; /* since we removed the underline in the links on top*/
 }
 

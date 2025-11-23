@@ -62,11 +62,20 @@
 <section class="Products" id="ProductsSection">
     <div class="Card">
         <div class="ProductImg">
-            <img src="" alt="Hoodie">
+            <img src="Hoodie.png" alt="Hoodie">
         </div>
         <div class="ProductContent">
-            <div class="Title">Oversize Hoodie</div>
-            <div class="ReadMore">Cozy Fleece</div>
+            <div class="Title">FOG Essentials Hoodie</div>
+            <div class="ReadMore">Cozy Fleece Hoodie</div>
+            <div class="SizeWrap">
+                        <label for="sizeSelect">Size:</label>
+                        <select id="sizeSelect" class="sizeSelect">
+                            <option value="S">S</option>
+                            <option value="M" selected>M</option>
+                            <option value="L">L</option>
+                            <option value="XL">XL</option>
+                        </select>
+                    </div>
             <div class="row">
                 <span class="price"> $39.99</span>
                 <div class="RowBtns">
@@ -125,26 +134,7 @@
         <button id="CloseBtn">Close</button>
     </div>
     <div class="ProductsListing">
-        <div class="ListingCard">
-            <div class="ListingImg">
-
-            </div>
-            <div class="ListingContent">
-                <h3 class="ListingTitle"></h3>
-                <p class="ListingDescription"></p>
-                <div class="ListingBtns">
-                    <div class="Increment-decrementbtn">
-                    <button class="PlusMinusBtn" id="MinusBtn">-</button>
-                    <span class="NumberOfProducts">1</span>
-                    <button class="PlusMinusBtn" id="PlusBtn">+</button>
-                    </div>
-                    <button class="RemoveProduct">Remove</button>
-                </div>
-
-            </div>
-            <div class="ListingPrice"></div>
-
-        </div>
+        
     </div>
     <div class="CartFooter">
         <div class="Subtotal">
@@ -154,6 +144,41 @@
         <p id="TaxesFees">Taxes and shipping Fees will be calculated at CheckOut</p>
         <button id="CheckOutBtn">CheckOut</button>
     </div>
+</div>
+<div class="ProductModal">
+    <div class="ModalContent">
+        <div class="ModalImg">
+            <img id="ModalImg" src="" alt="">
+        </div>
+        <div class="ModalDetails">
+            <div class="CloseModal">
+                <button class="CloseProduct">X</button>
+            </div>
+            <h3 id="ModalTitle"></h3>
+            <p id="ModalDesc"></p>
+            <p id="ModalPrice"></p>
+            <div class="SizeWrap">
+                        <label for="ModalsizeSelect">Size:</label>
+                        <select id="ModalsizeSelect" class="sizeSelect">
+                            <option value="S">S</option>
+                            <option value="M" selected>M</option>
+                            <option value="L">L</option>
+                            <option value="XL">XL</option>
+                        </select>
+                    </div>
+            <div class="BottomOfModal">
+                <div class="QtyWrap">
+                    <button class="QtyBtn" id="QtyMinus">-</button>
+                    <span id="QtyValue">1</span>
+                    <button class="QtyBtn" id="QtyPlus">+</button>
+                </div>
+                <button class="AddItemBtn">Add To Cart</button>
+            </div>
+            <a href="" class="Links" id="ProductDetailsLink">See Product Details</a>
+        </div>
+    </div>
+
+    
 </div>
 
 

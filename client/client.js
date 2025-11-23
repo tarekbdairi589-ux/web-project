@@ -68,18 +68,200 @@ loginBtn.addEventListener("click", function () {
 //   ADD TO CART LOGIC
 // =========================
 
-addButtons.forEach(function (btn) {
-    btn.addEventListener("click", function () {
-        if (!isLoggedIn) {
-            alert("Please login first.");
-            window.location.href = "../signup and login/SandL.html";
-            return;
-        }
 
-        // User is logged in → increase cart
-        cartCount++;
-        localStorage.setItem("cartCount", cartCount.toString());
-        updateCartUI();
+addButtons.forEach(function (btn) {
+  btn.addEventListener("click", function () {
+    if (!isLoggedIn) {
+      alert("Please login first.");
+      window.location.href = "../signup and login/SandL.html";
+      return;
+    }
+
+    // Get product info
+    let card = btn.closest(".Card");
+    let title = card.querySelector(".Title").textContent;
+    let description = card.querySelector(".ReadMore").textContent;
+    let priceText = card.querySelector(".price").textContent.trim();
+    let price = parseFloat(priceText.replace("$", ""));
+    let img = card.querySelector(".ProductImg img");
+    let imgSrc = img ? img.src : "";
+    let imgAlt = img ? img.alt : "";
+
+    let productsListing = document.querySelector(".ProductsListing");
+    let existingCards = productsListing.querySelectorAll(".ListingCard");
+
+    let found = false;
+
+    existingCards.forEach(card => {
+      let existingTitle = card.querySelector(".ListingTitle").textContent;
+      if (existingTitle === title) {
+        let qtySpan = card.querySelector(".NumberOfProducts");
+        qtySpan.textContent = parseInt(qtySpan.textContent) + 1;
+        found = true;
+      }
+    });
+
+    if (!found) {
+      let newCard = document.createElement("div");
+      newCard.classList.add("ListingCard");
+      newCard.innerHTML = `
+        <div class="ListingImg">
+          <img src="${imgSrc}" alt="${imgAlt}" />
+        </div>
+        <div class="ListingContent">
+          <h3 class="ListingTitle">${title}</h3>
+          <p class="ListingDescription">${description}</p>
+          <div class="ListingBtns">
+            <div class="Increment-decrementbtn">
+              <button class="PlusMinusBtn">-</button>
+              <span class="NumberOfProducts">1</span>
+              <button class="PlusMinusBtn">+</button>
+            </div>
+            <button class="RemoveProduct">Remove</button>
+          </div>
+        </div>
+        <div class="ListingPrice">$${price.toFixed(2)}</div>
+      `;
+      productsListing.appendChild(newCard);
+    }
+
+    // Update cart count and subtotal
+    updateCartState();
+  });
+});
+
+function updateCartState() {
+  let totalQty = 0;
+  let subtotal = 0;
+
+  document.querySelectorAll(".ListingCard").forEach(card => {
+    let qty = parseInt(card.querySelector(".NumberOfProducts").textContent);
+    let priceText = card.querySelector(".ListingPrice").textContent.trim();
+    let price = parseFloat(priceText.replace("$", ""));
+    totalQty += qty;
+    subtotal += qty * price;
+  });
+
+  cartCount = totalQty;
+  localStorage.setItem("cartCount", cartCount.toString());
+  updateCartUI();
+
+  let subtotalSpan = document.getElementById("CartSubtotal");
+  if (subtotalSpan) {
+    subtotalSpan.textContent = `$${subtotal.toFixed(2)}`;
+  }
+}
+let ProductModal = document.querySelector(".ProductModal");
+let CloseProductBtn = document.querySelector(".CloseProduct");
+
+// Close with X
+CloseProductBtn.addEventListener("click", () => {
+  ProductModal.classList.remove("active");
+  Overlay.classList.remove("active");
+});
+
+// Close when clicking overlay
+Overlay.addEventListener("click", () => {
+  ProductModal.classList.remove("active");
+  Overlay.classList.remove("active");
+});
+
+let ReadMoreBtn = document.querySelectorAll(".ReadMoreBtn");
+ReadMoreBtn.forEach(btn=>{
+    btn.addEventListener('click',()=>{
+        let card= btn.closest(".Card");
+        let title = card.querySelector(".Title").textContent;
+        let desc = card.querySelector(".ReadMore").textContent;
+        let price = card.querySelector(".price").textContent;
+        let size = card.querySelector(".sizeSelect").value;
+        let imgSrc = card.querySelector(".ProductImg img").src;
+
+    document.getElementById("ModalTitle").textContent = title;
+    document.getElementById("ModalDesc").textContent = desc;
+    document.getElementById("ModalPrice").textContent = price;
+    document.getElementById("ModalsizeSelect").value = size;
+    document.getElementById("ModalImg").src = imgSrc;
+
+    document.getElementById("QtyValue").textContent='1';
+
+    ProductModal.classList.add("active");
+    Overlay.classList.add("active");
+
     });
 });
 
+
+
+let qtyValue =  document.getElementById("QtyValue");
+let plus = document.getElementById("QtyPlus");
+plus.addEventListener('click',()=>{
+    qtyValue.textContent=parseInt(qtyValue.textContent)+1;
+});
+let minus=document.getElementById("QtyMinus");
+minus.addEventListener('click',()=>{
+    let current = parseInt(qtyValue.textContent);
+    if(current>1){
+        qtyValue.textContent=current-1;
+    }
+})
+
+document.querySelector(".ProductModal .AddItemBtn").addEventListener("click", () => {
+  if (!isLoggedIn) {
+    alert("Please login first.");
+    window.location.href = "../signup and login/SandL.html";
+    return;
+  }
+
+  let product = {
+    title: document.getElementById("ModalTitle").textContent,
+    desc: document.getElementById("ModalDesc").textContent,
+    price: parseFloat(document.getElementById("ModalPrice").textContent.replace("$","")),
+    size: document.getElementById("ModalsizeSelect").value,
+    qty: parseInt(document.getElementById("QtyValue").textContent),
+    imgSrc: document.getElementById("ModalImg").src
+  };
+
+  // Add to cart sidebar
+  let productsListing = document.querySelector(".ProductsListing");
+  let existingCards = productsListing.querySelectorAll(".ListingCard");
+  let found = false;
+
+  existingCards.forEach(card => {
+    let existingTitle = card.querySelector(".ListingTitle").textContent;
+    if (existingTitle === product.title) {
+      let qtySpan = card.querySelector(".NumberOfProducts");
+      qtySpan.textContent = parseInt(qtySpan.textContent) + product.qty;
+      found = true;
+    }
+  });
+
+  if (!found) {
+    let newCard = document.createElement("div");
+    newCard.classList.add("ListingCard");
+    newCard.innerHTML = `
+      <div class="ListingImg">
+        <img src="${product.imgSrc}" alt="${product.title}" />
+      </div>
+      <div class="ListingContent">
+        <h3 class="ListingTitle">${product.title}</h3>
+        <p class="ListingDescription">${product.desc}</p>
+        <div class="ListingBtns">
+          <div class="Increment-decrementbtn">
+            <button class="PlusMinusBtn">-</button>
+            <span class="NumberOfProducts">${product.qty}</span>
+            <button class="PlusMinusBtn">+</button>
+          </div>
+          <button class="RemoveProduct">Remove</button>
+        </div>
+      </div>
+      <div class="ListingPrice">$${product.price.toFixed(2)}</div>
+    `;
+    productsListing.appendChild(newCard);
+  }
+
+  updateCartState();
+
+  // Close modal
+  document.querySelector(".ProductModal").classList.remove("active");
+  document.getElementById("Overlay").classList.remove("active");
+});
