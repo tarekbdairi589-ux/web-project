@@ -16,6 +16,32 @@ let CartBtn = document.getElementById("Cart-Btn");
 let CartSideBar = document.getElementById("CartSideBar");
 let Overlay = document.getElementById("Overlay");
 let CloseBtn = document.getElementById("CloseBtn");
+let ProfileSideBar = document.getElementById("ProfileSideBar");
+let CloseProfileBtn = document.getElementById("CloseProfileBtn");
+let userLogo = document.getElementById("userLogo");
+
+function saveCartToLocalStorage() {
+  let cartArray = [];
+
+  document.querySelectorAll(".ListingCard").forEach(card => {
+    cartArray.push({
+      name: card.querySelector(".ListingTitle").textContent,
+      qty: parseInt(card.querySelector(".NumberOfProducts").textContent),
+      price: parseFloat(card.querySelector(".ListingPrice").textContent.replace("$","")),
+      image: card.querySelector(".ListingImg img").src
+    });
+  });
+
+  localStorage.setItem("cart", JSON.stringify(cartArray));
+}
+let CheckOutBtn = document.getElementById("CheckOutBtn");
+
+CheckOutBtn.addEventListener("click", () => {
+  saveCartToLocalStorage();  // SAVE THE CART FIRST
+
+  // Redirect to checkout page
+  window.location.href = "../checkout/cart.html"; 
+});
 
 
 CartBtn.addEventListener('click',()=>{
@@ -265,3 +291,34 @@ document.querySelector(".ProductModal .AddItemBtn").addEventListener("click", ()
   document.querySelector(".ProductModal").classList.remove("active");
   document.getElementById("Overlay").classList.remove("active");
 });
+
+let backToTopBtn = document.querySelector(".BackToTopBtn");
+
+backToTopBtn.addEventListener("click", () => {
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+});
+ userLogo.addEventListener("click", () => {
+    ProfileSideBar.classList.add("open");
+    Overlay.classList.add("active");
+});
+
+// Close profile sidebar
+CloseProfileBtn.addEventListener("click", () => {
+    ProfileSideBar.classList.remove("open");
+    Overlay.classList.remove("active");
+});
+
+// Close by clicking outside
+Overlay.addEventListener("click", () => {
+    ProfileSideBar.classList.remove("open");
+});
+
+$(document).ready(function () {
+    $("#OrdersBtn").click(function () {
+        window.location.href = "../profile/orders/orders.html";
+    });
+});
+

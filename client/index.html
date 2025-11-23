@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Client | Clothing aE-commerce</title>
     <link rel="stylesheet" href="ClientStyle.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="client.js" defer></script>
 </head>
 <body>
@@ -31,7 +32,7 @@
                 </div>
             
             </button>
-
+<img  id="userLogo" src="user.png" alt="user logo">
         </div>
     </nav>
 
@@ -145,6 +146,19 @@
         <button id="CheckOutBtn">CheckOut</button>
     </div>
 </div>
+<div class="ProfileSideBar" id="ProfileSideBar">
+    <div class="SideBarHeader">
+        <h3>Your Account</h3>
+        <button id="CloseProfileBtn">Close</button>
+    </div>
+
+    <div class="ProfileContent">
+        <button class="ProfileBtn">Account Information</button>
+        <button class="ProfileBtn" id="OrdersBtn">My Orders</button>
+
+    </div>
+</div>
+
 <div class="ProductModal">
     <div class="ModalContent">
         <div class="ModalImg">

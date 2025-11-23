@@ -1,10 +1,10 @@
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-button{
+button {
   background: none;
   border: 1px solid white;
   color: white;
@@ -13,131 +13,149 @@ button{
   font-size: 15px;
   padding: 8px 16px;
 }
-body{
+
+body {
   background-color: rgb(15, 15, 49);
 }
-.NavBar{
+
+.NavBar {
   display: flex;
-  justify-content: space-between;  
+  justify-content: space-between;
   align-items: center;
   padding: 10px;
   background-color: black;
 
 }
 
-.logo{
+.logo {
   display: flex;
   width: 60px;
-height: 60px;
-gap: 5px;
-align-items: flex-start;
-color: white;
-font-size: 13px;
+  height: 60px;
+  gap: 5px;
+  align-items: flex-start;
+  color: white;
+  font-size: 13px;
 
 }
-#LoginBtn{
+
+#LoginBtn {
   border-radius: 10px;
 }
-.DripDistrict{
+
+.DripDistrict {
   color: white;
-font-size: 15px;
-font-weight: 700;
-margin: 10px;
+  font-size: 15px;
+  font-weight: 700;
+  margin: 10px;
 
 
 }
-#LogoImg , #CartLogo{
-   width: 50px;
-height: 40px;
+
+#LogoImg,
+#CartLogo {
+  width: 50px;
+  height: 40px;
 
 }
-#Cart-Btn{
+
+#Cart-Btn {
   display: flex;
   align-items: center;
   gap: 6px;
   padding: 8px 12px;
   border: none;
 }
-.Search-Cart{
+
+.Search-Cart {
   display: flex;
   align-items: center;
   gap: 10px;
   margin-right: 30px;
-  
+
 }
-#SearchInput{
-  padding: 4px 8px; 
+
+#SearchInput {
+  padding: 4px 8px;
   height: 30px;
   width: 130px;
   background-color: black;
   color: white;
   border-radius: 4px;
-  border: 1px solid grey ;
-  font-size: 14px; 
-  font-weight: 500;        
+  border: 1px solid grey;
+  font-size: 14px;
+  font-weight: 500;
 }
 
-.CartIconWrap{
- position: relative;
+.CartIconWrap {
+  position: relative;
   display: inline-block;
-  
+
 }
-#CartCount{
+
+#CartCount {
   position: absolute;
   top: -4px;
   right: 5px;
-   color: red;
+  color: red;
   font-size: 12px;
-  
+
 }
-.Links>a{
+
+.Links>a {
   margin-right: 10px;
   color: white;
   text-decoration: none;
 
 }
-.Links a:hover{
+
+.Links a:hover {
   text-decoration: underline;
 }
-.MidTable,.Products{
+
+.MidTable,
+.Products {
   width: 100%;
   max-width: 1200px;
   padding: 20px;
   margin: 20px auto;
   background-color: none;
-   border: solid 3px grey;
+  border: solid 3px grey;
   border-radius: 8px;
 }
-.MidTable{
+
+.MidTable {
   display: flex;
   justify-content: space-between;
- align-items: flex-start;
+  align-items: flex-start;
 
 }
-.LeftMidTable{
+
+.LeftMidTable {
   display: flex;
   flex-direction: column;
   gap: 15px;
   color: white;
-  
+
 
 }
-.RightMidTable{
-   display: flex;
+
+.RightMidTable {
+  display: flex;
   flex-direction: column;
   gap: 15px;
-   border: 1px solid #ccc;       
+  border: 1px solid #ccc;
   border-radius: 10px;
   padding: 30px;
   margin-right: 30px;
-  background-color: #22283a; 
+  background-color: #22283a;
   width: 400px;
-  color:white
+  color: white
 }
 
-h3{
+h3 {
   font-weight: bold;
 }
+
 #BtnsInNewArrivals button {
   padding: 8px 16px;
   background-color: black;
@@ -150,30 +168,32 @@ h3{
 #BtnsInNewArrivals button:hover {
   box-shadow: 0 6px 10px whitesmoke;
   transform: translateY(-2px);
-  
+
 }
 
-#BtnsInNewArrivals>#AllBtn{
+#BtnsInNewArrivals>#AllBtn {
   border-radius: 18px;
 }
 
 
-.Products{
+.Products {
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
-  
-  
+
+
 }
-.Card{
+
+.Card {
   border: 1px solid grey;
   border-radius: 8px;
   background-color: #22283a;
   width: 350px;
   display: flex;
-  flex-direction: column;  
+  flex-direction: column;
 }
-.ProductImg{
+
+.ProductImg {
   width: 100%;
   height: 300px;
   display: flex;
@@ -183,39 +203,46 @@ h3{
   border-radius: 8px;
 
 }
-.ProductImg img{
+
+.ProductImg img {
   width: 80%;
   height: 95%;
   object-fit: cover;
 }
-.ProductContent{
+
+.ProductContent {
   display: flex;
   border-top: 1px grey solid;
   flex-direction: column;
   padding: 15px;
   gap: 10px;
 }
-.Title{
+
+.Title {
   font-size: 15px;
   font-weight: bold;
   color: white;
 }
-.ReadMore{
+
+.ReadMore {
   font-size: 12px;
   color: grey;
 }
-.row{
+
+.row {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
-.price{
+
+.price {
   font-weight: bold;
   font-size: 15px;
   color: white;
 
 }
-.RowBtns button{
+
+.RowBtns button {
   padding: 6px 7px;
   border-radius: 4px;
   font-size: 14px;
@@ -223,52 +250,59 @@ h3{
   margin: 5px;
 }
 
-.ReadMoreBtn{
+.ReadMoreBtn {
   background-color: #101523;
   color: white;
 }
-.AddItemBtn{
+
+.AddItemBtn {
   background-color: lightcyan;
   color: black;
 
 }
 
-.BtnBeforeFooter{
+.BtnBeforeFooter {
   width: 100%;
   color: white;
   text-align: center;
   border: none;
   cursor: pointer;
   font-size: 10px;
-  background-color:black;
+  background-color: black;
   padding: 15px;
   border-bottom: solid 2px white;
 }
-.BackToTopBtn{
+
+.BackToTopBtn {
   border: none;
   font-size: 13px;
   font-weight: 600;
-  
+
 }
-.FooterPage{
+
+.FooterPage {
   width: 100%;
   display: flex;
   align-items: flex-start;
   background-color: black;
   color: white;
   justify-content: space-between;
-   flex-wrap: wrap;
+  flex-wrap: wrap;
   padding: 20px;
-  
+
 
 }
-footer{
- 
+
+footer {
+
   color: white;
   position: static;
   width: 100%;
 }
-.AboutFooter,.ContactFooter,.SocialsFooter{
+
+.AboutFooter,
+.ContactFooter,
+.SocialsFooter {
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -277,28 +311,29 @@ footer{
 
 }
 
-.UpperRow{
+.UpperRow {
   padding-top: 10px;
   padding-bottom: 10px;
 }
-.SocialsBtn{
+
+.SocialsBtn {
   border-radius: 10px;
   margin-right: 5px;
 }
 
 
-.CopyRight{
-   width: 100%;
+.CopyRight {
+  width: 100%;
   color: white;
   font-weight: bold;
   text-align: center;
   border: none;
   font-size: 10px;
-  background-color:black;
+  background-color: black;
   padding: 10px;
 }
 
-.CartSideBar{
+.CartSideBar {
   height: 100%;
   position: fixed;
   top: 0;
@@ -307,14 +342,21 @@ footer{
   padding: 20px;
   color: white;
   background-color: #111d3c;
-  z-index: 20;/* Sits on top of overlay */
+  z-index: 20;
+  /* Sits on top of overlay */
   transition: right 0.5s ease;
-  
+
 }
-.CartSideBar.open{
-right: 0;
+
+.CartSideBar.open {
+  right: 0;
 }
-#Overlay{
+
+#CartLogo:hover {
+  transform: scale(1.1);
+}
+
+#Overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -323,29 +365,35 @@ right: 0;
   background: rgba(0, 0, 0, 0.5);
   opacity: 0;
   transition: opacity 0.5s ease;
-  z-index: 15; /*sits behind sidebar and Product Modal (Read More button)*/
+  z-index: 15;
+  /*sits behind sidebar and Product Modal (Read More button)*/
   pointer-events: none;
 }
-#Overlay.active{
-  opacity:1;
+
+#Overlay.active {
+  opacity: 1;
   pointer-events: auto;
 }
-.SideBarHeader{
+
+.SideBarHeader {
   display: flex;
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid white;
 }
-#CloseBtn{
-padding: 7px 12px;
-border-radius: 8px;
+
+#CloseBtn {
+  padding: 7px 12px;
+  border-radius: 8px;
 }
-.ProductsListing{
+
+.ProductsListing {
   margin-top: 20px;
   max-height: 60vh;
   overflow-y: auto;
 }
-.ListingCard{
+
+.ListingCard {
   display: flex;
   align-items: center;
   background-color: #292f46;
@@ -353,167 +401,261 @@ border-radius: 8px;
   margin-bottom: 15px;
   border-radius: 8px;
 }
-.ListingImg{
+
+.ListingImg {
   height: 50px;
   width: 50px;
   margin-right: 10px;
   border-radius: 5px;
 }
-.ListingImg img{
+
+.ListingImg img {
   height: 100%;
   width: 100%;
   object-fit: cover;
   border-radius: 5px;
 }
-.ListingContent{
+
+.ListingContent {
   flex: 1;
 }
-.ListingTitle{ 
+
+.ListingTitle {
   font-weight: 600;
 }
-.ListingDescription{
+
+.ListingDescription {
   font-size: 11px;
   color: grey;
   margin-bottom: 4px;
 }
-.ListingBtns{
+
+.ListingBtns {
   display: flex;
   align-items: center;
-  
+
 }
-.Increment-decrementbtn{
+
+.Increment-decrementbtn {
   display: flex;
   align-items: center;
   margin-right: 10px;
 }
-.NumberOfProducts{
+
+.NumberOfProducts {
   font-weight: 600;
 }
-.RemoveProduct{
+
+.RemoveProduct {
   border-radius: 8px;
   padding: 5px 10px;
   font-size: 13px;
 }
-.ListingPrice{
+
+.ListingPrice {
   font-weight: bold;
 }
-.CartFooter{
+
+.CartFooter {
   border-top: 1px solid white;
   margin-top: 15px;
-  padding-top: 10px ; 
+  padding-top: 10px;
 }
-.Subtotal{
+
+.Subtotal {
   display: flex;
   justify-content: space-between;
   margin-bottom: 5px;
   font-weight: 800;
 }
-#TaxesFees{
+
+#TaxesFees {
   font-size: 12px;
   color: grey;
   margin-bottom: 10px;
 }
-#CheckOutBtn{
+
+#CheckOutBtn {
   width: 100%;
   background-color: lightcyan;
   color: #22283a;
   border-radius: 8px;
-  font-size: 15px;  
+  font-size: 15px;
 }
-.SizeWrap{
+
+.SizeWrap {
   display: flex;
   align-items: center;
   gap: 5px;
   color: white;
 }
-.sizeSelect{
+
+.sizeSelect {
   color: white;
   background-color: #101523;
   border: 1px solid grey;
   border-radius: 8px;
   padding: 2px;
 }
-.ProductModal{
+
+.ProductModal {
   position: fixed;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%); 
+  transform: translate(-50%, -50%);
   background-color: #22283a;
   padding: 20px;
   width: 750px;
   z-index: 18;
   color: white;
   border-radius: 10px;
-   display: none;
+  display: none;
 
 }
-.ProductModal.active{
+
+.ProductModal.active {
   display: block;
 }
-.ModalContent{
+
+.ModalContent {
   display: flex;
   gap: 20px;
   align-items: flex-start;
 }
-.ModalImg{
+
+.ModalImg {
   flex: 1;
 }
-.ModalImg img{
+
+.ModalImg img {
   width: 100%;
   object-fit: cover;
   border-radius: 8px;
   height: auto;
 }
-.ModalDetails{
+
+.ModalDetails {
   flex: 1;
   display: flex;
   flex-direction: column;
   gap: 15px;
 }
-.CloseModal{
+
+.CloseModal {
   display: flex;
   justify-content: flex-end;
 }
-.CloseProduct{
+
+.CloseProduct {
   background: none;
   border: none;
   color: white;
   font-weight: 700;
   font-size: 20px;
 }
-#ModalTitle{
+
+#ModalTitle {
   font-size: 25px;
   font-weight: 800;
 }
-#ModalDesc{
+
+#ModalDesc {
   font-size: 15px;
   color: beige;
 }
-#ModalPrice{
+
+#ModalPrice {
   font-weight: 700;
   font-size: 20px;
 }
-.BottomOfModal{
+
+.BottomOfModal {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-top: 10px;
 }
-.QtyWrap{
+
+.QtyWrap {
   display: flex;
   align-items: center;
   gap: 8px;
 }
-.QtyBtn{
+
+.QtyBtn {
   color: white;
   border: none;
 
 }
-#ProductDetailsLink{
+
+#ProductDetailsLink {
   color: lightcyan;
   font-size: 14px;
   margin-top: 8px;
   display: inline-block;
-  text-decoration: underline; /* since we removed the underline in the links on top*/
+  text-decoration: underline;
+  /* since we removed the underline in the links on top*/
 }
 
+#userLogo {
+  width: 35px;
+  height: 35px;
+  object-fit: contain;
+  margin-left: 10px;
+  /* space from cart */
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+#userLogo:hover {
+  transform: scale(1.1);
+}
+
+/* Profile Sidebar */
+.ProfileSideBar {
+    position: fixed;
+    right: -350px;
+    top: 0;
+    width: 300px;
+    height: 100%;
+    background-color: #22283a;
+    border-left: 2px solid grey;
+    padding: 20px;
+    transition: 0.3s ease-in-out;
+    z-index: 1001;
+    color: white;
+}
+
+.ProfileSideBar.open {
+    right: 0;
+}
+
+.ProfileContent {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.ProfileBtn {
+    background-color: black;
+    border: 1px solid grey;
+    color: white;
+    padding: 12px;
+    text-align: left;
+    border-radius: 8px;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.ProfileBtn:hover {
+    box-shadow: 0 0 10px white;
+}
+
+#CloseProfileBtn {
+    background-color: black;
+    border: 1px solid white;
+    color: white;
+    padding: 8px 12px;
+    cursor: pointer;
+}

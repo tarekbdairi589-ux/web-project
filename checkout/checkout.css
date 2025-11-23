@@ -1,0 +1,86 @@
+body {
+    background-color: rgb(15, 15, 49);
+    font-family: Arial;
+}
+
+/* Reuse same layout style as MidTable from theme */
+.MidTable {
+    width: 100%;
+    max-width: 1200px;
+    padding: 20px;
+    margin: 30px auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    border: 3px solid grey;
+    border-radius: 8px;
+}
+
+/* Left Form */
+.LeftMidTable {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    color: white;
+    width: 55%;
+}
+
+.CInput {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    background-color: #101523;
+    border: 1px solid grey;
+    color: white;
+    font-size: 14px;
+}
+
+.Area {
+    height: 120px;
+    resize: none;
+}
+
+/* Right Summary */
+.RightMidTable {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border: 1px solid grey;
+    border-radius: 10px;
+    padding: 20px 25px;
+    background-color: #22283a;
+    width: 350px;
+    color: white;
+}
+
+/* Summary Items */
+.SummaryBox {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.SummaryItem {
+    display: flex;
+    justify-content: space-between;
+    color: white;
+    border-bottom: 1px solid grey;
+    padding-bottom: 6px;
+}
+
+/* Button */
+.CheckoutBtn {
+    padding: 10px;
+    background-color: black;
+    border: 1px solid white;
+    color: white;
+    font-weight: bold;
+    font-size: 15px;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.CheckoutBtn:hover {
+    box-shadow: 0 0 10px white;
+}

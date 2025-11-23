@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Checkout</title>
+
+    <link rel="stylesheet" href="checkout.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="checkout.js" defer></script>
+</head>
+
+<body>
+
+    <div class="MidTable">
+
+        <!-- LEFT SIDE: FORM -->
+        <div class="LeftMidTable">
+            <h2>Checkout Information</h2>
+
+            <input id="FullName" class="CInput" type="text" placeholder="Full Name">
+            <input id="Phone" class="CInput" type="text" placeholder="Phone Number">
+            <input id="Email" class="CInput" type="email" placeholder="Email">
+            <textarea id="Address" class="CInput Area" placeholder="Full Address"></textarea>
+        </div>
+
+        <!-- RIGHT SIDE: SUMMARY -->
+        <div class="RightMidTable">
+            <h3>Order Summary</h3>
+
+            <div id="SummaryItems" class="SummaryBox"></div>
+
+            <hr>
+
+            <h3>Total: $<span id="TotalPrice">0</span></h3>
+
+            <button id="ConfirmOrder" class="CheckoutBtn">Confirm Order</button>
+        </div>
+
+    </div>
+
+</body>
+</html>
