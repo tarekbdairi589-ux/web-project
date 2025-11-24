@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drip District-Products Details</title>
+    <link rel="stylesheet" href="ProductStyles.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="Products.js"></script>
+</head>
+<body>
+    
+    <nav class="NavBar">
+        <div class="Logo">
+            <img id="LogoImg" src="../client/Drip_logo.png" alt="Drip District Logo">
+           <span class="DripDistrict"> Drip District </span>
+
+        </div>
+        <div class="Links">
+            <a href="../client/index.html">Home</a>
+            <a href="../category/category.html">Category</a>
+            <a href="#" id="AboutUsNav">About Us</a>
+            <a href="#" id="ContactUsNav">Contact Us</a>
+
+        </div>
+        <div class="Search-Cart">
+            <input type="text" placeholder="Search Products..." id="SearchInput">
+            <button id="LoginBtn">Login</button>
+            <button id="Cart-Btn">
+                <div class="CartIconWrap">
+                    <img  id="CartLogo" src="../client/cart logo.png" alt="Shopping Cart">
+                <span id="CartCount">0</span>
+                </div>
+            
+            </button>
+            <img  id="userLogo" src="../client/user.png" alt="user logo">
+        </div>
+    </nav>
+
+<section>
+    <div class="ImgSide">
+        <img src="../client/Hoodie.png" alt="">
+
+    </div>
+    <div class="ProductDetailSide">
+        <h2 id="ProductTitle">Fear Of God Essential Hoodie</h2>
+        <p id="ProductDesc">Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia ex praesentium<br> eius fugit voluptates nisi adipisci sunt at! Optio quos perferendis a minima deleniti inventore esse sunt, nesciunt fugit dicta?</p>
+        <p id="ProductPrice"> $ 39.99</p>
+            <div class="SizeWrap">
+                        <label for="ProductsizeSelect">Size:</label>
+                        <select id="ProductsizeSelect" class="sizeSelect">
+                            <option value="S">S</option>
+                            <option value="M" selected>M</option>
+                            <option value="L">L</option>
+                            <option value="XL">XL</option>
+                        </select>
+                    </div>
+            <div class="BottomOfProduct">
+                <div class="QtyWrap">
+                    <button class="QtyBtn" id="QtyMinus">-</button>
+                    <span id="QtyValue">1</span>
+                    <button class="QtyBtn" id="QtyPlus">+</button>
+                </div>
+                <button class="AddItemBtn">Add To Cart</button>
+            </div>
+
+            <div class="ProductDetail">
+                <h3>Products Details:</h3>
+                <table class="DetailTable">
+                     <tr>
+                          <th>Fit</th>
+                            <td>Regular</td>
+                     </tr>
+                      <tr>
+                          <th>Thickness</th>
+                            <td>Medium</td>
+                        </tr>
+                        <tr>
+                            <th>Fabric</th>
+                            <td>Cotton Blend</td>
+                        </tr>
+                        <tr>
+                            <th>Disclaimer</th>
+                            <td>Product color may slightly vary due to<br> photographic lighting sources or your monitor settings.</td>
+                        </tr>
+                        <tr>
+                            <th>Color Family</th>
+                            <td>Olive</td>
+                        </tr>
+                        <tr>
+                            <th>Sportswear Type</th>
+                            <td>Hoodies</td>
+                        </tr>
+                </table>
+            </div>
+        
+    </div>
+</section>
+<h2 class="RecommendedTitle">You May Also Like </h2>
+<div class="RecommendationSection">
+<div class="RecommendedCard" 
+       data-title="FC Bayern Hoodie"
+       data-desc="A Bayern hoodie is a comfortable sweatshirt, often made of cotton or a cotton/recycled polyester blend, featuring the FC Bayern Munich club crest or other <br> team-specific graphics. Designed for fans, these hoodies typically have a regular fit, a hood, and ribbed cuffs and hem, with styles ranging from pullovers to full-zip options"
+       data-price="10"
+       data-img="Bayern_Hoodie.png"
+       data-fit="Regular"
+       data-thickness="Medium"
+       data-fabric="Cotton Blend"
+       data-disclaimer="Product color may slightly vary due to photographic lighting sources or your monitor settings."
+       data-color="Red"
+       data-type="Hoodies">
+
+    <div class="RecommendedImg">
+        <img src="Bayern_Hoodie.png" alt="Bayern Hoodie">
+    </div>
+    <div class="RecommendedProductNamePrice">
+    <div class="RecommendedProductName">
+        <h3 id="RecommendedProductName">FC Bayern Hoodie</h3>
+    </div>
+    <div class="RecommendedProductPrice">
+        <span id="RecommendedProductPrice">$ 10</span>
+    </div>
+    </div>
+</div>
+
+</div>
+
+
+    
+<div class="BtnBeforeFooter">
+    <Button class="BackToTopBtn" >
+        Back To Top 
+    </Button>
+
+</div>
+<footer>
+    <div class="FooterPage">
+        <div class="AboutFooter" id="About">
+            <h3>About</h3>
+            <p>Student-built storefront for a Web Programming course. Front-end only demo.</p>
+
+        </div>
+        <div class="ContactFooter" id="Contact">
+            <h3>Contact</h3>
+            <p>Address: RHU Campus, Saida, Lebanon.<Br>Phone: +961 70 000 000.<Br>Email: hello@clothing.example</p>
+        </div>
+
+    
+        <div class="SocialsFooter">
+        <h3>Socials</h3>
+        <div class="UpperRow">
+            <button class="SocialsBtn">Instagram</button>
+            <button class="SocialsBtn">Facebook</button>
+        </div>
+        <div class="LowerRow">
+            <button class="SocialsBtn">TikTok</button>
+            <button class="SocialsBtn">LinkedIn</button>
+        </div>
+
+         </div>
+    </div>
+    <div class="CopyRight">
+        &copy;
+        <span>2025 Drip District. All Rights Reserved</span> 
+    </div>
+</footer>
+  
+<div id="Overlay"></div>
+<div class="CartSideBar" id="CartSideBar">
+    <div class="SideBarHeader">
+        <h3>Your Cart</h3>
+        <button id="CloseBtn">Close</button>
+    </div>
+    <div class="ProductsListing">
+        
+    </div>
+    <div class="CartFooter">
+        <div class="Subtotal">
+            <span>Subtotal :</span>
+            <span id="CartSubtotal">$0.00</span>
+        </div>
+        <p id="TaxesFees">Taxes and shipping Fees will be calculated at CheckOut</p>
+        <button id="CheckOutBtn">CheckOut</button>
+    </div>
+</div>
+<div class="ProfileSideBar" id="ProfileSideBar">
+    <div class="SideBarHeader">
+        <h3>Your Account</h3>
+        <button id="CloseProfileBtn">Close</button>
+    </div>
+
+    <div class="ProfileContent">
+        <button class="ProfileBtn">Account Information</button>
+        <button class="ProfileBtn" id="OrdersBtn">My Orders</button>
+
+    </div>
+</div>
+
+    
+</body>
+</html>
