@@ -256,10 +256,14 @@ h3 {
 }
 
 .AddItemBtn {
-  background-color: lightcyan;
-  color: black;
+  background-color: #0077cc;
+  color: white;
 
 }
+.AddItemBtn:hover {
+  background-color: #005fa3;
+}
+
 
 .BtnBeforeFooter {
   width: 100%;
@@ -658,4 +662,7 @@ footer {
     color: white;
     padding: 8px 12px;
     cursor: pointer;
+}
+.PlusMinusBtn{
+  border: none;
 }

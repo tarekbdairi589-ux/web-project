@@ -271,11 +271,12 @@ document.querySelector(".ProductModal .AddItemBtn").addEventListener("click", ()
       <div class="ListingContent">
         <h3 class="ListingTitle">${product.title}</h3>
         <p class="ListingDescription">${product.desc}</p>
+        <p class="ListingSize" >Size: ${product.size}</p>
         <div class="ListingBtns">
           <div class="Increment-decrementbtn">
-            <button class="PlusMinusBtn">-</button>
+            <button class="PlusMinusBtn minus">-</button>
             <span class="NumberOfProducts">${product.qty}</span>
-            <button class="PlusMinusBtn">+</button>
+            <button class="PlusMinusBtn plus">+</button>
           </div>
           <button class="RemoveProduct">Remove</button>
         </div>
@@ -320,5 +321,59 @@ $(document).ready(function () {
     $("#OrdersBtn").click(function () {
         window.location.href = "../profile/orders/orders.html";
     });
+
+    
+// Minus button inside cart sidebar
+$(".ProductsListing").on("click", ".minus", function(){
+  let qtySpan = $(this).siblings(".NumberOfProducts");
+  let current = parseInt(qtySpan.text());
+  if(current > 1){
+    qtySpan.text(current - 1);
+  };
+  updateCartState();
+});
+
+// Plus button inside cart sidebar
+$(".ProductsListing").on("click", ".plus", function(){
+  let qtySpan = $(this).siblings(".NumberOfProducts");
+  let current = parseInt(qtySpan.text());
+  qtySpan.text(current + 1);
+  updateCartState();
+});
+
+
+
+
+
+$(".ProductsListing").on("click", ".RemoveProduct", function(){
+  $(this).closest(".ListingCard").remove();
+  updateCartState();
+
+});
+
+
+
+// About Us link
+document.getElementById("AboutUsNav").addEventListener("click", function(e) {
+  e.preventDefault(); // prevent default jump
+  document.getElementById("About").scrollIntoView({
+    behavior: "smooth"
+  });
+});
+
+// Contact Us link
+document.getElementById("ContactUsNav").addEventListener("click", function(e) {
+  e.preventDefault();
+  document.getElementById("Contact").scrollIntoView({
+    behavior: "smooth"
+  });
+});
+
+
+
+
+
+
+
 });
 
