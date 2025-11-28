@@ -1,10 +1,31 @@
 
 let products = JSON.parse(localStorage.getItem("products")) || [];
 let categories = JSON.parse(localStorage.getItem("categories")) || [];
+window.addEventListener("storage", (event) => {
+    if (event.key === "products" || event.key === "categories") {
+        products = JSON.parse(localStorage.getItem("products")) || [];
+        categories = JSON.parse(localStorage.getItem("categories")) || [];
+
+        loadCategoryButtons();
+        loadColorFilter(); 
+        loadCategoryProducts();
+    }
+});
 
 
 function updateItemCount(count) {
     $('.shownumitem').text(`${count} item${count !== 1 ? 's' : ''}`);
+}
+function loadColorFilter() {
+    let colorSelect = $("#selectcolor");
+    colorSelect.empty();
+    colorSelect.append('<option value="Any" selected>Any Color</option>');
+
+    let uniqueColors = [...new Set(products.map(p => p.color).filter(c => c))];
+
+    uniqueColors.forEach(color => {
+        colorSelect.append(`<option value="${color}">${color}</option>`);
+    });
 }
 
 // Load categories into category buttons
@@ -12,15 +33,12 @@ function loadCategoryButtons() {
     let box = $("#category-buttons");
     box.empty();
 
-    // Add "All" button
     box.append(`<button class="categorybtn" data-cat="All">All</button>`);
 
-    // Add dynamic categories
     categories.forEach(cat => {
         box.append(`<button class="categorybtn" data-cat="${cat}">${cat}</button>`);
     });
 
-    // Category Button Events
     $(".categorybtn").on("click", function () {
         let selected = $(this).data("cat");
         loadCategoryProducts(selected);
@@ -33,6 +51,8 @@ function loadCategoryProducts(filterCategory = "All") {
     let sizeFilter = $("#selectsize").val() || "Any";
     let maxPrice = parseFloat($("#range").val()) || Infinity;
     let sort = $("#pricerange").val();
+    let colorFilter = $("#selectcolor").val() || "Any";
+
 
     // Filtering
     let filtered = products.filter(p => {
@@ -40,11 +60,12 @@ function loadCategoryProducts(filterCategory = "All") {
         let matchSearch = (!search || p.name.toLowerCase().includes(search));
         let matchSize = (sizeFilter === "Any" || (p.size || "Any") === sizeFilter);
         let matchPrice = (p.price <= maxPrice);
+        let matchColor = (colorFilter === "Any" || (p.color || "Any") === colorFilter);
 
-        return matchCat && matchSearch && matchSize && matchPrice;
+        return matchCat && matchSearch && matchSize && matchPrice&& matchColor;
     });
 
-    // Sorting
+  
     filtered.sort((a, b) => {
         if (sort === "Price:High→Low") return b.price - a.price;
         if (sort === "Price:Low→High") return a.price - b.price;
@@ -53,10 +74,10 @@ function loadCategoryProducts(filterCategory = "All") {
         return 0;
     });
 
-    // Update count
+
     updateItemCount(filtered.length);
 
-    // Fill container
+
     let container = $("#category-container");
     container.empty();
 
@@ -84,22 +105,11 @@ function loadCategoryProducts(filterCategory = "All") {
         container.append(card);
     });
 }
-
-// Listen for global update event from admin page
-window.addEventListener("storageUpdate", () => {
-    products = JSON.parse(localStorage.getItem("products")) || [];
-    categories = JSON.parse(localStorage.getItem("categories")) || [];
-
-    loadCategoryButtons();
+$("#searchinput, #selectsize, #range, #pricerange, #selectcolor").on("input change", function () {
     loadCategoryProducts();
 });
 
-// Trigger filtering when inputs change
-$("#searchinput, #selectsize, #range, #pricerange").on("input change", function () {
-    loadCategoryProducts();
-});
 
-// Initial load
 $(document).ready(function () {
     loadCategoryButtons();
     loadCategoryProducts();

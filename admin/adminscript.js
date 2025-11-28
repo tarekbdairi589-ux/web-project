@@ -14,8 +14,6 @@ let currentpage=1;
 let rowpage=5;
 
 let categories = JSON.parse(localStorage.getItem('categories')) || ['Hoodies', 'T-Shirts'];
-
-// Function to load categories into both selects
 function loadCategories() {
     let select = $('#selectcategory');
     let filterSelect = $('#adminfiltercategory');
@@ -30,16 +28,16 @@ function loadCategories() {
         filterSelect.append(`<option value="${cat}">${cat}</option>`);
     });
 
-    filterSelect.empty();
+   /* filterSelect.empty();
     filterSelect.append('<option value="All" selected>All</option>');
 
     categories.forEach(cat => {
         let option1 = $('<option></option>').text(cat).val(cat);
         let option2 = $('<option></option>').text(cat).val(cat);
 
-        select.append(option1);          // product add section
-        filterSelect.append(option2);    // filter section
-    });
+        select.append(option1);
+        filterSelect.append(option2);
+    });*/
 }
 loadCategories();
 
@@ -145,17 +143,15 @@ filterStatus.on('change', function() {
 });
 
 $('#addbtn').on('click', function(e) {
-    e.preventDefault();
+
 
     if(name.val().trim() === '' || price.val().trim() === '' || quantity.val().trim() === '' || categoryy.val() === '' || status.val() === null) {
         alert('Please fill all required fields!');
         return;
     }
 
-    // Determine new product ID
     let index = products.length ? Math.max(...products.map(p => p.id)) + 1 : 1;
 
-    // Create new product object
     let newProduct = {
         id: index,
         name: name.val().trim(),
@@ -167,37 +163,41 @@ $('#addbtn').on('click', function(e) {
         size: $('#selectsize').val(),
         description: description.val().trim() || '',
         readmore: readmore.val().trim() || '',
-        image: preview.src || ''
+        image: preview.src || '',
+        color: $('#color').val().trim() || '',
+        thickness: $('#thickness').val().trim() || '',
+        fabric: $('#fabric').val().trim() || '',
+        selectfit: $('#selectfit').val() || ''
     };
 
-    // Save product
+
     products.push(newProduct);
     localStorage.setItem('products', JSON.stringify(products));
     window.dispatchEvent(new Event("storageUpdate"));
 
-    // Reload tables
+
     loadProducts(adminfiltercategory.val(), filterStatus.val());
     loadCategoryProducts();
 
-    // --- RESET ALL INPUTS ---
-   // --- RESET ALL INPUTS ---
-name.val('');        // reset text
-sku.val('');
-price.val('');
-quantity.val('');
-description.val('');
-readmore.val('');
 
-// Reset selects
-$('#selectcategory').prop('selectedIndex', 0); // will now select the placeholder
-$('#Status').prop('selectedIndex', 0); // default status
-$('#selectsize').prop('selectedIndex', 0);   // default size
+        name.val('');        
+        sku.val('');
+        price.val('');
+        quantity.val('');
+        description.val('');
+        readmore.val('');
+        color.val('');
 
-// Reset image preview
-preview.src = '';
-preview.style.display = 'none';
+        $('#selectcategory').prop('selectedIndex', 0);
+        $('#Status').prop('selectedIndex', 0); 
+        $('#selectsize').prop('selectedIndex', 0);   
+            $('#selectfit').prop('selectedIndex', 0);
 
-input.value = '';
+
+        preview.src = '';
+        preview.style.display = 'none';
+
+        input.value = '';
 });
 
 
@@ -205,13 +205,12 @@ $('.delete').on('click', function() {
     let numberToRemove = prompt('Enter the number of the product to remove:');
     if(!numberToRemove) return;
 
-    let index = parseInt(numberToRemove) - 1;  // convert table number to array index
+    let index = parseInt(numberToRemove) - 1;
     if(index < 0 || index >= products.length) {
         alert('Invalid number!');
         return;
     }
 
-    // Remove the product from the array
     products.splice(index, 1);
 
     localStorage.setItem('products', JSON.stringify(products));
@@ -245,10 +244,10 @@ let container = document.getElementById("image-upload-container");
 let input = document.getElementById("image-upload-input");
 let preview = document.getElementById("preview-image");
 
-// Click container to open file picker
+
 container.addEventListener("click", () => input.click());
 
-// Handle file selection
+
 input.addEventListener("change", () => {
     let file = input.files[0];
     if (file) {
@@ -308,26 +307,25 @@ function loadCategoryProducts(filterCategory = 'All') {
     filtered.sort((a, b) => {
         if (sort === 'Price:High→Low') return b.price - a.price;
         if (sort === 'Price:Low→High') return a.price - b.price;
-        if (sort === 'Newest') return b.id - a.id; // higher id = newer
+        if (sort === 'Newest') return b.id - a.id; 
         if (sort === 'Oldest') return a.id - b.id;
         return 0;
     });
 
-    // Display the number of items
+
     $('.shownumitem').text(`${filtered.length} items`);
 
-    // Container for cards
+
     let container = $('#category-container');
     container.empty();
 
-    // Add cards
     filtered.forEach(p => {
         let card = $(`
             <div class="Card">
-                <img class="ProductImg" src="${p.image || 'default-image.jpg'}" alt="${p.name}">
+                <div class="ProductImg" style="background-image: url('${p.image || 'default-image.jpg'}');"></div>
                 <div class="ProductContent">
                     <div class="Title">${p.name}</div>
-                    <div class="ReadMore">${p.readmore || p.description || ''}</div>
+                    <div class="ReadMore">${p.readmore|| ''}</div>
                     <div class="row">
                         <div class="price">$${p.price.toFixed(2)}</div>
                         <div class="RowBtns">
