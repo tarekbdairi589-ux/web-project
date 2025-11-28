@@ -14,22 +14,13 @@ let currentpage=1;
 let rowpage=5;
 
 let categories = JSON.parse(localStorage.getItem('categories')) || ['Hoodies', 'T-Shirts'];
-<<<<<<< HEAD
-
-// Function to load categories into both selects
-=======
->>>>>>> category-edit
 function loadCategories() {
     let select = $('#selectcategory');
     let filterSelect = $('#adminfiltercategory');
 
     select.empty();
     filterSelect.empty();
-<<<<<<< HEAD
-    select.append('<option value="" disabled selected hidden>Select a category...</option>');
-=======
     select.append('<option value="" selected>Select a category...</option>');
->>>>>>> category-edit
     filterSelect.append('<option value="All" selected>All</option>');
 
     categories.forEach(cat => {
@@ -37,26 +28,16 @@ function loadCategories() {
         filterSelect.append(`<option value="${cat}">${cat}</option>`);
     });
 
-<<<<<<< HEAD
-    filterSelect.empty();
-=======
    /* filterSelect.empty();
->>>>>>> category-edit
     filterSelect.append('<option value="All" selected>All</option>');
 
     categories.forEach(cat => {
         let option1 = $('<option></option>').text(cat).val(cat);
         let option2 = $('<option></option>').text(cat).val(cat);
 
-<<<<<<< HEAD
-        select.append(option1);          // product add section
-        filterSelect.append(option2);    // filter section
-    });
-=======
         select.append(option1);
         filterSelect.append(option2);
     });*/
->>>>>>> category-edit
 }
 loadCategories();
 
@@ -76,10 +57,7 @@ addcategorr.on('click',function(e){
     localStorage.setItem('categories',JSON.stringify(categories));
     loadCategories();       
     category.val('');
-<<<<<<< HEAD
-=======
     loadCategoryProducts();
->>>>>>> category-edit
 
 });
 
@@ -164,44 +142,6 @@ filterStatus.on('change', function() {
     loadProducts(adminfiltercategory.val(), filterStatus.val());
 });
 
-<<<<<<< HEAD
-$('#addbtn').on('click',function(e){
-    e.preventDefault();
-    if(name.val().trim()==='' || price.val().trim()==='' || quantity.val().trim()==='' || $('#selectcategory').val()===null || $('#Status').val()===null){
-        alert('Please fill all required fields!');
-        return;
-    }
-     let index = $('#product-table-body tr').length + 1;
-    let tabledata=$('<tr></tr>');
-    tabledata.append($('<td></td>').text(index));
-    tabledata.append($('<td></td>').text(name.val().trim()));
-    tabledata.append($('<td></td>').text($('#selectcategory').val()));
-    tabledata.append($('<td></td>').text(parseFloat(price.val().trim()).toFixed(2)));
-    tabledata.append($('<td></td>').text(parseInt(quantity.val().trim())));
-    tabledata.append($('<td></td>').text($('#Status').val()));
-    $('#product-table-body').append(tabledata);
-     let newProduct = {
-        id: index,
-        name: name.val().trim(),
-        category: categoryy.val(),
-        price: parseFloat(price.val().trim()),
-        quantity: parseInt(quantity.val().trim()),
-        status: status.val()
-    };
-
-    products.push(newProduct);
-    localStorage.setItem('products', JSON.stringify(products));//into json
-    name.val('');
-    sku.val('');
-    price.val('');
-    quantity.val('');
-    description.val('');
-    readmore.val('');
-    categoryy.prop('selectedIndex', 0);
-   $('#Status').prop('selectedIndex', 0);
-   loadProducts(adminfiltercategory.val(), filterStatus.val());
-});
-=======
 $('#addbtn').on('click', function(e) {
 
 
@@ -261,25 +201,16 @@ $('#addbtn').on('click', function(e) {
 });
 
 
->>>>>>> category-edit
 $('.delete').on('click', function() {
     let numberToRemove = prompt('Enter the number of the product to remove:');
     if(!numberToRemove) return;
 
-<<<<<<< HEAD
-    let index = parseInt(numberToRemove) - 1;  // convert table number to array index
-=======
     let index = parseInt(numberToRemove) - 1;
->>>>>>> category-edit
     if(index < 0 || index >= products.length) {
         alert('Invalid number!');
         return;
     }
 
-<<<<<<< HEAD
-    // Remove the product from the array
-=======
->>>>>>> category-edit
     products.splice(index, 1);
 
     localStorage.setItem('products', JSON.stringify(products));
@@ -313,17 +244,10 @@ let container = document.getElementById("image-upload-container");
 let input = document.getElementById("image-upload-input");
 let preview = document.getElementById("preview-image");
 
-<<<<<<< HEAD
-// Click container to open file picker
-container.addEventListener("click", () => input.click());
-
-// Handle file selection
-=======
 
 container.addEventListener("click", () => input.click());
 
 
->>>>>>> category-edit
 input.addEventListener("change", () => {
     let file = input.files[0];
     if (file) {
@@ -360,9 +284,6 @@ container.addEventListener("drop", e => {
         };
         reader.readAsDataURL(file);
     }
-<<<<<<< HEAD
-});
-=======
 });
 function loadCategoryProducts(filterCategory = 'All') {
     let products = JSON.parse(localStorage.getItem('products')) || [];
@@ -418,4 +339,3 @@ function loadCategoryProducts(filterCategory = 'All') {
         container.append(card);
     });
 }
->>>>>>> category-edit

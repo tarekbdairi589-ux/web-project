@@ -242,8 +242,6 @@ min-width: 200px;
 #preview-image {
     display: block;
     margin: 10px auto;
-<<<<<<< HEAD
-=======
 }
 .ProductImg {
     width: 200px;
@@ -539,7 +537,6 @@ input:focus, select:focus, textarea:focus {
     .form1-div, #footer-div {
         flex-direction: column;
     }
->>>>>>> category-edit
 }
 
 
