@@ -14,15 +14,22 @@ let currentpage=1;
 let rowpage=5;
 
 let categories = JSON.parse(localStorage.getItem('categories')) || ['Hoodies', 'T-Shirts'];
+<<<<<<< HEAD
 
 // Function to load categories into both selects
+=======
+>>>>>>> category-edit
 function loadCategories() {
     let select = $('#selectcategory');
     let filterSelect = $('#adminfiltercategory');
 
     select.empty();
     filterSelect.empty();
+<<<<<<< HEAD
     select.append('<option value="" disabled selected hidden>Select a category...</option>');
+=======
+    select.append('<option value="" selected>Select a category...</option>');
+>>>>>>> category-edit
     filterSelect.append('<option value="All" selected>All</option>');
 
     categories.forEach(cat => {
@@ -30,16 +37,26 @@ function loadCategories() {
         filterSelect.append(`<option value="${cat}">${cat}</option>`);
     });
 
+<<<<<<< HEAD
     filterSelect.empty();
+=======
+   /* filterSelect.empty();
+>>>>>>> category-edit
     filterSelect.append('<option value="All" selected>All</option>');
 
     categories.forEach(cat => {
         let option1 = $('<option></option>').text(cat).val(cat);
         let option2 = $('<option></option>').text(cat).val(cat);
 
+<<<<<<< HEAD
         select.append(option1);          // product add section
         filterSelect.append(option2);    // filter section
     });
+=======
+        select.append(option1);
+        filterSelect.append(option2);
+    });*/
+>>>>>>> category-edit
 }
 loadCategories();
 
@@ -59,6 +76,10 @@ addcategorr.on('click',function(e){
     localStorage.setItem('categories',JSON.stringify(categories));
     loadCategories();       
     category.val('');
+<<<<<<< HEAD
+=======
+    loadCategoryProducts();
+>>>>>>> category-edit
 
 });
 
@@ -143,6 +164,7 @@ filterStatus.on('change', function() {
     loadProducts(adminfiltercategory.val(), filterStatus.val());
 });
 
+<<<<<<< HEAD
 $('#addbtn').on('click',function(e){
     e.preventDefault();
     if(name.val().trim()==='' || price.val().trim()==='' || quantity.val().trim()==='' || $('#selectcategory').val()===null || $('#Status').val()===null){
@@ -179,17 +201,85 @@ $('#addbtn').on('click',function(e){
    $('#Status').prop('selectedIndex', 0);
    loadProducts(adminfiltercategory.val(), filterStatus.val());
 });
+=======
+$('#addbtn').on('click', function(e) {
+
+
+    if(name.val().trim() === '' || price.val().trim() === '' || quantity.val().trim() === '' || categoryy.val() === '' || status.val() === null) {
+        alert('Please fill all required fields!');
+        return;
+    }
+
+    let index = products.length ? Math.max(...products.map(p => p.id)) + 1 : 1;
+
+    let newProduct = {
+        id: index,
+        name: name.val().trim(),
+        sku: sku.val().trim(),
+        category: categoryy.val(),
+        price: parseFloat(price.val().trim()),
+        quantity: parseInt(quantity.val().trim()),
+        status: status.val(),
+        size: $('#selectsize').val(),
+        description: description.val().trim() || '',
+        readmore: readmore.val().trim() || '',
+        image: preview.src || '',
+        color: $('#color').val().trim() || '',
+        thickness: $('#thickness').val().trim() || '',
+        fabric: $('#fabric').val().trim() || '',
+        selectfit: $('#selectfit').val() || ''
+    };
+
+
+    products.push(newProduct);
+    localStorage.setItem('products', JSON.stringify(products));
+    window.dispatchEvent(new Event("storageUpdate"));
+
+
+    loadProducts(adminfiltercategory.val(), filterStatus.val());
+    loadCategoryProducts();
+
+
+        name.val('');        
+        sku.val('');
+        price.val('');
+        quantity.val('');
+        description.val('');
+        readmore.val('');
+        color.val('');
+
+        $('#selectcategory').prop('selectedIndex', 0);
+        $('#Status').prop('selectedIndex', 0); 
+        $('#selectsize').prop('selectedIndex', 0);   
+            $('#selectfit').prop('selectedIndex', 0);
+
+
+        preview.src = '';
+        preview.style.display = 'none';
+
+        input.value = '';
+});
+
+
+>>>>>>> category-edit
 $('.delete').on('click', function() {
     let numberToRemove = prompt('Enter the number of the product to remove:');
     if(!numberToRemove) return;
 
+<<<<<<< HEAD
     let index = parseInt(numberToRemove) - 1;  // convert table number to array index
+=======
+    let index = parseInt(numberToRemove) - 1;
+>>>>>>> category-edit
     if(index < 0 || index >= products.length) {
         alert('Invalid number!');
         return;
     }
 
+<<<<<<< HEAD
     // Remove the product from the array
+=======
+>>>>>>> category-edit
     products.splice(index, 1);
 
     localStorage.setItem('products', JSON.stringify(products));
@@ -223,10 +313,17 @@ let container = document.getElementById("image-upload-container");
 let input = document.getElementById("image-upload-input");
 let preview = document.getElementById("preview-image");
 
+<<<<<<< HEAD
 // Click container to open file picker
 container.addEventListener("click", () => input.click());
 
 // Handle file selection
+=======
+
+container.addEventListener("click", () => input.click());
+
+
+>>>>>>> category-edit
 input.addEventListener("change", () => {
     let file = input.files[0];
     if (file) {
@@ -263,4 +360,62 @@ container.addEventListener("drop", e => {
         };
         reader.readAsDataURL(file);
     }
+<<<<<<< HEAD
 });
+=======
+});
+function loadCategoryProducts(filterCategory = 'All') {
+    let products = JSON.parse(localStorage.getItem('products')) || [];
+
+    // Get filter values from UI
+    let search = $('#searchinput').val().trim().toLowerCase() || '';
+    let sizeFilter = $('#selectsize').val() || 'Any';
+    let maxPrice = parseFloat($('#range').val()) || Infinity;
+    let sort = $('#pricerange').val() || 'Price:High→Low';
+
+    // Filter products
+    let filtered = products.filter(p => {
+        let matchesCategory = (filterCategory === 'All' || p.category === filterCategory);
+        let matchesSearch = (search === '' || p.name.toLowerCase().includes(search));
+        let matchesSize = (sizeFilter === 'Any' || (p.size || 'Any') === sizeFilter);
+        let matchesPrice = (p.price <= maxPrice);
+        return matchesCategory && matchesSearch && matchesSize && matchesPrice;
+    });
+
+    // Sort products
+    filtered.sort((a, b) => {
+        if (sort === 'Price:High→Low') return b.price - a.price;
+        if (sort === 'Price:Low→High') return a.price - b.price;
+        if (sort === 'Newest') return b.id - a.id; 
+        if (sort === 'Oldest') return a.id - b.id;
+        return 0;
+    });
+
+
+    $('.shownumitem').text(`${filtered.length} items`);
+
+
+    let container = $('#category-container');
+    container.empty();
+
+    filtered.forEach(p => {
+        let card = $(`
+            <div class="Card">
+                <div class="ProductImg" style="background-image: url('${p.image || 'default-image.jpg'}');"></div>
+                <div class="ProductContent">
+                    <div class="Title">${p.name}</div>
+                    <div class="ReadMore">${p.readmore|| ''}</div>
+                    <div class="row">
+                        <div class="price">$${p.price.toFixed(2)}</div>
+                        <div class="RowBtns">
+                            <button class="ReadMoreBtn">Read More</button>
+                            <button class="AddItemBtn">Add</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `);
+        container.append(card);
+    });
+}
+>>>>>>> category-edit
