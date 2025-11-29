@@ -1,4 +1,3 @@
-
 let products = JSON.parse(localStorage.getItem("products")) || [];
 let categories = JSON.parse(localStorage.getItem("categories")) || [];
 window.addEventListener("storage", (event) => {

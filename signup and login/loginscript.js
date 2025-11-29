@@ -1,57 +1,11 @@
-// loginscript.js
-// Uses only `let`
-/*let showPass = document.getElementById('showPass');
-let showPasss = document.getElementById('showPasss');
-let passlInput = document.getElementById('loginPassword')
-let passsInput = document.getElementById('signupPassword')
-document.addEventListener('DOMContentLoaded', function () {
-    let card = document.getElementById('log');         // the <div class="login" id="log">
-    let toSignup = document.getElementById('toSignup');    // "Create account"
-    let toLogin = document.getElementById('toLogin');     // "Back to login"
-
-    card.classList.add('active-login');
-
-    toSignup.onclick = function (e) {
-        e.preventDefault();
-        card.classList.remove('active-login');
-        card.classList.add('active-signup');
-    };
-
-    toLogin.onclick = function (e) {
-        e.preventDefault();
-        card.classList.remove('active-signup');
-        card.classList.add('active-login');
-    };
-});
-showPass.addEventListener('change', function () {
-    if (this.checked) {
-        passlInput.type = 'text';   // show the password
-    } else {
-        passlInput.type = 'password'; // hide the password
-    }
-});
-
-showPasss.addEventListener('change', function () {
-    if (this.checked) {
-        passsInput.type = 'text';   // show the password
-    } else {
-        passsInput.type = 'password'; // hide the password
-    }
-});*/
-// loginscript.js
-
-// === PASSWORD TOGGLE ELEMENTS ===
-let showPass = document.getElementById('showPass');
-let showPasss = document.getElementById('showPasss');
+// === PASSWORD INPUT ELEMENTS ===
 let passlInput = document.getElementById('loginPassword');
 let passsInput = document.getElementById('signupPassword');
 
 // === HELPERS FOR USERS IN LOCAL STORAGE ===
 function getUsers() {
     let users = localStorage.getItem("users");
-    if (!users) {
-        return [];
-    }
+    if (!users) return [];
     return JSON.parse(users);
 }
 
@@ -60,30 +14,34 @@ function saveUsers(users) {
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-    let card = document.getElementById('log');          // main container
-    let toSignup = document.getElementById('toSignup'); // "Create account"
-    let toLogin = document.getElementById('toLogin');   // "Back to login"
 
+    // STRUCTURE ELEMENTS
+    let card = document.getElementById('log');
+    let toSignup = document.getElementById('toSignup');
+    let toLogin = document.getElementById('toLogin');
     let signupForm = document.getElementById('signupForm');
     let loginForm = document.getElementById('loginForm');
 
-    // default: show login form
+    // Default page: LOGIN FORM
     card.classList.add('active-login');
 
-    // ----- toggle between login / signup -----
+    // Switch to SIGNUP
     toSignup.onclick = function (e) {
         e.preventDefault();
         card.classList.remove('active-login');
         card.classList.add('active-signup');
     };
 
+    // Switch to LOGIN
     toLogin.onclick = function (e) {
         e.preventDefault();
         card.classList.remove('active-signup');
         card.classList.add('active-login');
     };
 
-    // ===== SIGNUP SUBMIT =====
+    // ===============================
+    //       SIGNUP SUBMIT
+    // ===============================
     if (signupForm) {
         signupForm.addEventListener('submit', function (e) {
             e.preventDefault();
@@ -99,17 +57,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
             let users = getUsers();
 
-            // check if same username OR email already exists
-            let exists = users.find(function (u) {
-                return u.username === fullName || u.email === email;
-            });
-
+            // Check if user exists
+            let exists = users.find(u => u.username === fullName || u.email === email);
             if (exists) {
                 alert("This user already exists. Please login.");
                 return;
             }
 
-            // add new user
+            // Save new user
             users.push({
                 username: fullName,
                 email: email,
@@ -119,23 +74,20 @@ document.addEventListener('DOMContentLoaded', function () {
             saveUsers(users);
 
             alert("Account created successfully! Please login now.");
-
             signupForm.reset();
 
-            // switch to login form
             card.classList.remove('active-signup');
             card.classList.add('active-login');
 
-            // optional: auto-fill login username
+            // Autofill login
             let loginUserInput = document.getElementById('loginUsername');
-            if (loginUserInput) {
-                loginUserInput.value = fullName;
-                loginUserInput.focus();
-            }
+            if (loginUserInput) loginUserInput.value = fullName;
         });
     }
 
-    // ===== LOGIN SUBMIT =====
+    // ===============================
+    //          LOGIN SUBMIT
+    // ===============================
     if (loginForm) {
         loginForm.addEventListener('submit', function (e) {
             e.preventDefault();
@@ -150,44 +102,65 @@ document.addEventListener('DOMContentLoaded', function () {
 
             let users = getUsers();
 
-            let found = users.find(function (u) {
-                return u.username === username && u.password === password;
-            });
+            let found = users.find(u => 
+                u.username === username && u.password === password
+            );
 
             if (!found) {
                 alert("Wrong username or password.");
                 return;
             }
 
-            // mark as logged in
+            // Mark user as logged in
             localStorage.setItem("isLoggedIn", "true");
             localStorage.setItem("currentUser", found.username);
 
-            alert("Login successful! Redirecting to store...");
+            // 🔥 Save full userProfile used by Account Page
+            let profile = {
+                name: found.username,
+                email: found.email,
+                password: found.password,
+                address: "No address saved yet."
+            };
+            localStorage.setItem("userProfile", JSON.stringify(profile));
 
-            // redirect to client page (based on your folder tree)
+            alert("Login successful! Redirecting to store...");
             window.location.href = "../client/index.html";
         });
     }
+
+    // ===============================
+    //     NEW SHOW/HIDE PASSWORD
+    // ===============================
+
+    // LOGIN EYE ICON
+    let loginToggle = document.getElementById("LoginTogglePass");
+
+    if (loginToggle) {
+        loginToggle.addEventListener("click", function () {
+            if (passlInput.type === "password") {
+                passlInput.type = "text";
+                loginToggle.src = "../profile/orders/account/view.png";
+            } else {
+                passlInput.type = "password";
+                loginToggle.src = "../profile/orders/account/hide.png";
+            }
+        });
+    }
+
+    // SIGNUP EYE ICON
+    let signupToggle = document.getElementById("SignupTogglePass");
+
+    if (signupToggle) {
+        signupToggle.addEventListener("click", function () {
+            if (passsInput.type === "password") {
+                passsInput.type = "text";
+                signupToggle.src = "../profile/orders/account/view.png";
+            } else {
+                passsInput.type = "password";
+                signupToggle.src = "../profile/orders/account/hide.png";
+            }
+        });
+    }
+
 });
-
-// ===== SHOW / HIDE PASSWORDS =====
-if (showPass) {
-    showPass.addEventListener('change', function () {
-        if (this.checked) {
-            passlInput.type = 'text';   // show the password
-        } else {
-            passlInput.type = 'password'; // hide the password
-        }
-    });
-}
-
-if (showPasss) {
-    showPasss.addEventListener('change', function () {
-        if (this.checked) {
-            passsInput.type = 'text';   // show the password
-        } else {
-            passsInput.type = 'password'; // hide the password
-        }
-    });
-}

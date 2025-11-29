@@ -1,0 +1,108 @@
+body {
+    background-color: rgb(15, 15, 49);
+    font-family: Arial;
+    padding: 20px;
+    color: white;
+}
+
+.OrdersContainer {
+    max-width: 1000px;
+    margin: auto;
+}
+
+.PageTitle {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.OrderCard {
+    background-color: #22283a;
+    border: 2px solid grey;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 25px;
+}
+
+.OrderHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.OrderHeader h2 {
+    margin: 0;
+}
+
+.ItemRow {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 0;
+    border-bottom: 1px solid grey;
+}
+
+.ItemRow:last-child {
+    border-bottom: none;
+}
+
+.OrderTotal {
+    margin-top: 15px;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: right;
+}
+
+.OrderItemImg {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 6px;
+    margin-right: 10px;
+}
+
+.ItemRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid grey;
+}
+
+.ItemLeft {
+    display: flex;
+    align-items: center;
+}
+
+.ItemName {
+    font-weight: bold;
+    margin: 0;
+}
+
+.ItemQty {
+    margin: 0;
+    color: #ccc;
+}
+
+.ItemRight .ItemPrice {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.BackBtn {
+    background-color: black;
+    border: 1px solid white;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 15px;
+    margin-bottom: 20px;
+    transition: 0.2s ease-out;
+}
+
+.BackBtn:hover {
+    box-shadow: 0 0 10px white;
+    transform: translateX(-3px);
+}
