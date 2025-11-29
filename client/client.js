@@ -376,4 +376,7 @@ document.getElementById("ContactUsNav").addEventListener("click", function(e) {
 
 
 });
+$("#AccountInfoBtn").click(function () {
+    window.location.href = "../profile/orders/account/account.html"; 
+});
 

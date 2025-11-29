@@ -1,0 +1,95 @@
+body {
+    background-color: rgb(15, 15, 49);
+    font-family: Arial;
+    padding: 20px;
+    color: white;
+}
+
+.AccountContainer {
+    max-width: 900px;
+    margin: auto;
+}
+
+.PageTitle {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.BackBtn {
+    background-color: black;
+    border: 1px solid white;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+.BackBtn:hover {
+    box-shadow: 0 0 8px white;
+}
+
+.AccountCard {
+    background-color: #22283a;
+    border: 2px solid grey;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 25px;
+}
+
+.InfoRow {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 12px;
+    gap: 10px;
+}
+
+.InfoLabel {
+    width: 100px;
+    font-weight: bold;
+}
+
+.AccInput {
+    flex: 1;
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid grey;
+    background-color: #101523;
+    color: white;
+}
+
+.AccArea {
+    min-height: 70px;
+}
+
+.AccountBtn {
+    background-color: black;
+    border: 1px solid white;
+    color: white;
+    padding: 8px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.AccountBtn:hover {
+    box-shadow: 0 0 8px white;
+}
+
+.CancelBtn {
+    border-color: grey;
+}
+.PasswordRow {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.EyeIcon {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    filter: invert(100%); /* makes it white for dark mode */
+}

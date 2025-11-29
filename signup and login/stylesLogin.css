@@ -180,3 +180,23 @@ input[type="email"] {
     accent-color: var(--brand);
     /* nice blue check (supported browsers) */
 }
+.PasswordRow {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.EyeIcon {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    filter: invert(100%); /* keep white on dark background */
+    transition: 0.25s ease; /* smooth hover animation */
+}
+
+/* Glow on hover */
+.EyeIcon:hover {
+    filter: drop-shadow(0 0 6px white) invert(100%);
+    transform: scale(1.15);
+}
+
