@@ -9,9 +9,6 @@ let cartCount = parseInt(localStorage.getItem("cartCount") || "0");
 // Select elements from the page
 let cartCountSpan = document.getElementById("CartCount");
 let loginBtn = document.getElementById("LoginBtn");
-let addButtons = document.querySelectorAll(".AddItemBtn");
-let cartBtn = document.getElementById("Cart-Btn");
-
 let CartBtn = document.getElementById("Cart-Btn");
 let CartSideBar = document.getElementById("CartSideBar");
 let Overlay = document.getElementById("Overlay");
@@ -93,7 +90,7 @@ loginBtn.addEventListener("click", function () {
 // =========================
 //   ADD TO CART LOGIC
 // =========================
-
+/*
 
 addButtons.forEach(function (btn) {
   btn.addEventListener("click", function () {
@@ -154,7 +151,53 @@ addButtons.forEach(function (btn) {
     // Update cart count and subtotal
     updateCartState();
   });
-});
+}); */
+
+function RenderProducts(){
+    let products = JSON.parse(localStorage.getItem("products")) || [];
+     let container = document.getElementById("ProductsSection");
+     container.innerHTML="";
+     products.forEach(p=>{
+      let card = document.createElement("div");
+      card.classList.add("Card");
+      card.classList.add("Card");
+      card.setAttribute("data-longDesc", p.readmore);
+      card.setAttribute("data-fit", p.selectfit);
+      card.setAttribute("data-fabric", p.fabric);
+      card.setAttribute("data-thickness", p.thickness);
+      card.setAttribute("data-color", p.color);
+      card.setAttribute("data-category", p.category);
+      card.setAttribute("data-shortDesc",p.description)
+      card.innerHTML=
+      `<div class="ProductImg">
+        <img src="${p.image}" alt="${p.name} ${p.category}">
+      </div>
+      <div class="ProductContent">
+        <div class="Title">${p.name}</div>
+        <div class="ReadMore">${p.description}</div>
+        <div class="SizeWrap">
+          <label for="sizeSelect">Size:</label>
+          <select class="sizeSelect">
+            <option value="S">S</option>
+            <option value="M" selected>M</option>
+            <option value="L">L</option>
+            <option value="XL">XL</option>
+          </select>
+        </div>
+        <div class="row">
+          <span class="price">$${p.price.toFixed(2)}</span>
+          <div class="RowBtns">
+            <button class="ReadMoreBtn">Read More</button>
+            <button class="AddItemBtn">Add To Cart</button>
+          </div>
+        </div>
+      </div>`;
+      container.appendChild(card);
+
+     });
+     attachCardListeners();
+}
+document.addEventListener("DOMContentLoaded",RenderProducts);
 
 function updateCartState() {
   let totalQty = 0;
@@ -190,31 +233,92 @@ CloseProductBtn.addEventListener("click", () => {
 Overlay.addEventListener("click", () => {
   ProductModal.classList.remove("active");
   Overlay.classList.remove("active");
-});
+});function attachCardListeners() {
+  // READ MORE
+  document.querySelectorAll(".ReadMoreBtn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      let card = btn.closest(".Card");
+      let title = card.querySelector(".Title").textContent;
+      let desc = card.dataset.longDesc;
+      let price = card.querySelector(".price").textContent;
+      let size = card.querySelector(".sizeSelect").value;
+      let imgSrc = card.querySelector(".ProductImg img").src;
 
-let ReadMoreBtn = document.querySelectorAll(".ReadMoreBtn");
-ReadMoreBtn.forEach(btn=>{
-    btn.addEventListener('click',()=>{
-        let card= btn.closest(".Card");
-        let title = card.querySelector(".Title").textContent;
-        let desc = card.querySelector(".ReadMore").textContent;
-        let price = card.querySelector(".price").textContent;
-        let size = card.querySelector(".sizeSelect").value;
-        let imgSrc = card.querySelector(".ProductImg img").src;
+      document.getElementById("ModalTitle").textContent = title;
+      document.getElementById("ModalDesc").textContent = desc;
+      document.getElementById("ModalPrice").textContent = price;
+      document.getElementById("ModalsizeSelect").value = size;
+      document.getElementById("ModalImg").src = imgSrc;
+      document.getElementById("QtyValue").textContent = "1";
 
-    document.getElementById("ModalTitle").textContent = title;
-    document.getElementById("ModalDesc").textContent = desc;
-    document.getElementById("ModalPrice").textContent = price;
-    document.getElementById("ModalsizeSelect").value = size;
-    document.getElementById("ModalImg").src = imgSrc;
-
-    document.getElementById("QtyValue").textContent='1';
-
-    ProductModal.classList.add("active");
-    Overlay.classList.add("active");
-
+      ProductModal.classList.add("active");
+      Overlay.classList.add("active");
     });
-});
+  });
+
+  // ADD TO CART
+  document.querySelectorAll(".AddItemBtn").forEach(btn => {
+    btn.addEventListener("click", function (e) {
+      if (!isLoggedIn) {
+        alert("Please login first.");
+        window.location.href = "../signup and login/SandL.html";
+        return;
+      }
+
+      let card = btn.closest(".Card");
+      let title = card.querySelector(".Title").textContent;
+      let priceText = card.querySelector(".price").textContent.trim();
+      let price = parseFloat(priceText.replace("$", ""));
+      let imgSrc = card.querySelector(".ProductImg img").src;
+      let size = card.querySelector(".sizeSelect").value;
+      let qty = 1;
+
+      let productsListing = document.querySelector(".ProductsListing");
+      let existingCards = productsListing.querySelectorAll(".ListingCard");
+
+      let found = false;
+      existingCards.forEach(listCard => {
+        let existingTitle = listCard.querySelector(".ListingTitle").textContent;
+        let existingSize = listCard.querySelector(".ListingSize").textContent.replace("Size: ", "");
+        if (existingTitle === title && existingSize === size) {
+          let qtySpan = listCard.querySelector(".NumberOfProducts");
+          qtySpan.textContent = parseInt(qtySpan.textContent) + qty;
+          found = true;
+        }
+      });
+
+      if (!found) {
+        let newCard = document.createElement("div");
+        newCard.classList.add("ListingCard");
+        newCard.innerHTML = `
+          <div class="ListingImg">
+            <img src="${imgSrc}" alt="${title}" />
+          </div>
+          <div class="ListingContent">
+            <h3 class="ListingTitle">${title}</h3>
+            <p class="ListingSize">Size: ${size}</p>
+            <div class="ListingBtns">
+              <div class="Increment-decrementbtn">
+                <button class="PlusMinusBtn minus">-</button>
+                <span class="NumberOfProducts">${qty}</span>
+                <button class="PlusMinusBtn plus">+</button>
+              </div>
+              <button class="RemoveProduct">Remove</button>
+            </div>
+          </div>
+          <div class="ListingPrice">$${price.toFixed(2)}</div>
+        `;
+        productsListing.appendChild(newCard);
+      }
+
+      updateCartState();
+      document.getElementById("CartSideBar").classList.add("open");
+      document.getElementById("Overlay").classList.add("active");
+    });
+  });
+}
+
+
 
 
 
