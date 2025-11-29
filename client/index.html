@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Client | Clothing aE-commerce</title>
     <link rel="stylesheet" href="ClientStyle.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="client.js" defer></script>
 </head>
 <body>
@@ -15,10 +16,10 @@
 
         </div>
         <div class="Links">
-            <a href="">Home</a>
-            <a href="">Category</a>
-            <a href="">About Us</a>
-            <a href="">Contact Us</a>
+            <a href="#">Home</a>
+            <a href="../category/category.html">Category</a>
+            <a href="#" id="AboutUsNav">About Us</a>
+            <a href="#" id="ContactUsNav">Contact Us</a>
 
         </div>
         <div class="Search-Cart">
@@ -31,7 +32,7 @@
                 </div>
             
             </button>
-
+<img  id="userLogo" src="user.png" alt="user logo">
         </div>
     </nav>
 
@@ -62,11 +63,20 @@
 <section class="Products" id="ProductsSection">
     <div class="Card">
         <div class="ProductImg">
-            <img src="" alt="Hoodie">
+            <img src="Hoodie.png" alt="Hoodie">
         </div>
         <div class="ProductContent">
-            <div class="Title">Oversize Hoodie</div>
-            <div class="ReadMore">Cozy Fleece</div>
+            <div class="Title">FOG Essentials Hoodie</div>
+            <div class="ReadMore">Cozy Fleece Hoodie</div>
+            <div class="SizeWrap">
+                        <label for="sizeSelect">Size:</label>
+                        <select id="sizeSelect" class="sizeSelect">
+                            <option value="S">S</option>
+                            <option value="M" selected>M</option>
+                            <option value="L">L</option>
+                            <option value="XL">XL</option>
+                        </select>
+                    </div>
             <div class="row">
                 <span class="price"> $39.99</span>
                 <div class="RowBtns">
@@ -88,12 +98,12 @@
 </div>
 <footer>
     <div class="FooterPage">
-        <div class="AboutFooter">
+        <div class="AboutFooter" id="About">
             <h3>About</h3>
             <p>Student-built storefront for a Web Programming course. Front-end only demo.</p>
 
         </div>
-        <div class="ContactFooter">
+        <div class="ContactFooter" id="Contact">
             <h3>Contact</h3>
             <p>Address: RHU Campus, Saida, Lebanon.<Br>Phone: +961 70 000 000.<Br>Email: hello@clothing.example</p>
         </div>
@@ -117,6 +127,74 @@
         <span>2025 Drip District. All Rights Reserved</span> 
     </div>
 </footer>
+  
+<div id="Overlay"></div>
+<div class="CartSideBar" id="CartSideBar">
+    <div class="SideBarHeader">
+        <h3>Your Cart</h3>
+        <button id="CloseBtn">Close</button>
+    </div>
+    <div class="ProductsListing">
+        
+    </div>
+    <div class="CartFooter">
+        <div class="Subtotal">
+            <span>Subtotal :</span>
+            <span id="CartSubtotal">$0.00</span>
+        </div>
+        <p id="TaxesFees">Taxes and shipping Fees will be calculated at CheckOut</p>
+        <button id="CheckOutBtn">CheckOut</button>
+    </div>
+</div>
+<div class="ProfileSideBar" id="ProfileSideBar">
+    <div class="SideBarHeader">
+        <h3>Your Account</h3>
+        <button id="CloseProfileBtn">Close</button>
+    </div>
+
+    <div class="ProfileContent">
+        <button class="ProfileBtn">Account Information</button>
+        <button class="ProfileBtn" id="OrdersBtn">My Orders</button>
+
+    </div>
+</div>
+
+<div class="ProductModal">
+    <div class="ModalContent">
+        <div class="ModalImg">
+            <img id="ModalImg" src="" alt="">
+        </div>
+        <div class="ModalDetails">
+            <div class="CloseModal">
+                <button class="CloseProduct">X</button>
+            </div>
+            <h3 id="ModalTitle"></h3>
+            <p id="ModalDesc"></p>
+            <p id="ModalPrice"></p>
+            <div class="SizeWrap">
+                        <label for="ModalsizeSelect">Size:</label>
+                        <select id="ModalsizeSelect" class="sizeSelect">
+                            <option value="S">S</option>
+                            <option value="M" selected>M</option>
+                            <option value="L">L</option>
+                            <option value="XL">XL</option>
+                        </select>
+                    </div>
+            <div class="BottomOfModal">
+                <div class="QtyWrap">
+                    <button class="QtyBtn" id="QtyMinus">-</button>
+                    <span id="QtyValue">1</span>
+                    <button class="QtyBtn" id="QtyPlus">+</button>
+                </div>
+                <button class="AddItemBtn">Add To Cart</button>
+            </div>
+            <a href="" class="Links" id="ProductDetailsLink">See Product Details</a>
+        </div>
+    </div>
+
+    
+</div>
+
 
     
 </body>
