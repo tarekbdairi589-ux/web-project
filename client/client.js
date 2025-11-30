@@ -1,3 +1,13 @@
+document.addEventListener("DOMContentLoaded", () => {
+  RenderProducts();
+  // Rebuild cart DOM from localStorage
+  loadCartFromLocalStorage();
+
+  // Recalculate totals and update badge/subtotal
+  updateCartState();
+ 
+});
+
 // =========================
 //   LOGIN & CART LOGIC
 // =========================
@@ -25,12 +35,48 @@ function saveCartToLocalStorage() {
       name: card.querySelector(".ListingTitle").textContent,
       qty: parseInt(card.querySelector(".NumberOfProducts").textContent),
       price: parseFloat(card.querySelector(".ListingPrice").textContent.replace("$","")),
-      image: card.querySelector(".ListingImg img").src
+      image: card.querySelector(".ListingImg img").src,
+      size: card.querySelector(".ListingSize").textContent.replace("Size: ", "")
     });
   });
 
   localStorage.setItem("cart", JSON.stringify(cartArray));
 }
+function loadCartFromLocalStorage(){
+  let cartArray = JSON.parse(localStorage.getItem("cart"))||[];
+  let productsListing = document.querySelector(".ProductsListing")
+  productsListing.innerHTML="";
+  cartArray.forEach(item=>{
+    let newCard = document.createElement("div");
+     newCard.classList.add("ListingCard");
+
+    newCard.innerHTML = `
+      <div class="ListingImg">
+        <img src="${item.image}" alt="${item.name}" />
+      </div>
+      <div class="ListingContent">
+        <h3 class="ListingTitle">${item.name}</h3>
+        <p class="ListingSize">Size: ${item.size}</p>
+        <div class="ListingBtns">
+          <div class="Increment-decrementbtn">
+            <button class="PlusMinusBtn minus">-</button>
+            <span class="NumberOfProducts">${item.qty}</span>
+            <button class="PlusMinusBtn plus">+</button>
+          </div>
+          <button class="RemoveProduct">Remove</button>
+        </div>
+      </div>
+      <div class="ListingPrice">$ ${item.price.toFixed(2)}</div>
+    `;
+
+    productsListing.appendChild(newCard);
+  });
+
+  // Update totals and badge
+  updateCartState();
+}
+  
+
 let CheckOutBtn = document.getElementById("CheckOutBtn");
 
 CheckOutBtn.addEventListener("click", () => {
@@ -57,12 +103,12 @@ Overlay.addEventListener('click',()=>{
 })
 
 // Update the cart number on page load
-function updateCartUI() {
+function updateCartUI(cartCount) {
     if (cartCountSpan) {
         cartCountSpan.textContent = cartCount;
     }
 }
-updateCartUI();
+//updateCartUI();
 
 // =========================
 //   LOGIN / LOGOUT BUTTON
@@ -130,7 +176,7 @@ function RenderProducts(){
      });
      attachCardListeners();
 }
-document.addEventListener("DOMContentLoaded",RenderProducts);
+
 
 function updateCartState() {
   let totalQty = 0;
@@ -146,7 +192,7 @@ function updateCartState() {
 
   cartCount = totalQty;
   localStorage.setItem("cartCount", cartCount.toString());
-  updateCartUI();
+  updateCartUI(cartCount);
 
   let subtotalSpan = document.getElementById("CartSubtotal");
   if (subtotalSpan) {
@@ -166,11 +212,14 @@ CloseProductBtn.addEventListener("click", () => {
 Overlay.addEventListener("click", () => {
   ProductModal.classList.remove("active");
   Overlay.classList.remove("active");
-});function attachCardListeners() {
+});
+
+function attachCardListeners() {
 
 // Press on each card to direct to the Products Details Page  
-document.querySelectorAll(".Card").forEach(card=>{
-  card.addEventListener('click',()=>{
+document.querySelectorAll(".Card .ProductImg img").forEach(img =>{
+  img.addEventListener('click',(e)=>{
+    let card = e.target.closest(".Card")
     let product = {
       title:card.querySelector(".Title").textContent,
       desc: card.getAttribute("data-longDesc"),
@@ -193,7 +242,7 @@ document.querySelectorAll(".Card").forEach(card=>{
     btn.addEventListener("click", () => {
       let card = btn.closest(".Card");
       let title = card.querySelector(".Title").textContent;
-      let desc = card.dataset.longDesc;
+      let desc = card.getAttribute("data-longDesc");
       let price = card.querySelector(".price").textContent;
       let size = card.querySelector(".sizeSelect").value;
       let imgSrc = card.querySelector(".ProductImg img").src;
@@ -277,6 +326,7 @@ document.querySelectorAll(".Card").forEach(card=>{
       }
 
       updateCartState();
+      saveCartToLocalStorage();
       document.getElementById("CartSideBar").classList.add("open");
       document.getElementById("Overlay").classList.add("active");
     });
@@ -357,6 +407,7 @@ document.querySelector(".ProductModal .AddItemBtn").addEventListener("click", ()
   }
 
   updateCartState();
+  saveCartToLocalStorage();
 
   // Close modal
   document.querySelector(".ProductModal").classList.remove("active");
@@ -426,6 +477,7 @@ $(".ProductsListing").on("click", ".minus", function(){
     qtySpan.text(current - 1);
   };
   updateCartState();
+  saveCartToLocalStorage();
 });
 
 // Plus button inside cart sidebar
@@ -434,6 +486,7 @@ $(".ProductsListing").on("click", ".plus", function(){
   let current = parseInt(qtySpan.text());
   qtySpan.text(current + 1);
   updateCartState();
+  saveCartToLocalStorage();
 });
 
 
@@ -443,6 +496,7 @@ $(".ProductsListing").on("click", ".plus", function(){
 $(".ProductsListing").on("click", ".RemoveProduct", function(){
   $(this).closest(".ListingCard").remove();
   updateCartState();
+  saveCartToLocalStorage();
 
 });
 
