@@ -36,7 +36,7 @@ function loadRecommendations(category,CurrentTitle){
     let card = $(` 
       <div class="RecommendedCard"
        data-title="${p.name}"
-       data-desc="${p.description}"
+       data-desc="${p.readmore}"
        data-price="${p.price}"
        data-img="${p.image}"
        data-fit="${p.selectfit}"
@@ -62,7 +62,7 @@ function loadRecommendations(category,CurrentTitle){
       card.on('click',function(){
          let selected = {
           title: p.name,
-          desc: p.description,
+          desc: p.readmore,
           price: p.price,
           imgSrc: p.image,
           size: p.size || "M",
