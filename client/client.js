@@ -181,7 +181,7 @@ document.querySelectorAll(".Card").forEach(card=>{
       fabric: card.getAttribute("data-fabric"),
       thickness: card.getAttribute("data-thickness"),
       color: card.getAttribute("data-color"),
-      sportswearType: card.getAttribute("data-category"), 
+      category: card.getAttribute("data-category"), 
 
 
     }
@@ -380,7 +380,7 @@ document.querySelector(".ProductDetailsLink").addEventListener('click',(e)=>{
   fabric: ProductModal.getAttribute("data-fabric"),
   thickness: ProductModal.getAttribute("data-thickness"),
   color: ProductModal.getAttribute("data-color"),
-  sportswearType: ProductModal.getAttribute("data-category")
+  category: ProductModal.getAttribute("data-category")
 };
 
   goToProductPage(product);
