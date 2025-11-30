@@ -191,6 +191,7 @@ h3 {
   width: 350px;
   display: flex;
   flex-direction: column;
+  cursor: pointer;
 }
 
 .ProductImg {

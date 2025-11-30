@@ -87,79 +87,12 @@ loginBtn.addEventListener("click", function () {
     }
 });
 
-// =========================
-//   ADD TO CART LOGIC
-// =========================
-/*
-
-addButtons.forEach(function (btn) {
-  btn.addEventListener("click", function () {
-    if (!isLoggedIn) {
-      alert("Please login first.");
-      window.location.href = "../signup and login/SandL.html";
-      return;
-    }
-
-    // Get product info
-    let card = btn.closest(".Card");
-    let title = card.querySelector(".Title").textContent;
-    let description = card.querySelector(".ReadMore").textContent;
-    let priceText = card.querySelector(".price").textContent.trim();
-    let price = parseFloat(priceText.replace("$", ""));
-    let img = card.querySelector(".ProductImg img");
-    let imgSrc = img ? img.src : "";
-    let imgAlt = img ? img.alt : "";
-
-    let productsListing = document.querySelector(".ProductsListing");
-    let existingCards = productsListing.querySelectorAll(".ListingCard");
-
-    let found = false;
-
-    existingCards.forEach(card => {
-      let existingTitle = card.querySelector(".ListingTitle").textContent;
-      if (existingTitle === title) {
-        let qtySpan = card.querySelector(".NumberOfProducts");
-        qtySpan.textContent = parseInt(qtySpan.textContent) + 1;
-        found = true;
-      }
-    });
-
-    if (!found) {
-      let newCard = document.createElement("div");
-      newCard.classList.add("ListingCard");
-      newCard.innerHTML = `
-        <div class="ListingImg">
-          <img src="${imgSrc}" alt="${imgAlt}" />
-        </div>
-        <div class="ListingContent">
-          <h3 class="ListingTitle">${title}</h3>
-          <p class="ListingDescription">${description}</p>
-          <div class="ListingBtns">
-            <div class="Increment-decrementbtn">
-              <button class="PlusMinusBtn">-</button>
-              <span class="NumberOfProducts">1</span>
-              <button class="PlusMinusBtn">+</button>
-            </div>
-            <button class="RemoveProduct">Remove</button>
-          </div>
-        </div>
-        <div class="ListingPrice">$${price.toFixed(2)}</div>
-      `;
-      productsListing.appendChild(newCard);
-    }
-
-    // Update cart count and subtotal
-    updateCartState();
-  });
-}); */
-
 function RenderProducts(){
     let products = JSON.parse(localStorage.getItem("products")) || [];
      let container = document.getElementById("ProductsSection");
      container.innerHTML="";
      products.forEach(p=>{
       let card = document.createElement("div");
-      card.classList.add("Card");
       card.classList.add("Card");
       card.setAttribute("data-longDesc", p.readmore);
       card.setAttribute("data-fit", p.selectfit);
@@ -234,6 +167,27 @@ Overlay.addEventListener("click", () => {
   ProductModal.classList.remove("active");
   Overlay.classList.remove("active");
 });function attachCardListeners() {
+
+// Press on each card to direct to the Products Details Page  
+document.querySelectorAll(".Card").forEach(card=>{
+  card.addEventListener('click',()=>{
+    let product = {
+      title:card.querySelector(".Title").textContent,
+      desc: card.getAttribute("data-longDesc"),
+      price: parseFloat(card.querySelector(".price").textContent.replace("$", "")),
+      size: card.querySelector(".sizeSelect").value,
+      imgSrc: card.querySelector(".ProductImg img").src,
+      fit: card.getAttribute("data-fit"),
+      fabric: card.getAttribute("data-fabric"),
+      thickness: card.getAttribute("data-thickness"),
+      color: card.getAttribute("data-color"),
+      sportswearType: card.getAttribute("data-category"), 
+
+
+    }
+    goToProductPage(product);
+  });
+});
   // READ MORE
   document.querySelectorAll(".ReadMoreBtn").forEach(btn => {
     btn.addEventListener("click", () => {
@@ -251,12 +205,23 @@ Overlay.addEventListener("click", () => {
       document.getElementById("ModalImg").src = imgSrc;
       document.getElementById("QtyValue").textContent = "1";
 
+      ProductModal.setAttribute("data-fit",card.dataset.fit);
+      ProductModal.setAttribute("data-fabric",card.dataset.fabric);
+      ProductModal.setAttribute("data-thickness",card.dataset.thickness);
+      ProductModal.setAttribute("data-color",card.dataset.color);
+      ProductModal.setAttribute("data-category",card.dataset.category);
+      ProductModal.setAttribute("data-shortDesc",card.dataset.shortDesc);
+      ProductModal.setAttribute("data-longDesc",desc);
+      
+      
+
+
       ProductModal.classList.add("active");
       Overlay.classList.add("active");
     });
   });
 
-  // ADD TO CART
+  // ADD TO CART (btn of the card not readmore add to cart)
   document.querySelectorAll(".AddItemBtn").forEach(btn => {
     btn.addEventListener("click", function (e) {
       if (!isLoggedIn) {
@@ -323,12 +288,12 @@ Overlay.addEventListener("click", () => {
 
 
 let qtyValue =  document.getElementById("QtyValue");
-let plus = document.getElementById("QtyPlus");
-plus.addEventListener('click',()=>{
+let Modalplus = document.getElementById("QtyPlus");
+Modalplus.addEventListener('click',()=>{
     qtyValue.textContent=parseInt(qtyValue.textContent)+1;
 });
-let minus=document.getElementById("QtyMinus");
-minus.addEventListener('click',()=>{
+let Modalminus=document.getElementById("QtyMinus");
+Modalminus.addEventListener('click',()=>{
     let current = parseInt(qtyValue.textContent);
     if(current>1){
         qtyValue.textContent=current-1;
@@ -358,7 +323,8 @@ document.querySelector(".ProductModal .AddItemBtn").addEventListener("click", ()
 
   existingCards.forEach(card => {
     let existingTitle = card.querySelector(".ListingTitle").textContent;
-    if (existingTitle === product.title) {
+    let existingSize = card.querySelector(".ListingSize").textContent.replace("Size:","").trim();
+    if (existingTitle === product.title && existingSize === product.size) {
       let qtySpan = card.querySelector(".NumberOfProducts");
       qtySpan.textContent = parseInt(qtySpan.textContent) + product.qty;
       found = true;
@@ -396,6 +362,31 @@ document.querySelector(".ProductModal .AddItemBtn").addEventListener("click", ()
   document.querySelector(".ProductModal").classList.remove("active");
   document.getElementById("Overlay").classList.remove("active");
 });
+
+function goToProductPage(product){
+  localStorage.setItem("selectedProduct",JSON.stringify(product));
+  window.location.href = "../Products-Detailss/Products.html";
+} 
+
+document.querySelector(".ProductDetailsLink").addEventListener('click',(e)=>{
+  e.preventDefault();
+  let product = {
+  title: document.getElementById("ModalTitle").textContent,
+  desc: ProductModal.getAttribute("data-longDesc"), // safer than reading inner text
+  price: parseFloat(document.getElementById("ModalPrice").textContent.replace("$","")),
+  size: document.getElementById("ModalsizeSelect").value,
+  imgSrc: document.getElementById("ModalImg").src,
+  fit: ProductModal.getAttribute("data-fit"),
+  fabric: ProductModal.getAttribute("data-fabric"),
+  thickness: ProductModal.getAttribute("data-thickness"),
+  color: ProductModal.getAttribute("data-color"),
+  sportswearType: ProductModal.getAttribute("data-category")
+};
+
+  goToProductPage(product);
+})
+
+
 
 let backToTopBtn = document.querySelector(".BackToTopBtn");
 
