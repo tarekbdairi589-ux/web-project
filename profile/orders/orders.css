@@ -1,8 +1,12 @@
 body {
-    background-color: rgb(15, 15, 49);
-    font-family: Arial;
-    padding: 20px;
+    margin: 0;
+    padding: 30px;
+    font-family: Arial, sans-serif;
+
+    background: linear-gradient(to bottom, #000000 0%, #050533 35%, #00008B 70%, #0000FF 100%);
     color: white;
+
+    min-height: 100vh;
 }
 
 .OrdersContainer {
@@ -12,97 +16,111 @@ body {
 
 .PageTitle {
     text-align: center;
-    margin-bottom: 30px;
-    font-size: 30px;
-    font-weight: bold;
+    margin-bottom: 35px;
+    font-size: 32px;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+.BackBtn {
+    background-color: #0F1135;
+    border: 1px solid #2D2D57;
+    color: white;
+
+    padding: 10px 18px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 15px;
+    margin-bottom: 25px;
+
+    transition: 0.25s ease-in-out;
+}
+
+.BackBtn:hover {
+    background-color: #3D7BFF;
+    border-color: #1F4CEB;
+    box-shadow: 0 0 12px #4FF2FF;
 }
 
 .OrderCard {
-    background-color: #22283a;
-    border: 2px solid grey;
-    border-radius: 10px;
-    padding: 20px;
-    margin-bottom: 25px;
+    background: rgba(10, 15, 35, 0.55);
+    border: 1px solid rgba(255,255,255,0.15);
+    backdrop-filter: blur(6px);
+
+    border-radius: 12px;
+    padding: 25px;
+    margin-bottom: 30px;
+
+    box-shadow: 0 0 25px rgba(0,0,0,0.35);
 }
 
 .OrderHeader {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 15px;
+
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(255,255,255,0.2);
 }
 
 .OrderHeader h2 {
     margin: 0;
+    font-size: 20px;
+    font-weight: 700;
+    color: #e8eaff;
 }
 
 .ItemRow {
     display: flex;
     justify-content: space-between;
-    padding: 6px 0;
-    border-bottom: 1px solid grey;
+    align-items: center;
+
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.15);
 }
 
 .ItemRow:last-child {
     border-bottom: none;
 }
 
-.OrderTotal {
-    margin-top: 15px;
-    font-size: 18px;
-    font-weight: bold;
-    text-align: right;
+.ItemLeft {
+    display: flex;
+    align-items: center;
+    gap: 12px;
 }
 
 .OrderItemImg {
     width: 60px;
     height: 60px;
+    border-radius: 10px;
     object-fit: cover;
-    border-radius: 6px;
-    margin-right: 10px;
-}
 
-.ItemRow {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 8px 0;
-    border-bottom: 1px solid grey;
-}
-
-.ItemLeft {
-    display: flex;
-    align-items: center;
+    box-shadow: 0 0 10px rgba(0,0,0,0.4);
 }
 
 .ItemName {
-    font-weight: bold;
     margin: 0;
+    font-weight: bold;
+    font-size: 15px;
 }
 
 .ItemQty {
     margin: 0;
-    color: #ccc;
+    color: #c5c8ff;
+    font-size: 14px;
 }
 
 .ItemRight .ItemPrice {
     font-size: 16px;
-    font-weight: bold;
+    font-weight: 700;
+    color: #cdd3ff;
 }
 
-.BackBtn {
-    background-color: black;
-    border: 1px solid white;
-    color: white;
-    padding: 10px 15px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 15px;
-    margin-bottom: 20px;
-    transition: 0.2s ease-out;
-}
-
-.BackBtn:hover {
-    box-shadow: 0 0 10px white;
-    transform: translateX(-3px);
+.OrderTotal {
+    margin-top: 18px;
+    text-align: right;
+    font-size: 20px;
+    font-weight: 800;
+    color: #ffffff;
 }

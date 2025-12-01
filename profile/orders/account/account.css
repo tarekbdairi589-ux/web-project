@@ -1,95 +1,142 @@
 body {
-    background-color: rgb(15, 15, 49);
-    font-family: Arial;
-    padding: 20px;
+    margin: 0;
+    padding: 30px;
+    font-family: Arial, sans-serif;
+
+    background: linear-gradient(to bottom, #000000 0%, #050533 35%, #00008B 70%, #0000FF 100%);
     color: white;
+    min-height: 100vh;
 }
+
 
 .AccountContainer {
     max-width: 900px;
     margin: auto;
 }
 
+
 .PageTitle {
     text-align: center;
-    margin-bottom: 20px;
-    font-size: 28px;
-    font-weight: bold;
+    margin-bottom: 25px;
+    font-size: 32px;
+    font-weight: 800;
+    letter-spacing: 1px;
 }
 
 .BackBtn {
-    background-color: black;
-    border: 1px solid white;
+    background-color: #0F1135;
+    border: 1px solid #2D2D57;
     color: white;
-    padding: 10px 15px;
-    border-radius: 8px;
+
+    padding: 10px 18px;
+    border-radius: 10px;
     cursor: pointer;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
+
+    transition: 0.25s ease-in-out;
 }
 
 .BackBtn:hover {
-    box-shadow: 0 0 8px white;
+    background-color: #3D7BFF;
+    border-color: #1F4CEB;
+    box-shadow: 0 0 12px #4FF2FF;
 }
 
 .AccountCard {
-    background-color: #22283a;
-    border: 2px solid grey;
-    border-radius: 10px;
-    padding: 20px;
-    margin-bottom: 25px;
+    background: rgba(10, 15, 35, 0.55);
+    border: 1px solid rgba(255,255,255,0.15);
+    backdrop-filter: blur(6px);
+
+    border-radius: 12px;
+    padding: 25px;
+    margin-bottom: 30px;
+
+    box-shadow: 0 0 25px rgba(0,0,0,0.35);
 }
 
 .InfoRow {
     display: flex;
-    align-items: flex-start;
-    margin-bottom: 12px;
-    gap: 10px;
+    align-items: center;
+    margin-bottom: 15px;
+    gap: 12px;
 }
 
 .InfoLabel {
-    width: 100px;
+    width: 130px;
     font-weight: bold;
+    font-size: 15px;
+    color: #cfd6ff;
 }
 
 .AccInput {
     flex: 1;
-    padding: 8px;
-    border-radius: 6px;
-    border: 1px solid grey;
-    background-color: #101523;
+    padding: 10px;
+
+    background-color: #0F1135;
+    border: 1px solid #2D2D57;
     color: white;
+
+    border-radius: 10px;
+    font-size: 15px;
+    outline: none;
+}
+
+.AccInput:focus {
+    border-color: #3D7BFF;
+    box-shadow: 0 0 10px #4FF2FF;
 }
 
 .AccArea {
-    min-height: 70px;
+    min-height: 90px;
+    resize: none;
 }
 
-.AccountBtn {
-    background-color: black;
-    border: 1px solid white;
-    color: white;
-    padding: 8px 14px;
-    border-radius: 8px;
-    cursor: pointer;
-    margin-top: 10px;
-}
-
-.AccountBtn:hover {
-    box-shadow: 0 0 8px white;
-}
-
-.CancelBtn {
-    border-color: grey;
-}
 .PasswordRow {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
 }
 
 .EyeIcon {
-    width: 20px;
-    height: 20px;
+    width: 22px;
+    height: 22px;
     cursor: pointer;
-    filter: invert(100%); /* makes it white for dark mode */
+
+    filter: brightness(2) invert(1);
+    transition: 0.2s ease;
+}
+
+.EyeIcon:hover {
+    transform: scale(1.15);
+}
+
+.AccountBtn {
+    background-color: #3D7BFF;
+    border: 1px solid #1F4CEB;
+    color: white;
+
+    padding: 10px 18px;
+    border-radius: 10px;
+    cursor: pointer;
+
+    font-size: 15px;
+    font-weight: bold;
+
+    margin-top: 10px;
+    transition: 0.25s ease-in-out;
+}
+
+.AccountBtn:hover {
+    background-color: #6DA6FF;
+    box-shadow: 0 0 12px #4FF2FF;
+}
+
+.CancelBtn {
+    background-color: #0F1135;
+    border: 1px solid grey;
+}
+
+.CancelBtn:hover {
+    background-color: #2D2D57;
+    box-shadow: 0 0 10px #4FF2FF;
 }
