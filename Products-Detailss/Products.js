@@ -13,7 +13,20 @@ $(function(){
   $("#ProductDesc").text(product.desc);
   $("#ProductPrice").text(`$${product.price.toFixed(2)}`);
   $("#ProductImg img").attr("src", product.imgSrc);
-  $("#ProductSize").text(`Size: ${product.size}`);
+ // ✅ Use the existing select
+let sizeSelect = $("#ProductsizeSelect");
+sizeSelect.empty(); // clear old options
+
+let sizes = typeof product.size === "string" ? [product.size] : product.size;
+
+if (sizes && sizes.length > 0) {
+  sizes.forEach(s => {
+    let format = formatSizeLabel(s);
+    sizeSelect.append(`<option value="${s}">${format}</option>`);
+  });
+} else {
+  sizeSelect.append('<option value="M">M</option>');
+}
 
   // Table details
   $("#ProductFit").text(product.fit);
@@ -21,6 +34,14 @@ $(function(){
   $("#ProductThickness").text(product.thickness);
   $("#ProductColor").text(product.color);
   $("#ProductType").text(product.category);
+  function formatSizeLabel(size){
+     let s = size.toLowerCase();
+  if (s.includes("small")) return "S";
+  if (s.includes("medium")) return "M";
+  if (s.includes("large")) return "L";
+  if (s.includes("x-large")) return "XL";
+  return size;
+  }
 
   // Recommendations
   loadRecommendations(product.category, product.title);
@@ -193,7 +214,7 @@ $(".AddItemBtn").on("click", function () {
   // Check if product already exists in cart
   existingCards.each(function () {
     let existingTitle = $(this).find(".ListingTitle").text();
-    let existingSize = $(this).find(".ListingSize").text();
+    let existingSize = $(this).find(".ListingSize").text().replace("Size: ", "").trim();
     if (existingTitle === title && existingSize === size) {
       let qtySpan = $(this).find(".NumberOfProducts");
       qtySpan.text(parseInt(qtySpan.text()) + qty);

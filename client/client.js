@@ -132,6 +132,14 @@ loginBtn.addEventListener("click", function () {
         window.location.href = "../signup and login/SandL.html";
     }
 });
+function formatSizeLabel(size){
+   let s = size.toLowerCase();
+  if (s.includes("small")) return "S";
+  if (s.includes("medium")) return "M";
+  if (s.includes("large")) return "L";
+  if (s.includes("x-large")) return "XL";
+  return size;
+}
 
 function RenderProducts(){
     let products = JSON.parse(localStorage.getItem("products")) || [];
@@ -156,12 +164,7 @@ function RenderProducts(){
         <div class="ReadMore">${p.description}</div>
         <div class="SizeWrap">
           <label for="sizeSelect">Size:</label>
-          <select class="sizeSelect">
-            <option value="S">S</option>
-            <option value="M" selected>M</option>
-            <option value="L">L</option>
-            <option value="XL">XL</option>
-          </select>
+          <select class="sizeSelect"></select>
         </div>
         <div class="row">
           <span class="price">$${p.price.toFixed(2)}</span>
@@ -171,6 +174,24 @@ function RenderProducts(){
           </div>
         </div>
       </div>`;
+       let sizeSelect = card.querySelector(".sizeSelect");
+    sizeSelect.innerHTML = ""; // clear defaults
+
+let sizes = typeof p.size === "string" ? [p.size] : p.size;
+
+if (sizes && sizes.length > 0) {
+  sizes.forEach(s => {
+    let option = document.createElement("option");
+    option.value = s;
+    option.textContent = formatSizeLabel(s);
+    sizeSelect.appendChild(option);
+  });
+} else {
+  let option = document.createElement("option");
+  option.value = "M";
+  option.textContent = "M";
+  sizeSelect.appendChild(option);
+}
       container.appendChild(card);
 
      });
@@ -250,7 +271,6 @@ document.querySelectorAll(".Card .ProductImg img").forEach(img =>{
       document.getElementById("ModalTitle").textContent = title;
       document.getElementById("ModalDesc").textContent = desc;
       document.getElementById("ModalPrice").textContent = price;
-      document.getElementById("ModalsizeSelect").value = size;
       document.getElementById("ModalImg").src = imgSrc;
       document.getElementById("QtyValue").textContent = "1";
 
@@ -261,7 +281,19 @@ document.querySelectorAll(".Card .ProductImg img").forEach(img =>{
       ProductModal.setAttribute("data-category",card.dataset.category);
       ProductModal.setAttribute("data-shortDesc",card.dataset.shortDesc);
       ProductModal.setAttribute("data-longDesc",desc);
-      
+
+      let modalSizeSelect = document.getElementById("ModalsizeSelect");
+    modalSizeSelect.innerHTML = "";
+
+    let cardSizes = card.querySelectorAll(".sizeSelect option");
+    cardSizes.forEach(opt => {
+      let option = document.createElement("option");
+      option.value = opt.value;
+      option.textContent = opt.textContent;
+      modalSizeSelect.appendChild(option);
+    });
+
+    modalSizeSelect.value = size;
       
 
 
@@ -390,7 +422,6 @@ document.querySelector(".ProductModal .AddItemBtn").addEventListener("click", ()
       </div>
       <div class="ListingContent">
         <h3 class="ListingTitle">${product.title}</h3>
-        <p class="ListingDescription">${product.desc}</p>
         <p class="ListingSize" >Size: ${product.size}</p>
         <div class="ListingBtns">
           <div class="Increment-decrementbtn">
