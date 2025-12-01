@@ -18,26 +18,30 @@ function loadCartFromLocalStorage() {
   productsListing.innerHTML = ""; // Clear existing
 
   savedCart.forEach(item => {
-    let newCard = document.createElement("div");
-    newCard.classList.add("ListingCard");
-    newCard.innerHTML = `
-      <div class="ListingImg"><img src="${item.imgSrc}" alt="${item.title}" /></div>
-      <div class="ListingContent">
-        <h3 class="ListingTitle">${item.title}</h3>
-        <p class="ListingDescription">${item.desc}</p>
-        <div class="ListingBtns">
-          <div class="Increment-decrementbtn">
-            <button class="PlusMinusBtn minus">-</button>
-            <span class="NumberOfProducts">${item.qty}</span>
-            <button class="PlusMinusBtn plus">+</button>
-          </div>
-          <button class="RemoveProduct">Remove</button>
+  let newCard = document.createElement("div");
+  newCard.classList.add("ListingCard");
+  newCard.setAttribute("data-size", item.size);
+  newCard.setAttribute("data-color", item.color);
+  newCard.innerHTML = `
+    <div class="ListingImg"><img src="${item.imgSrc}" alt="${item.title}" /></div>
+    <div class="ListingContent">
+      <h3 class="ListingTitle">${item.title}</h3>
+      <p class="ListingDescription">${item.desc}</p>
+      <p class="ListingSizeColor">Size: ${item.size}, Color: ${item.color}</p>
+      <div class="ListingBtns">
+        <div class="Increment-decrementbtn">
+          <button class="PlusMinusBtn minus">-</button>
+          <span class="NumberOfProducts">${item.qty}</span>
+          <button class="PlusMinusBtn plus">+</button>
         </div>
+        <button class="RemoveProduct">Remove</button>
       </div>
-      <div class="ListingPrice">$${item.price.toFixed(2)}</div>
-    `;
-    productsListing.appendChild(newCard);
-  });
+    </div>
+    <div class="ListingPrice">$${item.price.toFixed(2)}</div>
+  `;
+  productsListing.appendChild(newCard);
+});
+
 
   updateCartState(); // Refresh count and subtotal
 }
@@ -54,14 +58,17 @@ function saveCartToLocalStorage() {
     cartArray.push({
       title: card.querySelector(".ListingTitle").textContent,
       desc: card.querySelector(".ListingDescription").textContent,
-      price: parseFloat(card.querySelector(".ListingPrice").textContent.replace("$","")),
+      price: parseFloat(card.querySelector(".ListingPrice").textContent.replace("$", "")),
       qty: parseInt(card.querySelector(".NumberOfProducts").textContent),
-      imgSrc: card.querySelector(".ListingImg img").src
+      imgSrc: card.querySelector(".ListingImg img").src,
+      size: card.getAttribute("data-size") || "Default",
+      color: card.getAttribute("data-color") || "Default"
     });
   });
 
   localStorage.setItem("cart", JSON.stringify(cartArray));
 }
+
 function updateItemCount(count) {
     $('.shownumitem').text(`${count} item${count !== 1 ? 's' : ''}`);
 }
@@ -106,7 +113,8 @@ function loadCategoryProducts(filterCategory = "All") {
     // Filtering
     let filtered = products.filter(p => {
         let matchCat = (filterCategory === "All" || p.category === filterCategory);
-        let matchSearch = (!search || p.name.toLowerCase().includes(search));
+        let productName = (p.name || p.title || "").toLowerCase();
+        let matchSearch = (!search || productName.includes(search));
         let matchSize = (sizeFilter === "Any" || (p.size || "Any") === sizeFilter);
         let matchPrice = (p.price <= maxPrice);
         let matchColor = (colorFilter === "Any" || (p.color || "Any") === colorFilter);
@@ -188,31 +196,50 @@ $(document).on("click", ".AddItemBtn", function () {
 
   let card = $(this).closest(".Card");
   let title = card.find(".Title").text();
-  let desc = card.find(".ReadMore").text();
-  let price = parseFloat(card.find(".price").text().replace("$", ""));
-  let imgSrc = card.find(".ProductImg").attr("src");
+
+  // Find product in products array
+  let product = products.find(p => p.name === title);
+  if (!product) return alert("Product not found!");
 
   let productsListing = document.querySelector(".ProductsListing");
   let existingCards = productsListing.querySelectorAll(".ListingCard");
-  let found = false;
 
+  // Ask user to select size and color if multiple
+  let size = product.size.length > 1 ? prompt(`Select size: ${product.size.join(", ")}`, product.size[0]) : product.size[0];
+  let color = product.color.length > 1 ? prompt(`Select color: ${product.color.join(", ")}`, product.color[0]) : product.color[0];
+
+  // Check if already in cart
+  let found = false;
   existingCards.forEach(card => {
     let existingTitle = card.querySelector(".ListingTitle").textContent;
-    if (existingTitle === title) {
+    let existingSize = card.getAttribute("data-size") || "Default";
+    let existingColor = card.getAttribute("data-color") || "Default";
+
+    if (existingTitle === title && existingSize === size && existingColor === color) {
       let qtySpan = card.querySelector(".NumberOfProducts");
-      qtySpan.textContent = parseInt(qtySpan.textContent) + 1;
+      let currentQty = parseInt(qtySpan.textContent);
+      if (currentQty + 1 > product.quantity) {
+        alert(`Cannot add more than ${product.quantity} items.`);
+      } else {
+        qtySpan.textContent = currentQty + 1;
+      }
       found = true;
     }
   });
 
   if (!found) {
+    if (product.quantity < 1) return alert("Product out of stock!");
+
     let newCard = document.createElement("div");
     newCard.classList.add("ListingCard");
+    newCard.setAttribute("data-size", size);
+    newCard.setAttribute("data-color", color);
     newCard.innerHTML = `
-      <div class="ListingImg"><img src="${imgSrc}" alt="${title}" /></div>
+      <div class="ListingImg"><img src="${product.image || 'https://via.placeholder.com/200'}" alt="${title}" /></div>
       <div class="ListingContent">
         <h3 class="ListingTitle">${title}</h3>
-        <p class="ListingDescription">${desc}</p>
+        <p class="ListingDescription">${product.readmore || product.description}</p>
+        <p class="ListingSizeColor">Size: ${size}, Color: ${color}</p>
         <div class="ListingBtns">
           <div class="Increment-decrementbtn">
             <button class="PlusMinusBtn minus">-</button>
@@ -222,17 +249,16 @@ $(document).on("click", ".AddItemBtn", function () {
           <button class="RemoveProduct">Remove</button>
         </div>
       </div>
-      <div class="ListingPrice">$${price.toFixed(2)}</div>
+      <div class="ListingPrice">$${product.price.toFixed(2)}</div>
     `;
     productsListing.appendChild(newCard);
   }
-    updateCartState();
 
-  // 👉 Open sidebar immediately
+  updateCartState();
   CartSideBar.classList.add("open");
   Overlay.classList.add("active");
-  updateCartState();
 });
+
 function updateCartState() {
   let totalQty = 0;
   let subtotal = 0;
@@ -256,16 +282,40 @@ function updateCartState() {
   saveCartToLocalStorage();
 }
 // Open modal
-$(document).on("click", ".ReadMoreBtn", function () {
-  let card = $(this).closest(".Card");
-  $("#ModalTitle").text(card.find(".Title").text());
-  $("#ModalDesc").text(card.find(".ReadMore").text());
-  $("#ModalPrice").text(card.find(".price").text());
-  $("#ModalImg").attr("src", card.find(".ProductImg").attr("src"));
-  $("#QtyValue").text("1");
-  $(".ProductModal").addClass("active");
-  $("#Overlay").addClass("active");
+$(document).on("click", ".ReadMoreBtn", function() {
+    let card = $(this).closest(".Card");
+    let productName = card.find(".Title").text();
+
+    // Find product in localStorage by name
+    let product = products.find(p => p.name === productName);
+    if (!product) return;
+
+    // Set modal info
+    $("#ModalTitle").text(product.name);
+    $("#ModalDesc").text(product.readmore || product.description || "");
+    $("#ModalPrice").text(`$${product.price.toFixed(2)}`);
+    $("#ModalImg").attr("src", product.image || "https://via.placeholder.com/200x200");
+
+    // Populate size dropdown dynamically
+    let sizeSelect = $("#ModalSize");
+    sizeSelect.empty();
+    product.size.forEach(s => sizeSelect.append(`<option value="${s}">${s}</option>`));
+
+    // Populate color dropdown dynamically
+    let colorSelect = $("#ModalColor");
+    colorSelect.empty();
+    product.color.forEach(c => colorSelect.append(`<option value="${c}">${c}</option>`));
+
+    // Show max quantity (sum of stock for that product)
+    $("#MaxQty").text(product.quantity);
+
+    $("#QtyValue").text(1); // default quantity
+    $(".ProductModal").addClass("active");
+    $("#Overlay").addClass("active");
 });
+
+
+
 
 $(".CloseProduct").click(() => {
   $(".ProductModal").removeClass("active");
@@ -273,12 +323,21 @@ $(".CloseProduct").click(() => {
 });
 
 $("#QtyPlus").click(() => {
-  $("#QtyValue").text(parseInt($("#QtyValue").text()) + 1);
+    let current = parseInt($("#QtyValue").text());
+    let productName = $("#ModalTitle").text();
+    let product = products.find(p => p.name === productName);
+    if(current < product.quantity) {
+        $("#QtyValue").text(current + 1);
+    } else {
+        alert(`Max quantity is ${product.quantity}`);
+    }
 });
+
 $("#QtyMinus").click(() => {
-  let current = parseInt($("#QtyValue").text());
-  if (current > 1) $("#QtyValue").text(current - 1);
+    let current = parseInt($("#QtyValue").text());
+    if (current > 1) $("#QtyValue").text(current - 1);
 });
+
 
 // Close modal
 $(".CloseProduct").click(function () {
@@ -334,7 +393,6 @@ $(".ProductsListing").on("click", ".minus", function () {
   if (current > 1) {
     qtySpan.text(current - 1);
   } else {
-    // 👉 If quantity goes to 0, remove the product
     $(this).closest(".ListingCard").remove();
   }
 
@@ -351,6 +409,74 @@ $(".ProductsListing").on("click", ".RemoveProduct", function () {
   $(this).closest(".ListingCard").remove();
   updateCartState();
 });
+$("#AddToCartModal").click(function() {
+    let title = $("#ModalTitle").text();
+    let size = $("#ModalSize").val();
+    let color = $("#ModalColor").val();
+    let qty = parseInt($("#QtyValue").text());
+
+    let product = products.find(p => p.name === title);
+    if (!product) return;
+
+    // Check max available
+    if (qty > product.quantity) {
+        alert(`Cannot add more than ${product.quantity} items for this product!`);
+        return;
+    }
+
+    let productsListing = document.querySelector(".ProductsListing");
+    let existingCards = productsListing.querySelectorAll(".ListingCard");
+    let found = false;
+
+    existingCards.forEach(card => {
+        let existingTitle = card.querySelector(".ListingTitle").textContent;
+        let existingSize = card.getAttribute("data-size") || "Default";
+        let existingColor = card.getAttribute("data-color") || "Default";
+
+        if (existingTitle === title && existingSize === size && existingColor === color) {
+            let qtySpan = card.querySelector(".NumberOfProducts");
+            let currentQty = parseInt(qtySpan.textContent);
+            if (currentQty + qty > product.quantity) {
+                alert(`Cannot add more than ${product.quantity} items.`);
+            } else {
+                qtySpan.textContent = currentQty + qty;
+            }
+            found = true;
+        }
+    });
+
+    if (!found) {
+        let newCard = document.createElement("div");
+        newCard.classList.add("ListingCard");
+        newCard.setAttribute("data-size", size);
+        newCard.setAttribute("data-color", color);
+        newCard.innerHTML = `
+          <div class="ListingImg"><img src="${product.image || 'https://via.placeholder.com/200'}" alt="${title}" /></div>
+          <div class="ListingContent">
+            <h3 class="ListingTitle">${title}</h3>
+            <p class="ListingDescription">${product.readmore || product.description}</p>
+            <p class="ListingSizeColor">Size: ${size}, Color: ${color}</p>
+            <div class="ListingBtns">
+              <div class="Increment-decrementbtn">
+                <button class="PlusMinusBtn minus">-</button>
+                <span class="NumberOfProducts">${qty}</span>
+                <button class="PlusMinusBtn plus">+</button>
+              </div>
+              <button class="RemoveProduct">Remove</button>
+            </div>
+          </div>
+          <div class="ListingPrice">$${product.price.toFixed(2)}</div>
+        `;
+        productsListing.appendChild(newCard);
+    }
+
+    updateCartState();
+    $(".ProductModal").removeClass("active");
+    $("#Overlay").removeClass("active");
+    CartSideBar.classList.add("open");
+    Overlay.classList.add("active");
+});
+
 $(document).ready(function () {
     loadCategoryButtons();
     loadCategoryProducts();

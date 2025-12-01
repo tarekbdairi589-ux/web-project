@@ -28,16 +28,6 @@ function loadCategories() {
         filterSelect.append(`<option value="${cat}">${cat}</option>`);
     });
 
-   /* filterSelect.empty();
-    filterSelect.append('<option value="All" selected>All</option>');
-
-    categories.forEach(cat => {
-        let option1 = $('<option></option>').text(cat).val(cat);
-        let option2 = $('<option></option>').text(cat).val(cat);
-
-        select.append(option1);
-        filterSelect.append(option2);
-    });*/
 }
 loadCategories();
 
@@ -143,62 +133,78 @@ filterStatus.on('change', function() {
 });
 
 $('#addbtn').on('click', function(e) {
-
+    e.preventDefault();
 
     if(name.val().trim() === '' || price.val().trim() === '' || quantity.val().trim() === '' || categoryy.val() === '' || status.val() === null) {
         alert('Please fill all required fields!');
         return;
     }
 
-    let index = products.length ? Math.max(...products.map(p => p.id)) + 1 : 1;
-
-    let newProduct = {
-        id: index,
+    let newProductData = {
         name: name.val().trim(),
         sku: sku.val().trim(),
         category: categoryy.val(),
         price: parseFloat(price.val().trim()),
         quantity: parseInt(quantity.val().trim()),
         status: status.val(),
-        size: $('#selectsize').val(),
+        size: $('#selectsize').val() ? [$('#selectsize').val()] : ['Default'],
+        color: $('#color').val().trim() ? [$('#color').val().trim()] : ['Default'],
         description: description.val().trim() || '',
         readmore: readmore.val().trim() || '',
         image: preview.src || '',
-        color: $('#color').val().trim() || '',
         thickness: $('#thickness').val().trim() || '',
         fabric: $('#fabric').val().trim() || '',
         selectfit: $('#selectfit').val() || ''
     };
 
+   
+let existing = products.find(p => 
+    p.name === newProductData.name &&
+    p.category === newProductData.category
+);
 
-    products.push(newProduct);
+if(existing) {
+
+    existing.quantity += newProductData.quantity;
+
+    if(!existing.size.includes(newProductData.size[0])) {
+        existing.size.push(newProductData.size[0]);
+    }
+
+
+    if(!existing.color.includes(newProductData.color[0])) {
+        existing.color.push(newProductData.color[0]);
+    }
+} else {
+
+    newProductData.id = products.length ? Math.max(...products.map(p => p.id)) + 1 : 1;
+    products.push(newProductData);
+}
+
     localStorage.setItem('products', JSON.stringify(products));
-    window.dispatchEvent(new Event("storageUpdate"));
 
 
     loadProducts(adminfiltercategory.val(), filterStatus.val());
     loadCategoryProducts();
 
 
-        name.val('');        
-        sku.val('');
-        price.val('');
-        quantity.val('');
-        description.val('');
-        readmore.val('');
-        color.val('');
-
-        $('#selectcategory').prop('selectedIndex', 0);
-        $('#Status').prop('selectedIndex', 0); 
-        $('#selectsize').prop('selectedIndex', 0);   
-            $('#selectfit').prop('selectedIndex', 0);
-
-
-        preview.src = '';
-        preview.style.display = 'none';
-
-        input.value = '';
+    name.val('');        
+    sku.val('');
+    price.val('');
+    quantity.val('');
+    description.val('');
+    readmore.val('');
+    color.val('');
+    $('#selectcategory').prop('selectedIndex', 0);
+    $('#Status').prop('selectedIndex', 0); 
+    $('#selectsize').prop('selectedIndex', 0);   
+    $('#selectfit').prop('selectedIndex', 0);
+    preview.src = '';
+    preview.style.display = 'none';
+    input.value = '';
 });
+
+
 
 
 $('.delete').on('click', function() {
@@ -294,7 +300,7 @@ function loadCategoryProducts(filterCategory = 'All') {
     let maxPrice = parseFloat($('#range').val()) || Infinity;
     let sort = $('#pricerange').val() || 'Price:High→Low';
 
-    // Filter products
+
     let filtered = products.filter(p => {
         let matchesCategory = (filterCategory === 'All' || p.category === filterCategory);
         let matchesSearch = (search === '' || p.name.toLowerCase().includes(search));
@@ -303,7 +309,7 @@ function loadCategoryProducts(filterCategory = 'All') {
         return matchesCategory && matchesSearch && matchesSize && matchesPrice;
     });
 
-    // Sort products
+
     filtered.sort((a, b) => {
         if (sort === 'Price:High→Low') return b.price - a.price;
         if (sort === 'Price:Low→High') return a.price - b.price;
