@@ -13,33 +13,58 @@ button {
   font-size: 15px;
   padding: 8px 16px;
 }
+html, body {
+  height: 100%;
+}
+
+main {
+  flex: 1;   /* takes remaining space */
+  display: block;
+}
 
 body {
   background-color: rgb(15, 15, 49);
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(to bottom, #000000 0%, #050533 35%, #00008B 70%, #0000FF 100%);
+    min-height: 100vh;
 }
 
 .NavBar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px;
-  background-color: black;
-
+  padding: 12px 25px;
+  background: rgba(0, 0, 0, 0.6); /* semi-transparent */
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(255,255,255,0.15);
 }
+
+
 
 .logo {
-  display: flex;
-  width: 60px;
-  height: 60px;
-  gap: 5px;
-  align-items: flex-start;
-  color: white;
-  font-size: 13px;
-
+    display: flex;
+    align-items: center;   /* centers logo + text vertically */
+    gap: 10px;
 }
+
+.DripDistrict {
+    margin: 0;     /* REMOVE vertical pushing */
+    margin-left: 10px;
+}
+
+
+
 
 #LoginBtn {
   border-radius: 10px;
+  background-color: #3D7BFF;
+  border-color: #1F4CEB;
+}
+
+#LoginBtn:hover {
+  background-color: #6DA6FF;
+  box-shadow: 0 0 10px #4FF2FF;
 }
 
 .DripDistrict {
@@ -47,15 +72,12 @@ body {
   font-size: 15px;
   font-weight: 700;
   margin: 10px;
-
-
 }
 
 #LogoImg,
 #CartLogo {
   width: 50px;
   height: 40px;
-
 }
 
 #Cart-Btn {
@@ -64,6 +86,7 @@ body {
   gap: 6px;
   padding: 8px 12px;
   border: none;
+  background-color: transparent;
 }
 
 .Search-Cart {
@@ -71,17 +94,16 @@ body {
   align-items: center;
   gap: 10px;
   margin-right: 30px;
-
 }
 
 #SearchInput {
   padding: 4px 8px;
   height: 30px;
   width: 130px;
-  background-color: black;
+  background-color: #0F1135;
   color: white;
   border-radius: 4px;
-  border: 1px solid grey;
+  border: 1px solid #2D2D57;
   font-size: 14px;
   font-weight: 500;
 }
@@ -89,7 +111,6 @@ body {
 .CartIconWrap {
   position: relative;
   display: inline-block;
-
 }
 
 #CartCount {
@@ -98,14 +119,12 @@ body {
   right: 5px;
   color: red;
   font-size: 12px;
-
 }
 
-.Links>a {
+.Links > a {
   margin-right: 10px;
   color: white;
   text-decoration: none;
-
 }
 
 .Links a:hover {
@@ -118,8 +137,8 @@ body {
   max-width: 1200px;
   padding: 20px;
   margin: 20px auto;
-  background-color: none;
-  border: solid 3px grey;
+  background-color: transparent;
+  border: solid 3px #2D2D57;
   border-radius: 8px;
 }
 
@@ -127,7 +146,6 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-
 }
 
 .LeftMidTable {
@@ -135,21 +153,19 @@ body {
   flex-direction: column;
   gap: 15px;
   color: white;
-
-
 }
 
 .RightMidTable {
   display: flex;
   flex-direction: column;
   gap: 15px;
-  border: 1px solid #ccc;
+  border: 1px solid #2D2D57;
   border-radius: 10px;
   padding: 30px;
   margin-right: 30px;
-  background-color: #22283a;
+  background-color: #1A1F3F;
   width: 400px;
-  color: white
+  color: white;
 }
 
 h3 {
@@ -158,40 +174,46 @@ h3 {
 
 #BtnsInNewArrivals button {
   padding: 8px 16px;
-  background-color: black;
+  background-color: #0F1135;
   color: white;
-  border: none;
+  border: 1px solid #3D7BFF;
   border-radius: 10px;
   cursor: pointer;
 }
 
 #BtnsInNewArrivals button:hover {
-  box-shadow: 0 6px 10px whitesmoke;
+  background-color: #3D7BFF;
+  box-shadow: 0 0 10px #4FF2FF;
   transform: translateY(-2px);
-
 }
 
-#BtnsInNewArrivals>#AllBtn {
+#BtnsInNewArrivals > #AllBtn {
   border-radius: 18px;
 }
-
 
 .Products {
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
-
-
 }
 
 .Card {
-  border: 1px solid grey;
-  border-radius: 8px;
-  background-color: #22283a;
-  width: 350px;
-  display: flex;
-  flex-direction: column;
-  cursor: pointer;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(15, 20, 45, 0.7);
+  backdrop-filter: blur(4px);
+  box-shadow: 0 0 12px rgba(0, 50, 255, 0.15);
+  transition: 0.2s ease;
+}
+.Card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 0 18px rgba(0, 80, 255, 0.35);
+}
+.CartSideBar,
+.ProfileSideBar {
+    background: rgba(10, 15, 35, 0.85);
+    backdrop-filter: blur(8px);
+    border-left: 1px solid rgba(255,255,255,0.1);
+    box-shadow: -4px 0 20px rgba(0,0,0,0.4);
 }
 
 .ProductImg {
@@ -200,9 +222,8 @@ h3 {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: rgb(32, 47, 71);
+  background-color: #2D2D57;
   border-radius: 8px;
-
 }
 
 .ProductImg img {
@@ -213,7 +234,7 @@ h3 {
 
 .ProductContent {
   display: flex;
-  border-top: 1px grey solid;
+  border-top: 1px solid #2D2D57;
   flex-direction: column;
   padding: 15px;
   gap: 10px;
@@ -227,7 +248,7 @@ h3 {
 
 .ReadMore {
   font-size: 12px;
-  color: grey;
+  color: #D1D1D1;
 }
 
 .row {
@@ -240,7 +261,6 @@ h3 {
   font-weight: bold;
   font-size: 15px;
   color: white;
-
 }
 
 .RowBtns button {
@@ -252,19 +272,26 @@ h3 {
 }
 
 .ReadMoreBtn {
-  background-color: #101523;
+  background-color: #0F1135;
   color: white;
+  border: 1px solid #3D7BFF;
+}
+
+.ReadMoreBtn:hover {
+  background-color: #3D7BFF;
+  box-shadow: 0 0 10px #4FF2FF;
 }
 
 .AddItemBtn {
-  background-color: #0077cc;
+  background-color: #3D7BFF;
   color: white;
-
+  border: 1px solid #1F4CEB;
 }
+
 .AddItemBtn:hover {
-  background-color: #005fa3;
+  background-color: #6DA6FF;
+  box-shadow: 0 0 10px #4FF2FF;
 }
-
 
 .BtnBeforeFooter {
   width: 100%;
@@ -273,37 +300,34 @@ h3 {
   border: none;
   cursor: pointer;
   font-size: 10px;
-  background-color: black;
+  background-color: #0F1135;
   padding: 15px;
   border-bottom: solid 2px white;
+  margin-bottom: none;
 }
 
 .BackToTopBtn {
   border: none;
   font-size: 13px;
   font-weight: 600;
-
 }
 
 .FooterPage {
   width: 100%;
   display: flex;
   align-items: flex-start;
-  background-color: black;
-  color: white;
   justify-content: space-between;
   flex-wrap: wrap;
   padding: 20px;
-
-
+  background-color: #080A1F;
 }
 
 footer {
-
-  color: white;
-  position: static;
-  width: 100%;
+    background: linear-gradient(to top, #000020, #000033 50%, rgba(0,0,0,0.4));
+    backdrop-filter: blur(6px);
+    color: white;
 }
+
 
 .AboutFooter,
 .ContactFooter,
@@ -313,31 +337,41 @@ footer {
   gap: 10px;
   flex: 1;
   max-width: 300px;
-
-}
-
-.UpperRow {
-  padding-top: 10px;
-  padding-bottom: 10px;
 }
 
 .SocialsBtn {
   border-radius: 10px;
   margin-right: 5px;
+  background-color: #3D7BFF;
+}
+button:hover {
+    box-shadow: 0 0 12px rgba(80,120,255,0.5);
+    transform: translateY(-2px);
 }
 
+.SocialsBtn:hover {
+  background-color: #6DA6FF;
+  box-shadow: 0 0 10px #4FF2FF;
+}
 
 .CopyRight {
-  width: 100%;
-  color: white;
-  font-weight: bold;
-  text-align: center;
-  border: none;
-  font-size: 10px;
-  background-color: black;
-  padding: 10px;
+    width: 100%;
+    text-align: center;
+    background: rgba(0,0,0,0.5);
+    backdrop-filter: blur(4px);
+    color: #c8d4ff;
+    padding: 12px;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    display: block;
+    margin: 0 auto;
 }
 
+
+.Links a:hover {
+  color: #4FF2FF;
+  text-shadow: 0 0 5px #4FF2FF;
+}
 .CartSideBar {
   height: 100%;
   position: fixed;
@@ -346,11 +380,9 @@ footer {
   width: 350px;
   padding: 20px;
   color: white;
-  background-color: #111d3c;
+  background-color: #1A1F3F;
   z-index: 20;
-  /* Sits on top of overlay */
   transition: right 0.5s ease;
-
 }
 
 .CartSideBar.open {
@@ -371,7 +403,6 @@ footer {
   opacity: 0;
   transition: opacity 0.5s ease;
   z-index: 15;
-  /*sits behind sidebar and Product Modal (Read More button)*/
   pointer-events: none;
 }
 
@@ -390,6 +421,8 @@ footer {
 #CloseBtn {
   padding: 7px 12px;
   border-radius: 8px;
+  background-color: #3D7BFF;
+  border-color: #1F4CEB;
 }
 
 .ProductsListing {
@@ -401,7 +434,7 @@ footer {
 .ListingCard {
   display: flex;
   align-items: center;
-  background-color: #292f46;
+  background-color: #2D2D57;
   padding: 10px;
   margin-bottom: 15px;
   border-radius: 8px;
@@ -427,18 +460,18 @@ footer {
 
 .ListingTitle {
   font-weight: 600;
+  color: white;
 }
 
 .ListingDescription {
   font-size: 11px;
-  color: grey;
+  color: #D1D1D1;
   margin-bottom: 4px;
 }
 
 .ListingBtns {
   display: flex;
   align-items: center;
-
 }
 
 .Increment-decrementbtn {
@@ -455,10 +488,18 @@ footer {
   border-radius: 8px;
   padding: 5px 10px;
   font-size: 13px;
+  background-color: #3D7BFF;
+  border-color: #1F4CEB;
+}
+
+.RemoveProduct:hover {
+  background-color: #6DA6FF;
+  box-shadow: 0 0 10px #4FF2FF;
 }
 
 .ListingPrice {
   font-weight: bold;
+  color: white;
 }
 
 .CartFooter {
@@ -476,16 +517,22 @@ footer {
 
 #TaxesFees {
   font-size: 12px;
-  color: grey;
+  color: #D1D1D1;
   margin-bottom: 10px;
 }
 
 #CheckOutBtn {
   width: 100%;
-  background-color: lightcyan;
-  color: #22283a;
+  background-color: #3D7BFF;
+  color: white;
   border-radius: 8px;
   font-size: 15px;
+  border-color: #1F4CEB;
+}
+
+#CheckOutBtn:hover {
+  background-color: #6DA6FF;
+  box-shadow: 0 0 10px #4FF2FF;
 }
 
 .SizeWrap {
@@ -497,8 +544,8 @@ footer {
 
 .sizeSelect {
   color: white;
-  background-color: #101523;
-  border: 1px solid grey;
+  background-color: #0F1135;
+  border: 1px solid #3D7BFF;
   border-radius: 8px;
   padding: 2px;
 }
@@ -508,14 +555,13 @@ footer {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: #22283a;
+  background-color: #1A1F3F;
   padding: 20px;
   width: 750px;
   z-index: 18;
   color: white;
   border-radius: 10px;
   display: none;
-
 }
 
 .ProductModal.active {
@@ -536,7 +582,6 @@ footer {
   width: 100%;
   object-fit: cover;
   border-radius: 8px;
-  height: auto;
 }
 
 .ModalDetails {
@@ -566,7 +611,7 @@ footer {
 
 #ModalDesc {
   font-size: 15px;
-  color: beige;
+  color: #D1D1D1;
 }
 
 #ModalPrice {
@@ -590,16 +635,20 @@ footer {
 .QtyBtn {
   color: white;
   border: none;
+  background-color: #3D7BFF;
+}
 
+.QtyBtn:hover {
+  background-color: #6DA6FF;
+  box-shadow: 0 0 10px #4FF2FF;
 }
 
 #ProductDetailsLink {
-  color: lightcyan;
+  color: #4FF2FF;
   font-size: 14px;
   margin-top: 8px;
   display: inline-block;
   text-decoration: underline;
-  /* since we removed the underline in the links on top*/
 }
 
 #userLogo {
@@ -607,7 +656,6 @@ footer {
   height: 35px;
   object-fit: contain;
   margin-left: 10px;
-  /* space from cart */
   cursor: pointer;
   transition: 0.2s ease;
 }
@@ -623,8 +671,8 @@ footer {
     top: 0;
     width: 300px;
     height: 100%;
-    background-color: #22283a;
-    border-left: 2px solid grey;
+    background-color: #1A1F3F;
+    border-left: 2px solid #2D2D57;
     padding: 20px;
     transition: 0.3s ease-in-out;
     z-index: 1001;
@@ -643,8 +691,8 @@ footer {
 }
 
 .ProfileBtn {
-    background-color: black;
-    border: 1px solid grey;
+    background-color: #0F1135;
+    border: 1px solid #3D7BFF;
     color: white;
     padding: 12px;
     text-align: left;
@@ -654,16 +702,24 @@ footer {
 }
 
 .ProfileBtn:hover {
-    box-shadow: 0 0 10px white;
+    background-color: #3D7BFF;
+    box-shadow: 0 0 10px #4FF2FF;
 }
 
 #CloseProfileBtn {
-    background-color: black;
-    border: 1px solid white;
+    background-color: #3D7BFF;
+    border: 1px solid #1F4CEB;
     color: white;
     padding: 8px 12px;
     cursor: pointer;
 }
-.PlusMinusBtn{
+
+.PlusMinusBtn {
   border: none;
+  background-color: #3D7BFF;
+}
+
+.PlusMinusBtn:hover {
+  background-color: #6DA6FF;
+  box-shadow: 0 0 10px #4FF2FF;
 }
