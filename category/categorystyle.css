@@ -212,6 +212,7 @@ main {
     font-size: 14px;
     color: #555;
     margin-bottom: 10px;
+    
 }
 
 .price {
@@ -528,7 +529,7 @@ footer {
   color: #dcdcdc;
 }
 
-/* Social buttons */
+
 .SocialsBtn {
   width: 120px;
   padding: 10px 15px;
@@ -551,7 +552,7 @@ footer {
   margin-bottom: 10px;
 }
 
-/* Copyright section */
+
 .CopyRight {
   text-align: center;
   margin-top: 40px;
@@ -559,4 +560,14 @@ footer {
   border-top: 1px solid #444;
   font-size: 14px;
   color: #bbb;
+}
+#ModalDesc {
+  max-width: 100%;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: #ccc; 
+  padding: 8px 0;
 }

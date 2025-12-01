@@ -101,7 +101,7 @@ function loadCategoryButtons() {
     });
 }
 
-// Load and display filtered products
+
 function loadCategoryProducts(filterCategory = "All") {
     let search = $("#searchinput").val()?.trim().toLowerCase() || "";
     let sizeFilter = $("#selectsize").val() || "Any";
@@ -110,12 +110,12 @@ function loadCategoryProducts(filterCategory = "All") {
     let colorFilter = $("#selectcolor").val() || "Any";
 
 
-    // Filtering
+
     let filtered = products.filter(p => {
         let matchCat = (filterCategory === "All" || p.category === filterCategory);
         let productName = (p.name || p.title || "").toLowerCase();
         let matchSearch = (!search || productName.includes(search));
-        let matchSize = (sizeFilter === "Any" || (p.size || "Any") === sizeFilter);
+        let matchSize = (sizeFilter === "Any" || (p.size || []).includes(sizeFilter));
         let matchPrice = (p.price <= maxPrice);
         let matchColor = (colorFilter === "Any" || (p.color || "Any") === colorFilter);
 
@@ -165,7 +165,7 @@ function loadCategoryProducts(filterCategory = "All") {
 $("#searchinput, #selectsize, #range, #pricerange, #selectcolor").on("input change", function () {
     loadCategoryProducts();
 });
-// Read login state
+
 let isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
 
 // Setup login button behavior
@@ -197,14 +197,14 @@ $(document).on("click", ".AddItemBtn", function () {
   let card = $(this).closest(".Card");
   let title = card.find(".Title").text();
 
-  // Find product in products array
+
   let product = products.find(p => p.name === title);
   if (!product) return alert("Product not found!");
 
   let productsListing = document.querySelector(".ProductsListing");
   let existingCards = productsListing.querySelectorAll(".ListingCard");
 
-  // Ask user to select size and color if multiple
+
   let size = product.size.length > 1 ? prompt(`Select size: ${product.size.join(", ")}`, product.size[0]) : product.size[0];
   let color = product.color.length > 1 ? prompt(`Select color: ${product.color.join(", ")}`, product.color[0]) : product.color[0];
 
@@ -278,9 +278,23 @@ function updateCartState() {
     subtotalSpan.textContent = `$${subtotal.toFixed(2)}`;
   }
 
-  // 👉 Save updated cart
+  // 👉 Disable checkout if cart is empty
+  let checkoutBtn = document.getElementById("CheckOutBtn");
+  if (checkoutBtn) {
+    if (totalQty === 0) {
+      checkoutBtn.disabled = true;
+      checkoutBtn.classList.add("disabled"); // optional styling
+      checkoutBtn.textContent = "Cart is empty"; // optional feedback
+    } else {
+      checkoutBtn.disabled = false;
+      checkoutBtn.classList.remove("disabled");
+      checkoutBtn.textContent = "Checkout"; // reset text
+    }
+  }
+
   saveCartToLocalStorage();
 }
+
 // Open modal
 $(document).on("click", ".ReadMoreBtn", function() {
     let card = $(this).closest(".Card");
@@ -301,7 +315,7 @@ $(document).on("click", ".ReadMoreBtn", function() {
     sizeSelect.empty();
     product.size.forEach(s => sizeSelect.append(`<option value="${s}">${s}</option>`));
 
-    // Populate color dropdown dynamically
+
     let colorSelect = $("#ModalColor");
     colorSelect.empty();
     product.color.forEach(c => colorSelect.append(`<option value="${c}">${c}</option>`));
@@ -401,7 +415,25 @@ $(".ProductsListing").on("click", ".minus", function () {
 
 $(".ProductsListing").on("click", ".plus", function () {
   let qtySpan = $(this).siblings(".NumberOfProducts");
-  qtySpan.text(parseInt(qtySpan.text()) + 1);
+  let currentQty = parseInt(qtySpan.text());
+
+  // Get product info from card
+  let card = $(this).closest(".ListingCard");
+  let title = card.find(".ListingTitle").text();
+  let size = card.attr("data-size") || "Default";
+  let color = card.attr("data-color") || "Default";
+
+  // Find product in products array
+  let product = products.find(p => p.name === title);
+  if (!product) return;
+
+  // Check stock limit
+  if (currentQty + 1 > product.quantity) {
+    alert(`Cannot add more than ${product.quantity} items for this product.`);
+    return;
+  }
+
+  qtySpan.text(currentQty + 1);
   updateCartState();
 });
 
@@ -476,11 +508,44 @@ $("#AddToCartModal").click(function() {
     CartSideBar.classList.add("open");
     Overlay.classList.add("active");
 });
+function loadSizeFilter() {
+    let sizeSelect = $("#selectsize");
+    sizeSelect.empty();
+    sizeSelect.append('<option value="Any" selected>Any Size</option>');
+
+    // Collect all sizes from products
+    let allSizes = products.flatMap(p => p.size || []);
+    let uniqueSizes = [...new Set(allSizes)];
+
+    uniqueSizes.forEach(size => {
+        sizeSelect.append(`<option value="${size}">${size}</option>`);
+    });
+}
+let AboutUsNav = document.querySelector("#AboutUsNav");
+let footer = document.querySelector("#footer");
+
+AboutUsNav.addEventListener("click", () => {
+    footer.scrollIntoView({ behavior: "smooth" });
+});
+
+let ContactUsNav = document.querySelector("#ContactUsNav");
+let footer2 = document.querySelector("#footer");
+
+ContactUsNav.addEventListener("click", () => {
+    footer2.scrollIntoView({ behavior: "smooth" });
+});
+let checkoutBtn = document.getElementById("CheckOutBtn");
+
+
+    checkoutBtn.addEventListener("click", () => {
+        window.location.href = "../checkout/cart.html";
+    });
 
 $(document).ready(function () {
     loadCategoryButtons();
     loadCategoryProducts();
     loadCartFromLocalStorage();
+    loadSizeFilter();
 });
 
 
