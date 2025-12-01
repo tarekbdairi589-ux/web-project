@@ -14,14 +14,12 @@ button {
   padding: 8px 16px;
 }
 html, body {
-  height: 100%;
+  min-height: 100%;
 }
 
 main {
-  flex: 1;   /* takes remaining space */
-  display: block;
+  flex: 1 0 auto;
 }
-
 body {
   background-color: rgb(15, 15, 49);
   display: flex;
@@ -192,18 +190,36 @@ h3 {
 }
 
 .Products {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
+    width: 100%;
+    max-width: 1200px;
+    padding: 20px;
+    margin: 20px auto;
+    border: solid 3px grey;
+    border-radius: 8px;
+
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-between;
+
+    align-items: stretch;   /* 🔥 FIX: all cards same height */
 }
 
+
+
 .Card {
-  border: 1px solid rgba(255,255,255,0.08);
-  background: rgba(15, 20, 45, 0.7);
-  backdrop-filter: blur(4px);
-  box-shadow: 0 0 12px rgba(0, 50, 255, 0.15);
-  transition: 0.2s ease;
+  border: 1px solid grey;
+  border-radius: 8px;
+  background-color: #22283a;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+
+  flex: 1 1 calc(33.33% - 20px);     /* ✅ 3 per row */
+  max-width: calc(33.33% - 20px);
+  height: 100%; 
 }
+
 .Card:hover {
   transform: translateY(-4px);
   box-shadow: 0 0 18px rgba(0, 80, 255, 0.35);
