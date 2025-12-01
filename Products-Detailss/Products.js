@@ -1,4 +1,86 @@
 $(function(){
+  try {
+  loadCartFromLocalStorage();
+} catch (e) {
+  console.warn("Cart load failed:", e);
+}
+
+  let product = JSON.parse(localStorage.getItem("selectedProduct"));
+  console.log("Selected Product : ", product);
+
+  // Basic details
+  $("#ProductTitle").text(product.title);
+  $("#ProductDesc").text(product.desc);
+  $("#ProductPrice").text(`$${product.price.toFixed(2)}`);
+  $("#ProductImg img").attr("src", product.imgSrc);
+  $("#ProductSize").text(`Size: ${product.size}`);
+
+  // Table details
+  $("#ProductFit").text(product.fit);
+  $("#ProductFabric").text(product.fabric);
+  $("#ProductThickness").text(product.thickness);
+  $("#ProductColor").text(product.color);
+  $("#ProductType").text(product.category);
+
+  // Recommendations
+  loadRecommendations(product.category, product.title);
+
+function loadRecommendations(category,CurrentTitle){
+  let products = JSON.parse(localStorage.getItem("products"))|| [];
+  let recommendations = products.filter(p=> p.category === category && p.name !== CurrentTitle);
+  recommendations = recommendations.sort(() => 0.5 - Math.random());
+  recommendations = recommendations.slice(0, 5);
+  let container = $(".RecommendationSection");
+  container.empty();
+  recommendations.forEach(p=>{
+    let card = $(` 
+      <div class="RecommendedCard"
+       data-title="${p.name}"
+       data-desc="${p.readmore}"
+       data-price="${p.price}"
+       data-img="${p.image}"
+       data-fit="${p.selectfit}"
+       data-thickness="${p.thickness}"
+       data-fabric="${p.fabric}"
+       data-disclaimer="Product color may slightly vary due to photographic lighting sources or your monitor settings."
+       data-color="${p.color}"
+       data-type="${p.category}">
+    <div class="RecommendedImg">
+      <img src="${p.image}" alt="${p.name}">
+    </div>
+    <div class="RecommendedContent">
+      <div class="RecommendedProductName">
+        <h3>${p.name}</h3>
+      </div>
+      <div class="RecommendedDescPrice">
+        <p class="RecommendedDesc">${p.description}</p>
+        <span class="RecommendedProductPrice">$${p.price.toFixed(2)}</span>
+      </div>
+    </div>
+  </div>
+      `);
+      card.on('click',function(){
+         let selected = {
+          title: p.name,
+          desc: p.readmore,
+          price: p.price,
+          imgSrc: p.image,
+          size: p.size || "M",
+          fit: p.selectfit,
+          fabric: p.fabric,
+          thickness: p.thickness,
+          color: p.color,
+          category: p.category
+          };
+       
+      localStorage.setItem("selectedProduct", JSON.stringify(selected));
+      window.location.href = "../Products-Detailss/Products.html";
+      })
+      container.append(card);
+  })
+}
+
+
 $("#Cart-Btn").on("click", function() {
   $("#CartSideBar").addClass("open");
   $("#Overlay").addClass("active");
@@ -48,6 +130,51 @@ let qty = 1;
     $("#CartSubtotal").text(`$ ${subtotal.toFixed(2)}`);
   }
 
+  function saveCartToLocalStorage() {
+  let cartArray = [];
+  $(".ListingCard").each(function () {
+    cartArray.push({
+      name: $(this).find(".ListingTitle").text(),
+      size: $(this).find(".ListingSize").text().replace("Size: ", ""),
+      qty: parseInt($(this).find(".NumberOfProducts").text()),
+      price: parseFloat($(this).find(".ListingPrice").text().replace("$", "")),
+      image: $(this).find(".ListingImg img").attr("src")
+    });
+  });
+  localStorage.setItem("cart", JSON.stringify(cartArray));
+}
+
+function loadCartFromLocalStorage() {
+  let cartArray = JSON.parse(localStorage.getItem("cart")) || [];
+  let productsListing = $(".ProductsListing");
+  productsListing.empty();
+
+  cartArray.forEach(item => {
+    let newCard = $(`
+      <div class="ListingCard">
+        <div class="ListingImg">
+          <img src="${item.image}" alt="${item.name}" />
+        </div>
+        <div class="ListingContent">
+          <h3 class="ListingTitle">${item.name}</h3>
+          <p class="ListingSize">Size: ${item.size}</p>
+          <div class="ListingBtns">
+            <div class="Increment-decrementbtn">
+              <button class="PlusMinusBtn minus">-</button>
+              <span class="NumberOfProducts">${item.qty}</span>
+              <button class="PlusMinusBtn plus">+</button>
+            </div>
+            <button class="RemoveProduct">Remove</button>
+          </div>
+        </div>
+        <div class="ListingPrice">$ ${item.price.toFixed(2)}</div>
+      </div>
+    `);
+    productsListing.append(newCard);
+  });
+
+  updateCartState();
+}
 
 $(".AddItemBtn").on("click", function () {
   // Get product details
@@ -101,6 +228,7 @@ $(".AddItemBtn").on("click", function () {
 
   // Update cart count and subtotal
   updateCartState();
+  saveCartToLocalStorage();
 
   // Open cart sidebar
   $("#CartSideBar").addClass("open");
@@ -115,6 +243,7 @@ $(".ProductsListing").on("click", ".minus", function(){
     qtySpan.text(current - 1);
   };
   updateCartState();
+  saveCartToLocalStorage();
 });
 
 // Plus button inside cart sidebar
@@ -123,11 +252,13 @@ $(".ProductsListing").on("click", ".plus", function(){
   let current = parseInt(qtySpan.text());
   qtySpan.text(current + 1);
   updateCartState();
+  saveCartToLocalStorage();
 });
 
 $(".ProductsListing").on("click", ".RemoveProduct", function(){
   $(this).closest(".ListingCard").remove();
   updateCartState();
+  saveCartToLocalStorage();
 });
 
 let backToTopBtn = document.querySelector(".BackToTopBtn");
