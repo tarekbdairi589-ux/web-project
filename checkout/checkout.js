@@ -5,42 +5,41 @@ $(document).ready(function () {
 
     $("#ConfirmOrder").click(function () {
 
-    if ($("#FullName").val().trim() === "" ||
-        $("#Phone").val().trim() === "" ||
-        $("#Address").val().trim() === "") {
-        alert("Please fill all required fields.");
-        return;
-    }
+        if ($("#FullName").val().trim() === "" ||
+            $("#Phone").val().trim() === "" ||
+            $("#Address").val().trim() === "") {
+            alert("Please fill all required fields.");
+            return;
+        }
 
-    // Load previous orders
-    let orders = JSON.parse(localStorage.getItem("orders")) || [];
+        // Load previous orders
+        let orders = JSON.parse(localStorage.getItem("orders")) || [];
 
-    // Calculate total
-    let total = 0;
-    cart.forEach(i => total += i.price * i.qty);
+        // Calculate total
+        let total = 0;
+        cart.forEach(i => total += i.price * i.qty);
 
-    // Create new order object
-    let newOrder = {
-        orderId: Date.now(),
-        date: new Date().toLocaleString(),
-        items: cart,
-        total: total
-    };
+        // Create new order object
+        let newOrder = {
+            orderId: Date.now(),
+            date: new Date().toLocaleString(),
+            items: cart,
+            total: total
+        };
 
-    // Save the new order
-    orders.push(newOrder);
-    localStorage.setItem("orders", JSON.stringify(orders));
+        // Save the new order
+        orders.push(newOrder);
+        localStorage.setItem("orders", JSON.stringify(orders));
 
-    alert("Order Confirmed! Thank you ❤️");
+        alert("Order Confirmed! Thank you ❤️");
 
-    // clear cart data
-    localStorage.removeItem("cart");
-    localStorage.setItem("cartCount", "0");
+        // clear cart data
+        localStorage.removeItem("cart");
+        localStorage.setItem("cartCount", "0");
 
-    // Redirect to client home
-    window.location.href = "../client/index.html";  // adjust path if needed
-});
-
+        // Redirect to client page
+        window.location.href = "../client/index.html";
+    });
 });
 
 function loadSummary() {
@@ -63,3 +62,4 @@ function loadSummary() {
 
     $("#TotalPrice").text(total);
 }
+

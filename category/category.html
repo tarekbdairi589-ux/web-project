@@ -3,74 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Document</title>
-    <link rel="stylesheet" href="categorystyle.css">
-
     <title>Shop Categories</title>
     <link rel="stylesheet" href="categorystyle.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-
 </head>
 <body>
+
+    <!-- NAVBAR -->
+    <nav class="NavBar">
+        <div class="Logo">
+            <img id="LogoImg" src="Drip_logo.png" alt="Drip District Logo">
+            <span class="DripDistrict">Drip District</span>
+        </div>
+        <div class="Links">
+            <a href="../client/index.html" id="home">Home</a>
+            <a href="../category/category.html">Category</a>
+            <a href="#" id="AboutUsNav">About Us</a>
+            <a href="#" id="ContactUsNav">Contact Us</a>
+        </div>
+        <div class="Search-Cart">
+            <button id="LoginBtn">Login</button>
+            <button id="Cart-Btn">
+                <div class="CartIconWrap">
+                    <img id="CartLogo" src="cart logo.png" alt="Shopping Cart">
+                    <span id="CartCount">0</span>
+                </div>
+            </button>
+            <img id="userLogo" src="user.png" alt="user logo">
+        </div>
+    </nav>
+
+    <!-- HEADER -->
     <div id="headertitle">
-        <h1>Shop-Categories</h1>
-
-        <div class="shownumitem">shownumitemtest</div>
-    </div>
-    <div class="category">
-        <div class="lin1">
-            <button class="categorybtn">Accessories</button>
-            <button class="categorybtn">Shoes</button>
-            <button class="categorybtn">T-Shirts</button>
-            <button class="categorybtn">Hoodies</button>
-            <div id="categoryadd"></div>
-        <input type="text" placeholder="Search products, keywords..." id="searchinput">
-        </div>
-        <div class="specification">
-            <label for="">Price </label>
-            <input type="range" min="0" max="2000" id="range">
-            <div class="value">Up to <span id="rangevalue">0</span></div>
-            <label for="">size</label>
-            <select name="" id="selectsize">
-                <option value=""disabled selected hidden>Any</option>
-                <option value=""></option>
-                <option value=""></option>
-            </select>
-                <label for="">Color</label>
-            <div class="">
-                <label for="">Red</label>
-                <input type="radio" name="select">
-                <label for="">Black</label>
-                <input type="radio" name="select">
-                <label for="">White</label>
-                <input type="radio" name="select">
-            </div>
-             <select name="" id="pricerange">
-                <option value="">Price:High→Low</option>
-                <option value="">Price:Low→High</option>
-            </select>
-        </div>
-    </div>
-    <main>
-        <div id="cardcontainer"></div>
-
-    </main>
-</body>
-</html>
-
+        <h1>Shop Categories</h1>
         <div class="shownumitem">0 items</div>
     </div>
 
+    <!-- FILTERS & CATEGORY BUTTONS -->
     <div class="category">
         <div class="lin1">
             <!-- Category buttons -->
-<div id="category-buttons"></div>
+            <div id="category-buttons"></div>
 
             <input type="text" placeholder="Search products, keywords..." id="searchinput">
 
             <label for="selectsize">Size:</label>
-            <select name="" id="selectsize">
+            <select id="selectsize">
                 <option value="Any" selected>Any</option>
                 <option value="Small">Small</option>
                 <option value="Medium">Medium</option>
@@ -81,13 +59,13 @@
             <label for="range">Price:</label>
             <input type="range" min="0" max="2000" id="range" value="2000">
             <div class="value">Up to $<span id="rangevalue">2000</span></div>
-            
+
             <select id="selectcolor">
                 <option value="Any" selected>Any Color</option>
             </select>
 
             <label for="pricerange">Sort:</label>
-            <select name="" id="pricerange">
+            <select id="pricerange">
                 <option value="Price:High→Low" selected>Price: High → Low</option>
                 <option value="Price:Low→High">Price: Low → High</option>
                 <option value="Newest">Newest</option>
@@ -96,10 +74,80 @@
         </div>
     </div>
 
+    <!-- PRODUCT LIST -->
     <main>
-       <div id="category-container"></div>
+        <div id="category-container"></div>
     </main>
 
+    <!-- CART SIDEBAR -->
+    <div id="CartSideBar" class="CartSidebar">
+        <h2>Your Cart</h2>
+        <div class="ProductsListing"></div>
+        <div class="CartFooter">
+            <span id="CartSubtotal">$0.00</span>
+            <button id="CheckOutBtn">Checkout</button>
+        </div>
+        <button id="CloseBtn">X</button>
+    </div>
+
+    <!-- OVERLAY -->
+    <div id="Overlay"></div>
+
+    <!-- PRODUCT MODAL -->
+    <div class="ProductModal">
+        <button class="CloseProduct">X</button>
+        <img id="ModalImg" src="" alt="">
+        <h3 id="ModalTitle"></h3>
+        <p id="ModalDesc"></p>
+        <p id="ModalPrice"></p>
+
+        <!-- Size & Color selection -->
+        <label>Size:</label>
+        <select id="ModalSize"></select>
+
+        <label>Color:</label>
+        <select id="ModalColor"></select>
+
+        <!-- Max quantity info -->
+        <p>Max available: <span id="MaxQty"></span></p>
+
+        <div class="QtyControls">
+            <button id="QtyMinus">-</button>
+            <span id="QtyValue">1</span>
+            <button id="QtyPlus">+</button>
+        </div>
+        <a href="../Products-Detailss/Products.html">See Product Details</a>
+        <button id="AddToCartModal">Add to Cart</button>
+    </div>
+
+    <footer id="footer">
+        <div class="FooterPage">
+            <div class="AboutFooter" id="About">
+                <h3>About</h3>
+                <p>Student-built storefront for a Web Programming course. Front-end only demo.</p>
+            </div>
+            <div class="ContactFooter" id="Contact">
+                <h3>Contact</h3>
+                <p>Address: RHU Campus, Saida, Lebanon.<br>Phone: +961 70 000 000.<br>Email: hello@clothing.example</p>
+            </div>
+            <div class="SocialsFooter">
+                <h3>Socials</h3>
+                <div class="UpperRow">
+                    <button class="SocialsBtn">Instagram</button>
+                    <button class="SocialsBtn">Facebook</button>
+                </div>
+                <div class="LowerRow">
+                    <button class="SocialsBtn">TikTok</button>
+                    <button class="SocialsBtn">LinkedIn</button>
+                </div>
+            </div>
+        </div>
+        <div class="CopyRight">
+            &copy; <span>2025 Drip District. All Rights Reserved</span> 
+        </div>
+    </footer>
+
     <script src="categoryscript.js"></script>
+    
 </body>
 </html>
