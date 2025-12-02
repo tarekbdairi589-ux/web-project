@@ -26,7 +26,7 @@ function loadCartFromLocalStorage() {
     <div class="ListingImg"><img src="${item.imgSrc}" alt="${item.title}" /></div>
     <div class="ListingContent">
       <h3 class="ListingTitle">${item.title}</h3>
-      <p class="ListingDescription">${item.desc}</p>
+
       <p class="ListingSizeColor">Size: ${item.size}, Color: ${item.color}</p>
       <div class="ListingBtns">
         <div class="Increment-decrementbtn">
@@ -146,7 +146,7 @@ function loadCategoryProducts(filterCategory = "All") {
             <img class="ProductImg" src="${img}" alt="${p.name}">
             <div class="ProductContent">
                 <div class="Title">${p.name}</div>
-                <div class="ReadMore">${p.readmore || p.description || ""}</div>
+                <div class="ReadMore">${p.description || ""}</div>
                 
                 <div class="row">
                     <div class="price">$${p.price.toFixed(2)}</div>
@@ -238,7 +238,7 @@ $(document).on("click", ".AddItemBtn", function () {
       <div class="ListingImg"><img src="${product.image || 'https://via.placeholder.com/200'}" alt="${title}" /></div>
       <div class="ListingContent">
         <h3 class="ListingTitle">${title}</h3>
-        <p class="ListingDescription">${product.readmore || product.description}</p>
+    
         <p class="ListingSizeColor">Size: ${size}, Color: ${color}</p>
         <div class="ListingBtns">
           <div class="Increment-decrementbtn">
@@ -306,7 +306,7 @@ $(document).on("click", ".ReadMoreBtn", function() {
 
     // Set modal info
     $("#ModalTitle").text(product.name);
-    $("#ModalDesc").text(product.readmore || product.description || "");
+    $("#ModalDesc").text(product.readmore || "No description available.");
     $("#ModalPrice").text(`$${product.price.toFixed(2)}`);
     $("#ModalImg").attr("src", product.image || "https://via.placeholder.com/200x200");
 
@@ -486,7 +486,7 @@ $("#AddToCartModal").click(function() {
           <div class="ListingImg"><img src="${product.image || 'https://via.placeholder.com/200'}" alt="${title}" /></div>
           <div class="ListingContent">
             <h3 class="ListingTitle">${title}</h3>
-            <p class="ListingDescription">${product.readmore || product.description}</p>
+
             <p class="ListingSizeColor">Size: ${size}, Color: ${color}</p>
             <div class="ListingBtns">
               <div class="Increment-decrementbtn">
