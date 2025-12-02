@@ -2,11 +2,22 @@ document.addEventListener("DOMContentLoaded", () => {
   RenderProducts();
   loadCartFromLocalStorage();
   updateCartState();
-  if(localStorage.getItem("isAdmin")==="True"){
-    let btn = document.createElement("div");
+  if(localStorage.getItem("isAdmin")==="true"){ 
+    let arrowDiv = document.createElement("div");
+    arrowDiv.classList.add("ArrowRight");
+    let arrowImg = document.createElement("img");
+    arrowImg.src = "iconArrow.png"; // path to your arrow icon
+    arrowImg.alt = "Back To Admin";
 
-  }
- });
+    arrowImg.addEventListener("click", () => {
+      window.location.href = "../admin/admin.html"; // adjust path
+    });
+
+    // Append image to div, then div to body
+    arrowDiv.appendChild(arrowImg);
+    document.body.appendChild(arrowDiv);
+ }
+});
 
 let isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
 let cartCount = parseInt(localStorage.getItem("cartCount") || "0");
