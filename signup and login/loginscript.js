@@ -99,6 +99,20 @@ document.addEventListener('DOMContentLoaded', function () {
                 alert("Please enter username and password.");
                 return;
             }
+            
+            if(username==="admin"&& password==="12345"){
+                console.log("✅ Admin credentials matched");
+                localStorage.setItem("isAdmin","true");
+                localStorage.setItem("isLoggedIn", "true");
+                localStorage.setItem("currentUser", "admin");
+
+                 alert("Welcome Admin! Redirecting to admin page...");
+            window.location.href = "../admin/admin.html";   // <-- adjust path to your admin page
+            return;
+            }else{
+                localStorage.setItem("isAdmin","false");
+            }
+
 
             let users = getUsers();
 

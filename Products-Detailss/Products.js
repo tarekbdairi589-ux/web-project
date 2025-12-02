@@ -100,6 +100,84 @@ function loadRecommendations(category,CurrentTitle){
       container.append(card);
   })
 }
+$(document).ready(function () {
+  let $searchInput = $("#SearchInput");
+  let $dropDown = $("#DropDown");
+
+  $searchInput.on("input", function () {
+    let typed = $(this).val().trim().toLowerCase();
+    $dropDown.empty();
+
+    if (!typed) {
+      $dropDown.hide();
+      return;
+    }
+
+    let products = JSON.parse(localStorage.getItem("products")) || [];
+
+    let matches = products.filter(p =>
+      (typeof p.name === "string" && p.name.toLowerCase().includes(typed)) ||
+      (typeof p.category === "string" && p.category.toLowerCase().includes(typed)) ||
+      (typeof p.color === "string" && p.color.toLowerCase().includes(typed))
+    );
+
+    if (matches.length === 0) {
+      let $noResult = $("<div>")
+        .addClass("dropdown-content no-results")
+        .html(`
+          <div class="dropdown-text">
+            <p class="dropdown-title">No results found</p>
+          </div>
+        `);
+      $dropDown.append($noResult).show();
+      return;
+    }
+
+    matches.forEach(p => {
+      let image = p.image || p.imgSrc;
+
+      let results = $("<div>")
+        .addClass("dropdown-content")
+        .html(`
+          <div class="ImgWrapSearch">
+            <img src="${image}" alt="${p.name}" />
+          </div>
+          <div class="dropdown-text">
+            <p class="dropdown-title">${p.name}</p>
+            <p class="dropdown-desc">${p.description}</p>
+          </div>
+        `);
+
+      results.on("click", function () {
+        let selectee = {
+          title: p.name || "Untitled",
+          imgSrc: p.image || "",
+          desc: p.readmore,
+          price: p.price,
+          category: p.category || "",
+          color: p.color,
+          fabric: p.fabric || "",
+          fit: p.selectfit || "",
+          thickness: p.thickness || ""
+        };
+         localStorage.setItem("selectedProduct", JSON.stringify(selectee));
+         window.location.href = "Products.html";
+        
+      });
+
+      $dropDown.append(results);
+    });
+
+    $dropDown.show();
+  });
+
+  // Close dropdown on outside click
+  $(document).on("click", function (e) {
+    if (!$searchInput.is(e.target) && !$dropDown.is(e.target) && $dropDown.has(e.target).length === 0) {
+      $dropDown.hide();
+    }
+  });
+});
 
 
 $("#Cart-Btn").on("click", function() {

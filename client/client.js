@@ -2,6 +2,10 @@ document.addEventListener("DOMContentLoaded", () => {
   RenderProducts();
   loadCartFromLocalStorage();
   updateCartState();
+  if(localStorage.getItem("isAdmin")==="True"){
+    let btn = document.createElement("div");
+
+  }
  });
 
 let isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
@@ -458,6 +462,73 @@ CloseProfileBtn.addEventListener("click", () => {
 Overlay.addEventListener("click", () => {
     ProfileSideBar.classList.remove("open");
 });
+let SearchInput = document.getElementById("SearchInput");
+let DropDown = document.getElementById("DropDown");
+
+SearchInput.addEventListener('input',function(){
+  let typed = this.value.trim().toLowerCase();
+  DropDown.innerHTML="";
+  if(!typed){
+    DropDown.style.display="none";
+    return;
+  }
+let products = JSON.parse(localStorage.getItem("products"))||[];
+let matches = products.filter(p=>
+   typeof p.name === "string" && p.name.toLowerCase().includes(typed) ||
+  typeof p.category === "string" && p.category.toLowerCase().includes(typed) ||
+  typeof p.color === "string" && p.color.toLowerCase().includes(typed)
+)
+
+  if (matches.length === 0) { let noResult = document.createElement("div");
+    noResult.classList.add("dropdown-content","no-results");
+    noResult.innerHTML =`
+      <div class="dropdown-text">
+       <p class="dropdown-title">No results found</p>
+       </div>`;
+    DropDown.appendChild(noResult);
+    DropDown.style.display = "block";
+    return;
+  }
+   matches.forEach(p => {
+    let result = document.createElement("div");
+    result.classList.add("dropdown-content");
+    let image = p.image;
+    result.innerHTML = `
+    <div class="ImgWrapSearch">
+      <img src="${image}" alt="${p.name}" />
+      </div>
+      <div class="dropdown-text">
+        <p class="dropdown-title">${p.name}</p>
+        <p class="dropdown-desc">${p.description}</p>
+      </div>
+    `;
+     result.addEventListener("click", () => {
+       let selectee = {
+    title: p.name || "Untitled",
+    imgSrc: p.image || "",
+    desc: p.readmore,
+    price: p.price  ,
+    category: p.category || "",
+    color: p.color,
+    fabric: p.fabric || "",
+    fit: p.selectfit || "",
+    thickness: p.thickness || ""
+  };
+
+  goToProductPage(selectee);
+    });
+
+    DropDown.appendChild(result);
+  
+});
+DropDown.style.display = "block";
+})
+document.addEventListener("click", function (e) {
+  if (!SearchInput.contains(e.target) && !DropDown.contains(e.target)) {
+    DropDown.style.display = "none";
+  }
+});
+
 
 $(document).ready(function () {
     $("#OrdersBtn").click(function () {
