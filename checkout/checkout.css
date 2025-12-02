@@ -1,86 +1,124 @@
 body {
-    background-color: rgb(15, 15, 49);
-    font-family: Arial;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to bottom, #000000 0%, #050533 35%, #00008B 70%, #0000FF 100%);
+    color: white;
+    min-height: 100vh;
 }
 
-/* Reuse same layout style as MidTable from theme */
 .MidTable {
     width: 100%;
     max-width: 1200px;
-    padding: 20px;
-    margin: 30px auto;
+    padding: 30px;
+    margin: 40px auto;
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    border: 3px solid grey;
-    border-radius: 8px;
+
+    background: rgba(10, 15, 35, 0.25);
+    border: 2px solid rgba(255,255,255,0.2);
+    backdrop-filter: blur(8px);
+    border-radius: 12px;
 }
 
-/* Left Form */
 .LeftMidTable {
     display: flex;
     flex-direction: column;
-    gap: 15px;
-    color: white;
+    gap: 20px;
     width: 55%;
+}
+
+.LeftMidTable h2 {
+    font-size: 28px;
+    font-weight: 800;
+    margin-bottom: 5px;
 }
 
 .CInput {
     width: 100%;
-    padding: 10px;
-    border-radius: 8px;
-    background-color: #101523;
-    border: 1px solid grey;
+    padding: 12px;
+    font-size: 15px;
+
+    background-color: #0F1135;
     color: white;
-    font-size: 14px;
+
+    border: 1px solid #2D2D57;
+    border-radius: 10px;
+
+    outline: none;
+}
+
+.CInput:focus {
+    border-color: #3D7BFF;
+    box-shadow: 0 0 10px #4FF2FF;
 }
 
 .Area {
-    height: 120px;
+    height: 150px;
     resize: none;
 }
 
-/* Right Summary */
 .RightMidTable {
+    width: 380px;
+    padding: 25px;
+
+    background-color: #1A1F3F;
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 12px;
+
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    border: 1px solid grey;
-    border-radius: 10px;
-    padding: 20px 25px;
-    background-color: #22283a;
-    width: 350px;
-    color: white;
+    gap: 15px;
 }
 
-/* Summary Items */
+.RightMidTable h3 {
+    font-size: 22px;
+    margin-bottom: 10px;
+}
+
 .SummaryBox {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 15px;
 }
 
 .SummaryItem {
     display: flex;
     justify-content: space-between;
-    color: white;
-    border-bottom: 1px solid grey;
-    padding-bottom: 6px;
+    padding-bottom: 10px;
+
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+    font-size: 15px;
 }
 
-/* Button */
+.TotalText {
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 10px;
+    padding-top: 12px;
+    border-top: 2px solid rgba(255,255,255,0.3);
+}
+
 .CheckoutBtn {
-    padding: 10px;
-    background-color: black;
-    border: 1px solid white;
+    width: 100%;
+    padding: 12px;
+
+    background-color: #3D7BFF;
+    border: 1px solid #1F4CEB;
+
     color: white;
     font-weight: bold;
-    font-size: 15px;
+    font-size: 16px;
+
     border-radius: 10px;
     cursor: pointer;
-    margin-top: 10px;
+    margin-top: 15px;
+
+    transition: 0.2s ease;
 }
 
 .CheckoutBtn:hover {
-    box-shadow: 0 0 10px white;
+    background-color: #6DA6FF;
+    box-shadow: 0 0 12px #4FF2FF;
 }

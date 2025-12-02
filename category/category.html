@@ -4,9 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shop Categories</title>
+
     <link rel="stylesheet" href="categorystyle.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
+
 <body>
 
     <!-- NAVBAR -->
@@ -15,17 +17,19 @@
             <img id="LogoImg" src="Drip_logo.png" alt="Drip District Logo">
             <span class="DripDistrict">Drip District</span>
         </div>
+
         <div class="Links">
             <a href="../client/index.html" id="home">Home</a>
             <a href="../category/category.html">Category</a>
             <a href="#" id="AboutUsNav">About Us</a>
             <a href="#" id="ContactUsNav">Contact Us</a>
         </div>
+
         <div class="Search-Cart">
             <button id="LoginBtn">Login</button>
             <button id="Cart-Btn">
                 <div class="CartIconWrap">
-                    <img id="CartLogo" src="cart logo.png" alt="Shopping Cart">
+                    <img id="CartLogo" src="cart logo.png" alt="">
                     <span id="CartCount">0</span>
                 </div>
             </button>
@@ -33,16 +37,19 @@
         </div>
     </nav>
 
+
     <!-- HEADER -->
     <div id="headertitle">
         <h1>Shop Categories</h1>
         <div class="shownumitem">0 items</div>
     </div>
 
-    <!-- FILTERS & CATEGORY BUTTONS -->
+
+    <!-- FILTER SECTION -->
     <div class="category">
         <div class="lin1">
-            <!-- Category buttons -->
+
+            <!-- Dynamic category buttons -->
             <div id="category-buttons"></div>
 
             <input type="text" placeholder="Search products, keywords..." id="searchinput">
@@ -50,10 +57,6 @@
             <label for="selectsize">Size:</label>
             <select id="selectsize">
                 <option value="Any" selected>Any</option>
-                <option value="Small">Small</option>
-                <option value="Medium">Medium</option>
-                <option value="Large">Large</option>
-                <option value="X-Large">X-Large</option>
             </select>
 
             <label for="range">Price:</label>
@@ -71,65 +74,94 @@
                 <option value="Newest">Newest</option>
                 <option value="Oldest">Oldest</option>
             </select>
+
         </div>
     </div>
 
-    <!-- PRODUCT LIST -->
+
+    <!-- PRODUCTS CONTAINER -->
     <main>
         <div id="category-container"></div>
     </main>
 
+
     <!-- CART SIDEBAR -->
     <div id="CartSideBar" class="CartSidebar">
         <h2>Your Cart</h2>
+
         <div class="ProductsListing"></div>
+
         <div class="CartFooter">
             <span id="CartSubtotal">$0.00</span>
             <button id="CheckOutBtn">Checkout</button>
         </div>
+
         <button id="CloseBtn">X</button>
     </div>
+
 
     <!-- OVERLAY -->
     <div id="Overlay"></div>
 
-    <!-- PRODUCT MODAL -->
+
+    <!-- PRODUCT MODAL (FIXED + IMAGE INCLUDED) -->
     <div class="ProductModal">
-        <button class="CloseProduct">X</button>
-        <img id="ModalImg" src="" alt="">
-        <h3 id="ModalTitle"></h3>
-        <p id="ModalDesc"></p>
-        <p id="ModalPrice"></p>
+        <div class="ModalContent">
 
-        <!-- Size & Color selection -->
-        <label>Size:</label>
-        <select id="ModalSize"></select>
+            <!-- PRODUCT IMAGE -->
+            <div class="ModalImg">
+                <img id="ModalImg" src="" alt="Product image">
+            </div>
 
-        <label>Color:</label>
-        <select id="ModalColor"></select>
+            <!-- PRODUCT INFORMATION -->
+            <div class="ModalDetails">
 
-        <!-- Max quantity info -->
-        <p>Max available: <span id="MaxQty"></span></p>
+                <button class="CloseProduct">X</button>
 
-        <div class="QtyControls">
-            <button id="QtyMinus">-</button>
-            <span id="QtyValue">1</span>
-            <button id="QtyPlus">+</button>
+                <h3 id="ModalTitle"></h3>
+                <p id="ModalDesc"></p>
+                <p id="ModalPrice"></p>
+
+                <label>Size:</label>
+                <select id="ModalSize"></select>
+
+                <label>Color:</label>
+                <select id="ModalColor"></select>
+
+                <p>Max available: <span id="MaxQty"></span></p>
+
+                <div class="QtyControls">
+                    <button id="QtyMinus">-</button>
+                    <span id="QtyValue">1</span>
+                    <button id="QtyPlus">+</button>
+                </div>
+
+                <a href="../Products-Detailss/Products.html" id="ProductDetailsLink">See Product Details</a>
+
+                <button id="AddToCartModal">Add to Cart</button>
+
+            </div>
+
         </div>
-        <a href="../Products-Detailss/Products.html">See Product Details</a>
-        <button id="AddToCartModal">Add to Cart</button>
     </div>
-
+<div class="ProfileSideBar" id="ProfileSideBar">
+    <div class="SideBarHeader">
+        <h3>Your Account</h3>
+        <button id="CloseProfileBtn">Close</button>
+    </div>
     <footer id="footer">
         <div class="FooterPage">
+
             <div class="AboutFooter" id="About">
                 <h3>About</h3>
                 <p>Student-built storefront for a Web Programming course. Front-end only demo.</p>
             </div>
+
             <div class="ContactFooter" id="Contact">
                 <h3>Contact</h3>
                 <p>Address: RHU Campus, Saida, Lebanon.<br>Phone: +961 70 000 000.<br>Email: hello@clothing.example</p>
             </div>
+
             <div class="SocialsFooter">
                 <h3>Socials</h3>
                 <div class="UpperRow">
@@ -141,13 +173,16 @@
                     <button class="SocialsBtn">LinkedIn</button>
                 </div>
             </div>
+
         </div>
+
         <div class="CopyRight">
-            &copy; <span>2025 Drip District. All Rights Reserved</span> 
+            &copy; <span>2025 Drip District. All Rights Reserved</span>
         </div>
     </footer>
 
+
     <script src="categoryscript.js"></script>
-    
+
 </body>
 </html>
