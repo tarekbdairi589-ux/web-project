@@ -1,22 +1,12 @@
 document.addEventListener("DOMContentLoaded", () => {
   RenderProducts();
-  // Rebuild cart DOM from localStorage
   loadCartFromLocalStorage();
-
-  // Recalculate totals and update badge/subtotal
   updateCartState();
- 
-});
+ });
 
-// =========================
-//   LOGIN & CART LOGIC
-// =========================
-
-// Read login and cart state from localStorage
 let isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
 let cartCount = parseInt(localStorage.getItem("cartCount") || "0");
 
-// Select elements from the page
 let cartCountSpan = document.getElementById("CartCount");
 let loginBtn = document.getElementById("LoginBtn");
 let CartBtn = document.getElementById("Cart-Btn");
@@ -72,7 +62,6 @@ function loadCartFromLocalStorage(){
     productsListing.appendChild(newCard);
   });
 
-  // Update totals and badge
   updateCartState();
 }
   
@@ -80,9 +69,8 @@ function loadCartFromLocalStorage(){
 let CheckOutBtn = document.getElementById("CheckOutBtn");
 
 CheckOutBtn.addEventListener("click", () => {
-  saveCartToLocalStorage();  // SAVE THE CART FIRST
+  saveCartToLocalStorage();  
 
-  // Redirect to checkout page
   window.location.href = "../checkout/cart.html"; 
 });
 
@@ -102,33 +90,25 @@ Overlay.addEventListener('click',()=>{
     Overlay.classList.remove('active');
 })
 
-// Update the cart number on page load
 function updateCartUI(cartCount) {
     if (cartCountSpan) {
         cartCountSpan.textContent = cartCount;
     }
 }
-//updateCartUI();
-
-// =========================
-//   LOGIN / LOGOUT BUTTON
-// =========================
 
 if (isLoggedIn) {
-    loginBtn.textContent = "Logout";   // change button to Logout
+    loginBtn.textContent = "Logout";   
 } else {
-    loginBtn.textContent = "Login";    // default state
+    loginBtn.textContent = "Login";    
 }
 
 loginBtn.addEventListener("click", function () {
     if (isLoggedIn) {
-        // LOGOUT LOGIC
         localStorage.removeItem("isLoggedIn");
         localStorage.removeItem("currentUser");
         alert("Logged out successfully!");
-        window.location.reload();  // refresh UI
+        window.location.reload();  
     } else {
-        // GO TO LOGIN PAGE
         window.location.href = "../signup and login/SandL.html";
     }
 });
@@ -175,7 +155,7 @@ function RenderProducts(){
         </div>
       </div>`;
        let sizeSelect = card.querySelector(".sizeSelect");
-    sizeSelect.innerHTML = ""; // clear defaults
+    sizeSelect.innerHTML = ""; 
 
 let sizes = typeof p.size === "string" ? [p.size] : p.size;
 
@@ -223,21 +203,17 @@ function updateCartState() {
 let ProductModal = document.querySelector(".ProductModal");
 let CloseProductBtn = document.querySelector(".CloseProduct");
 
-// Close with X
 CloseProductBtn.addEventListener("click", () => {
   ProductModal.classList.remove("active");
   Overlay.classList.remove("active");
 });
 
-// Close when clicking overlay
 Overlay.addEventListener("click", () => {
   ProductModal.classList.remove("active");
   Overlay.classList.remove("active");
 });
 
 function attachCardListeners() {
-
-// Press on each card to direct to the Products Details Page  
 document.querySelectorAll(".Card .ProductImg img").forEach(img =>{
   img.addEventListener('click',(e)=>{
     let card = e.target.closest(".Card")
@@ -258,7 +234,7 @@ document.querySelectorAll(".Card .ProductImg img").forEach(img =>{
     goToProductPage(product);
   });
 });
-  // READ MORE
+  
   document.querySelectorAll(".ReadMoreBtn").forEach(btn => {
     btn.addEventListener("click", () => {
       let card = btn.closest(".Card");
@@ -302,7 +278,6 @@ document.querySelectorAll(".Card .ProductImg img").forEach(img =>{
     });
   });
 
-  // ADD TO CART (btn of the card not readmore add to cart)
   document.querySelectorAll(".AddItemBtn").forEach(btn => {
     btn.addEventListener("click", function (e) {
       if (!isLoggedIn) {
@@ -365,10 +340,6 @@ document.querySelectorAll(".Card .ProductImg img").forEach(img =>{
   });
 }
 
-
-
-
-
 let qtyValue =  document.getElementById("QtyValue");
 let Modalplus = document.getElementById("QtyPlus");
 Modalplus.addEventListener('click',()=>{
@@ -398,7 +369,6 @@ document.querySelector(".ProductModal .AddItemBtn").addEventListener("click", ()
     imgSrc: document.getElementById("ModalImg").src
   };
 
-  // Add to cart sidebar
   let productsListing = document.querySelector(".ProductsListing");
   let existingCards = productsListing.querySelectorAll(".ListingCard");
   let found = false;
@@ -440,7 +410,6 @@ document.querySelector(".ProductModal .AddItemBtn").addEventListener("click", ()
   updateCartState();
   saveCartToLocalStorage();
 
-  // Close modal
   document.querySelector(".ProductModal").classList.remove("active");
   document.getElementById("Overlay").classList.remove("active");
 });
@@ -454,7 +423,7 @@ document.querySelector(".ProductDetailsLink").addEventListener('click',(e)=>{
   e.preventDefault();
   let product = {
   title: document.getElementById("ModalTitle").textContent,
-  desc: ProductModal.getAttribute("data-longDesc"), // safer than reading inner text
+  desc: ProductModal.getAttribute("data-longDesc"), 
   price: parseFloat(document.getElementById("ModalPrice").textContent.replace("$","")),
   size: document.getElementById("ModalsizeSelect").value,
   imgSrc: document.getElementById("ModalImg").src,
@@ -467,8 +436,6 @@ document.querySelector(".ProductDetailsLink").addEventListener('click',(e)=>{
 
   goToProductPage(product);
 })
-
-
 
 let backToTopBtn = document.querySelector(".BackToTopBtn");
 
@@ -483,13 +450,11 @@ backToTopBtn.addEventListener("click", () => {
     Overlay.classList.add("active");
 });
 
-// Close profile sidebar
 CloseProfileBtn.addEventListener("click", () => {
     ProfileSideBar.classList.remove("open");
     Overlay.classList.remove("active");
 });
 
-// Close by clicking outside
 Overlay.addEventListener("click", () => {
     ProfileSideBar.classList.remove("open");
 });
@@ -499,8 +464,6 @@ $(document).ready(function () {
         window.location.href = "../profile/orders/orders.html";
     });
 
-    
-// Minus button inside cart sidebar
 $(".ProductsListing").on("click", ".minus", function(){
   let qtySpan = $(this).siblings(".NumberOfProducts");
   let current = parseInt(qtySpan.text());
@@ -511,7 +474,6 @@ $(".ProductsListing").on("click", ".minus", function(){
   saveCartToLocalStorage();
 });
 
-// Plus button inside cart sidebar
 $(".ProductsListing").on("click", ".plus", function(){
   let qtySpan = $(this).siblings(".NumberOfProducts");
   let current = parseInt(qtySpan.text());
@@ -520,10 +482,6 @@ $(".ProductsListing").on("click", ".plus", function(){
   saveCartToLocalStorage();
 });
 
-
-
-
-
 $(".ProductsListing").on("click", ".RemoveProduct", function(){
   $(this).closest(".ListingCard").remove();
   updateCartState();
@@ -531,28 +489,19 @@ $(".ProductsListing").on("click", ".RemoveProduct", function(){
 
 });
 
-
-
-// About Us link
 document.getElementById("AboutUsNav").addEventListener("click", function(e) {
-  e.preventDefault(); // prevent default jump
+  e.preventDefault(); 
   document.getElementById("About").scrollIntoView({
     behavior: "smooth"
   });
 });
 
-// Contact Us link
 document.getElementById("ContactUsNav").addEventListener("click", function(e) {
   e.preventDefault();
   document.getElementById("Contact").scrollIntoView({
     behavior: "smooth"
   });
 });
-
-
-
-
-
 
 
 });

@@ -8,14 +8,14 @@ $(function(){
   let product = JSON.parse(localStorage.getItem("selectedProduct"));
   console.log("Selected Product : ", product);
 
-  // Basic details
+
   $("#ProductTitle").text(product.title);
   $("#ProductDesc").text(product.desc);
   $("#ProductPrice").text(`$${product.price.toFixed(2)}`);
   $("#ProductImg img").attr("src", product.imgSrc);
- // ✅ Use the existing select
+ 
 let sizeSelect = $("#ProductsizeSelect");
-sizeSelect.empty(); // clear old options
+sizeSelect.empty(); 
 
 let sizes = typeof product.size === "string" ? [product.size] : product.size;
 
@@ -28,7 +28,7 @@ if (sizes && sizes.length > 0) {
   sizeSelect.append('<option value="M">M</option>');
 }
 
-  // Table details
+  
   $("#ProductFit").text(product.fit);
   $("#ProductFabric").text(product.fabric);
   $("#ProductThickness").text(product.thickness);
@@ -43,7 +43,7 @@ if (sizes && sizes.length > 0) {
   return size;
   }
 
-  // Recommendations
+ 
   loadRecommendations(product.category, product.title);
 
 function loadRecommendations(category,CurrentTitle){
@@ -117,7 +117,7 @@ $("#CloseBtn , #Overlay").on("click", function() {
 $("#userLogo").on("click", function() {
   $("#ProfileSideBar").addClass("open");
   $("#Overlay").addClass("active");
-  // Load previous orders from localStorage or API
+  
 });
 
 $("#CloseProfileBtn,#Overlay").on("click", function() {
@@ -198,7 +198,7 @@ function loadCartFromLocalStorage() {
 }
 
 $(".AddItemBtn").on("click", function () {
-  // Get product details
+ 
   let title = $("#ProductTitle").text();
   let priceText = $("#ProductPrice").text();
   let price = parseFloat(priceText.replace("$", ""));
@@ -206,12 +206,11 @@ $(".AddItemBtn").on("click", function () {
   let size = $("#ProductsizeSelect").val();
   let qty = parseInt($("#QtyValue").text());
 
-  let productsListing = $(".ProductsListing"); // your cart sidebar container
+  let productsListing = $(".ProductsListing"); 
   let existingCards = productsListing.find(".ListingCard");
 
   let found = false;
 
-  // Check if product already exists in cart
   existingCards.each(function () {
     let existingTitle = $(this).find(".ListingTitle").text();
     let existingSize = $(this).find(".ListingSize").text().replace("Size: ", "").trim();
@@ -222,7 +221,6 @@ $(".AddItemBtn").on("click", function () {
     }
   });
 
-  // If not found, create new card
   if (!found) {
     let newCard = $(`
       <div class="ListingCard">
@@ -247,16 +245,13 @@ $(".AddItemBtn").on("click", function () {
     productsListing.append(newCard);
   }
 
-  // Update cart count and subtotal
   updateCartState();
   saveCartToLocalStorage();
 
-  // Open cart sidebar
   $("#CartSideBar").addClass("open");
   $("#Overlay").addClass("active");
 });
 
-// Minus button inside cart sidebar
 $(".ProductsListing").on("click", ".minus", function(){
   let qtySpan = $(this).siblings(".NumberOfProducts");
   let current = parseInt(qtySpan.text());
@@ -267,7 +262,6 @@ $(".ProductsListing").on("click", ".minus", function(){
   saveCartToLocalStorage();
 });
 
-// Plus button inside cart sidebar
 $(".ProductsListing").on("click", ".plus", function(){
   let qtySpan = $(this).siblings(".NumberOfProducts");
   let current = parseInt(qtySpan.text());
@@ -289,15 +283,13 @@ backToTopBtn.addEventListener("click", () => {
     }); 
 });
 
-// About Us link
 document.getElementById("AboutUsNav").addEventListener("click", function(e) {
-  e.preventDefault(); // prevent default jump
+  e.preventDefault(); 
   document.getElementById("About").scrollIntoView({
     behavior: "smooth"
   });
 });
 
-// Contact Us link
 document.getElementById("ContactUsNav").addEventListener("click", function(e) {
   e.preventDefault();
   document.getElementById("Contact").scrollIntoView({
@@ -319,7 +311,7 @@ $(".RecommendationSection").on('click','.RecommendedCard',function(){
 
     $(".ImgSide img").attr("src",img);
     $("#ProductTitle").text(Title);
-    $("#ProductDesc").html(desc); // use html() for <br> support
+    $("#ProductDesc").html(desc); 
     $("#ProductPrice").text("$ "+parseFloat(price).toFixed(2));
 
     $(".DetailTable").html(`
@@ -349,10 +341,30 @@ $(".RecommendationSection").on('click','.RecommendedCard',function(){
         </tr>`)
 })
 
+document.getElementById("CheckOutBtn").addEventListener("click", () => {
+    window.location.href = "../checkout/cart.html";
+});
+$("#userLogo").on("click", function() {
+    $("#ProfileSideBar").addClass("open");
+    $("#Overlay").addClass("active");
+});
 
+$("#CloseProfileBtn").on("click", function() {
+    $("#ProfileSideBar").removeClass("open");
+    $("#Overlay").removeClass("active");
+});
 
+$("#Overlay").on("click", function() {
+    $("#ProfileSideBar").removeClass("open");
+    $("#Overlay").removeClass("active");
+});
 
+$(".ProfileBtn:eq(0)").on("click", function () {
+    window.location.href = "../profile/account/account.html";
+});
 
-
+$("#OrdersBtn").on("click", function () {
+    window.location.href = "../profile/orders/orders.html";
+});
 
 });
