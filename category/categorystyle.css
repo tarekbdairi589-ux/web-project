@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* RESET */
+=======
+
+>>>>>>> bce4c37da5c823230e4afdd10d3468b28c06d144
 * {
     margin: 0;
     padding: 0;
@@ -14,13 +18,20 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+<<<<<<< HEAD
 
     /* SAME GRADIENT AS CLIENT */
+=======
+>>>>>>> bce4c37da5c823230e4afdd10d3468b28c06d144
     background: linear-gradient(to bottom, #000000 0%, #050533 35%, #00008B 70%, #0000FF 100%);
     color: white;
 }
 
+<<<<<<< HEAD
 /* NAVBAR */
+=======
+
+>>>>>>> bce4c37da5c823230e4afdd10d3468b28c06d144
 .NavBar {
     position: fixed;
     top: 0;
@@ -63,7 +74,11 @@ body {
     text-shadow: 0 0 5px #4FF2FF;
 }
 
+<<<<<<< HEAD
 /* SEARCH + CART */
+=======
+
+>>>>>>> bce4c37da5c823230e4afdd10d3468b28c06d144
 .Search-Cart {
     display: flex;
     align-items: center;
@@ -96,7 +111,10 @@ body {
     height: 35px;
 }
 
+<<<<<<< HEAD
 /* PAGE TOP HEADER */
+=======
+>>>>>>> bce4c37da5c823230e4afdd10d3468b28c06d144
 #headertitle {
     margin-top: 110px;
     padding: 20px 40px;
@@ -108,6 +126,10 @@ body {
 #headertitle h1 {
     font-size: 2.3rem;
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> bce4c37da5c823230e4afdd10d3468b28c06d144
 
 /* FILTER SECTION */
 .category {
@@ -145,7 +167,11 @@ select:hover {
     box-shadow: 0 0 10px #4FF2FF;
 }
 
+<<<<<<< HEAD
 /* PRODUCT GRID (MATCH CLIENT: 3 PER ROW) */
+=======
+
+>>>>>>> bce4c37da5c823230e4afdd10d3468b28c06d144
 main {
     width: 100%;
     max-width: 1200px;
@@ -170,7 +196,11 @@ main {
     gap: 20px;
 }
 
+<<<<<<< HEAD
 /* CARD (IDENTICAL TO CLIENT) */
+=======
+
+>>>>>>> bce4c37da5c823230e4afdd10d3468b28c06d144
 .Card {
     flex: 1 1 calc(33.33% - 20px);
     max-width: calc(33.33% - 20px);
@@ -189,7 +219,11 @@ main {
     transform: translateY(-4px);
 }
 
+<<<<<<< HEAD
 /* IMAGE */
+=======
+
+>>>>>>> bce4c37da5c823230e4afdd10d3468b28c06d144
 .ProductImg {
     width: 100%;
     height: 290px;
@@ -205,7 +239,11 @@ main {
     object-fit: cover;
 }
 
+<<<<<<< HEAD
 /* CONTENT */
+=======
+
+>>>>>>> bce4c37da5c823230e4afdd10d3468b28c06d144
 .ProductContent {
     border-top: 1px solid #2D2D57;
     padding: 15px;
@@ -225,7 +263,11 @@ main {
     color: #D1D1D1;
 }
 
+<<<<<<< HEAD
 /* ROW (PRICE + BUTTONS) */
+=======
+
+>>>>>>> bce4c37da5c823230e4afdd10d3468b28c06d144
 .row {
     display: flex;
     justify-content: space-between;
@@ -249,6 +291,7 @@ main {
 .ReadMoreBtn:hover {
     background-color: #3D7BFF;
     box-shadow: 0 0 10px #4FF2FF;
+<<<<<<< HEAD
 }
 
 .AddItemBtn {
@@ -330,6 +373,98 @@ footer {
     cursor: pointer;
 }
 #CloseBtn:hover {
+=======
+}
+
+.AddItemBtn {
+    background-color: #3D7BFF;
+    border: 1px solid #1F4CEB;
+}
+.AddItemBtn:hover {
+>>>>>>> bce4c37da5c823230e4afdd10d3468b28c06d144
+    background-color: #6DA6FF;
+    box-shadow: 0 0 10px #4FF2FF;
+}
+
+<<<<<<< HEAD
+/* PRODUCT LIST INSIDE SIDEBAR */
+.ProductsListing {
+    margin-top: 20px;
+    max-height: 60vh;
+    overflow-y: auto;
+}
+
+=======
+
+footer {
+    margin-top: auto;
+    background: linear-gradient(to top, #000020, #000033 50%, rgba(0,0,0,0.4));
+    backdrop-filter: blur(6px);
+    color: white;
+    padding: 40px 20px 20px 20px;
+}
+
+.FooterPage {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 40px;
+}
+
+.FooterPage div {
+    flex: 1;
+    min-width: 250px;
+}
+
+.SocialsBtn {
+    margin-right: 10px;
+    border-radius: 10px;
+    background-color: #3D7BFF;
+}
+.SocialsBtn:hover {
+    background-color: #6DA6FF;
+    box-shadow: 0 0 10px #4FF2FF;
+}
+
+.CopyRight {
+    margin-top: 25px;
+    text-align: center;
+    font-size: 13px;
+    color: #c8d4ff;
+    padding-top: 10px;
+    border-top: 1px solid rgba(255,255,255,0.2);
+}
+
+
+#CartSideBar {
+    position: fixed;
+    top: 0;
+    right: -400px;               
+    width: 350px;
+    height: 100%;
+    background: rgba(10, 15, 35, 0.85);
+    backdrop-filter: blur(8px);
+    border-left: 1px solid rgba(255,255,255,0.1);
+    padding: 20px;
+    color: white;
+    transition: right 0.5s ease;
+    z-index: 1000;
+}
+
+#CartSideBar.open {
+    right: 0;                 
+}
+
+#CloseBtn {
+    padding: 7px 12px;
+    border-radius: 8px;
+    background-color: #3D7BFF;
+    border: 1px solid #1F4CEB;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+#CloseBtn:hover {
     background-color: #6DA6FF;
     box-shadow: 0 0 10px #4FF2FF;
 }
@@ -341,6 +476,7 @@ footer {
     overflow-y: auto;
 }
 
+>>>>>>> bce4c37da5c823230e4afdd10d3468b28c06d144
 .ListingCard {
     display: flex;
     align-items: center;
@@ -392,7 +528,11 @@ footer {
     background-color: #6DA6FF;
 }
 
+<<<<<<< HEAD
 /* CART FOOTER */
+=======
+
+>>>>>>> bce4c37da5c823230e4afdd10d3468b28c06d144
 #CheckOutBtn {
     width: 100%;
     background-color: #3D7BFF;
@@ -408,7 +548,11 @@ footer {
     box-shadow: 0 0 10px #4FF2FF;
 }
 
+<<<<<<< HEAD
 /* OVERLAY */
+=======
+
+>>>>>>> bce4c37da5c823230e4afdd10d3468b28c06d144
 #Overlay {
     position: fixed;
     top: 0;
@@ -425,14 +569,20 @@ footer {
     opacity: 1;
     pointer-events: auto;
 }
+<<<<<<< HEAD
 /* ---------------------------- */
 /*        PRODUCT MODAL        */
 /* ---------------------------- */
+=======
+
+
+>>>>>>> bce4c37da5c823230e4afdd10d3468b28c06d144
 
 .ProductModal {
     position: fixed;
     top: 50%;
     left: 50%;
+<<<<<<< HEAD
     transform: translate(-50%, -50%);
     width: 750px;
     background-color: #141A3A;
@@ -512,4 +662,42 @@ footer {
 }
 .SocialsBtn{
   margin:2px;
+=======
+    transform: translate(-50%, -50%) scale(0.8);
+    width: 90%;
+    max-width: 800px; 
+    background: rgba(10, 15, 35, 0.95);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 12px;
+    padding: 20px;
+    color: white;
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.3s ease;
+    z-index: 1001;
+
+    display: flex;     
+    gap: 20px;             
+    align-items: flex-start;
+}
+
+.ProductModal.active {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.ProductModal img {
+    width: 40%;         
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+.ProductModal .ModalContent {
+    width: 60%;        
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+>>>>>>> bce4c37da5c823230e4afdd10d3468b28c06d144
 }
