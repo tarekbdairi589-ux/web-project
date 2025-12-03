@@ -1,66 +1,91 @@
 $(document).ready(function () {
 
-    // -----------------------------
-    //  LOAD PROFILE
-    // -----------------------------
-    let userProfile = JSON.parse(localStorage.getItem("userProfile") || "{}");
-    let users = JSON.parse(localStorage.getItem("users") || "[]");
-    let currentUser = localStorage.getItem("currentUser");
-
-    // If nothing exists, fallback (should never happen ideally)
-    if (!userProfile || !userProfile.name) {
-        userProfile = {
-            name: "Guest User",
-            email: "example@email.com",
-            password: "password123",
-            address: "No address saved yet."
-        };
+    // Redirect if not logged in
+    if (!localStorage.getItem("isLoggedIn")) {
+        window.location.href = "../../../signup and login/SandL.html";
+        return;
     }
 
-    // -----------------------------
-    //  REFRESH UI
-    // -----------------------------
+    let currentUser = localStorage.getItem("currentUser");
+    let isAdmin = localStorage.getItem("isAdmin") === "true";
+
+    let userProfile;
+    let users = JSON.parse(localStorage.getItem("users") || "[]");
+
+    // If ADMIN is logged in → Show admin identity
+    if (isAdmin && currentUser === "admin") {
+        userProfile = {
+            name: "Admin",
+            email: "admin@dripdistrict.com",
+            password: "●●●●●●●",
+            address: "Admin Control Panel"
+        };
+
+        // Disable Edit Button for Admin
+        $("#EditAccountBtn").hide();
+    } 
+    else {
+        // Normal registered user
+        userProfile = JSON.parse(localStorage.getItem("userProfile"));
+        
+        if (!userProfile) {
+            // fallback if somehow profile not created yet
+            userProfile = {
+                name: currentUser,
+                email: `${currentUser}@example.com`,
+                password: "password123",
+                address: "No address saved yet."
+            };
+        }
+    }
+
+
+    //-------------------------------------
+    // 🟦 REFRESH VIEW
+    //-------------------------------------
     function refreshView() {
-        // Read-only view
         $("#AccNameText").text(userProfile.name);
         $("#AccEmailText").text(userProfile.email);
         $("#AccPasswordText").text("●●●●●●●");
         $("#AccAddressText").text(userProfile.address);
 
-        // Edit fields
-        $("#AccNameInput").val(userProfile.name);
-        $("#AccEmailInput").val(userProfile.email);
-        $("#AccPasswordInput").val(userProfile.password);
-        $("#AccAddressInput").val(userProfile.address);
+        // Fill form if NORMAL USER
+        if (!isAdmin) {
+            $("#AccNameInput").val(userProfile.name);
+            $("#AccEmailInput").val(userProfile.email);
+            $("#AccPasswordInput").val(userProfile.password);
+            $("#AccAddressInput").val(userProfile.address);
+        }
     }
 
     refreshView();
 
-    // -----------------------------
-    //  EDIT MODE
-    // -----------------------------
-    $("#EditAccountBtn").on("click", function () {
-        $("#AccountView").hide();
-        $("#AccountEdit").show();
-    });
 
-    // -----------------------------
-    //  SAVE ACCOUNT INFORMATION
-    // -----------------------------
+    //-------------------------------------
+    // 🟦 EDIT MODE (Only For User)
+    //-------------------------------------
+    if (!isAdmin) {
+        $("#EditAccountBtn").on("click", function () {
+            $("#AccountView").hide();
+            $("#AccountEdit").show();
+        });
+    }
+
+
+    //-------------------------------------
+    // 🟦 SAVE ACCOUNT INFO (Only For User)
+    //-------------------------------------
     $("#SaveAccountBtn").on("click", function () {
 
-        // Update userProfile object
+        if (isAdmin) return; // Just in case
+
         userProfile.name = $("#AccNameInput").val().trim();
         userProfile.email = $("#AccEmailInput").val().trim();
         userProfile.password = $("#AccPasswordInput").val().trim();
         userProfile.address = $("#AccAddressInput").val().trim();
 
-        // Save updated profile
         localStorage.setItem("userProfile", JSON.stringify(userProfile));
 
-        // -----------------------------
-        //  UPDATE USERS[] ARRAY ✔ FIX LOGIN ISSUE
-        // -----------------------------
         users = users.map(u => {
             if (u.username === currentUser) {
                 return {
@@ -74,49 +99,51 @@ $(document).ready(function () {
 
         localStorage.setItem("users", JSON.stringify(users));
 
-        // If user changed his name, update currentUser
         currentUser = userProfile.name;
         localStorage.setItem("currentUser", currentUser);
 
-        // Refresh UI
         refreshView();
-
         $("#AccountEdit").hide();
         $("#AccountView").show();
 
         alert("Account information updated successfully!");
     });
 
-    // -----------------------------
-    //  CANCEL EDIT
-    // -----------------------------
+
+    //-------------------------------------
+    // 🟦 CANCEL EDIT
+    //-------------------------------------
     $("#CancelAccountBtn").on("click", function () {
         refreshView();
         $("#AccountEdit").hide();
         $("#AccountView").show();
     });
 
-    // -----------------------------
-    //  BACK TO STORE
-    // -----------------------------
+
+    //-------------------------------------
+    // 🟦 BACK TO STORE
+    //-------------------------------------
     $("#BackToStoreBtn").on("click", function () {
         window.location.href = "../../../client/index.html";
     });
 
-    // -----------------------------
-    //  SHOW / HIDE PASSWORD ICON
-    // -----------------------------
-    $("#TogglePassIcon").on("click", function () {
-        let passInput = $("#AccPasswordInput");
-        let icon = $("#TogglePassIcon");
 
-        if (passInput.attr("type") === "password") {
-            passInput.attr("type", "text");
-            icon.attr("src", "view.png");   // make sure view.png exists here
-        } else {
-            passInput.attr("type", "password");
-            icon.attr("src", "hide.png");   // make sure hide.png exists here
-        }
-    });
+    //-------------------------------------
+    // 🟦 PASSWORD TOGGLE (USER ONLY)
+    //-------------------------------------
+    if (!isAdmin) {
+        $("#TogglePassIcon").on("click", function () {
+            let passInput = $("#AccPasswordInput");
+            let icon = $("#TogglePassIcon");
+
+            if (passInput.attr("type") === "password") {
+                passInput.attr("type", "text");
+                icon.attr("src", "view.png");
+            } else {
+                passInput.attr("type", "password");
+                icon.attr("src", "hide.png");
+            }
+        });
+    }
 
 });

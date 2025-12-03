@@ -17,6 +17,75 @@ document.addEventListener("DOMContentLoaded", () => {
     arrowDiv.appendChild(arrowImg);
     document.body.appendChild(arrowDiv);
  }
+ if(localStorage.getItem("isAdmin")==="true"){ 
+    let arrowDiv = document.createElement("div");
+    arrowDiv.classList.add("ArrowRight");
+    let arrowImg = document.createElement("img");
+    arrowImg.src = "iconArrow.png"; // path to your arrow icon
+    arrowImg.alt = "Back To Admin";
+
+    arrowImg.addEventListener("click", () => {
+      window.location.href = "../admin/admin.html"; // adjust path
+    });
+
+    arrowDiv.appendChild(arrowImg);
+    document.body.appendChild(arrowDiv);
+ }
+ let isAdmin = localStorage.getItem("isAdmin") === "true";
+
+if (isAdmin) {
+    console.log("Admin mode active — shopping disabled.");
+        // 🔒 Hide "My Orders" button in profile sidebar for admin
+    let ordersBtn = document.getElementById("OrdersBtn");
+    if (ordersBtn) {
+        ordersBtn.style.display = "none";   // hide it
+    }
+
+    let cartBtn = document.getElementById("Cart-Btn");
+    if (cartBtn) {
+        cartBtn.onclick = function(e){
+    e.preventDefault();
+    alert("Admins cannot access the cart.");
+
+    // 🔒 Ensure sidebar stays closed after clicking OK
+    if (CartSideBar) CartSideBar.classList.remove("open");
+    if (Overlay) Overlay.classList.remove("active");
+
+    return false;
+};
+
+    }
+    let checkoutBtn = document.getElementById("CheckOutBtn");
+    if (checkoutBtn) {
+        checkoutBtn.onclick = function(e){
+            e.preventDefault();
+            alert("Admins cannot checkout.");
+            return false;
+        };
+    }
+    let addBtns = document.querySelectorAll(".AddItemBtn");
+    addBtns.forEach(function(btn){
+        btn.onclick = function(e){
+            e.preventDefault();
+            alert("Admins cannot add products to cart.");
+            return false;
+        };
+        btn.disabled = true;
+        btn.style.opacity = "0.4";
+        btn.style.cursor = "not-allowed";
+    });
+    let qtyBtns = document.querySelectorAll(".PlusMinusBtn");
+    qtyBtns.forEach(function(btn){
+        btn.onclick = function(e){
+            e.preventDefault();
+            return false;
+        };
+        btn.style.opacity = "0.3";
+    });
+    localStorage.removeItem("cart");
+    document.getElementById("CartCount").innerText = "0";
+}
+
 });
 
 let isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
