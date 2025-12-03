@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
     arrowImg.alt = "Back To Admin";
 
     arrowImg.addEventListener("click", () => {
-      window.location.href = "../admin/admin.html"; 
+      window.location.href = "admin/admin.html"; 
     });
 
     
@@ -145,7 +145,7 @@ let CheckOutBtn = document.getElementById("CheckOutBtn");
 CheckOutBtn.addEventListener("click", () => {
   saveCartToLocalStorage();  
 
-  window.location.href = "../checkout/cart.html"; 
+  window.location.href = "checkout/cart.html"; 
 });
 
 
@@ -183,7 +183,7 @@ loginBtn.addEventListener("click", function () {
         alert("Logged out successfully!");
         window.location.reload();  
     } else {
-        window.location.href = "../signup and login/SandL.html";
+        window.location.href = "signup and login/SandL.html";
     }
 });
 function formatSizeLabel(size){
@@ -532,7 +532,7 @@ document.querySelector(".ProductModal .AddItemBtn").addEventListener("click", ()
 
 function goToProductPage(product){
   localStorage.setItem("selectedProduct",JSON.stringify(product));
-  window.location.href = "../Products-Detailss/Products.html";
+  window.location.href = "Products-Detailss/Products.html";
 } 
 
 document.querySelector(".ProductDetailsLink").addEventListener('click',(e)=>{
@@ -704,6 +704,6 @@ document.getElementById("ContactUsNav").addEventListener("click", function(e) {
 
 });
 $("#AccountInfoBtn").click(function () {
-    window.location.href = "../profile/orders/account/account.html"; 
+    window.location.href = "profile/orders/account/account.html"; 
 });
 

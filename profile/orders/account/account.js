@@ -2,7 +2,7 @@ $(document).ready(function () {
 
     // Redirect if not logged in
     if (!localStorage.getItem("isLoggedIn")) {
-        window.location.href = "../../../signup and login/SandL.html";
+        window.location.href = "signup and login/SandL.html";
         return;
     }
 
@@ -124,7 +124,7 @@ $(document).ready(function () {
     // 🟦 BACK TO STORE
     //-------------------------------------
     $("#BackToStoreBtn").on("click", function () {
-        window.location.href = "../../../index.html";
+        window.location.href = "index.html";
     });
 
 

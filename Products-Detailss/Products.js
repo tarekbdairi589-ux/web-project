@@ -95,7 +95,7 @@ function loadRecommendations(category,CurrentTitle){
           };
        
       localStorage.setItem("selectedProduct", JSON.stringify(selected));
-      window.location.href = "../Products-Detailss/Products.html";
+      window.location.href = "Products.html";
       })
       container.append(card);
   })
