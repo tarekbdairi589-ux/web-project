@@ -344,4 +344,4 @@ function loadCategoryProducts(filterCategory = 'All') {
         `);
         container.append(card);
     });
-}
+} 

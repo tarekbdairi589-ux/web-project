@@ -1,3 +1,4 @@
+htmladmin
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,23 +8,18 @@
     <link rel="stylesheet" href="styleadmin.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
-
 <body>
-<<<<<<< HEAD
-=======
    <header id="admin-header">
             <div id="header-title">
                 <img src="Drip_logo.png" alt="logo-image" id="admin-logo-image">
                 <p>Clothing Admin</p>
             </div>
->>>>>>> bce4c37da5c823230e4afdd10d3468b28c06d144
 
-    <!-- ---------------- HEADER ---------------- -->
-    <header id="admin-header">
-        <div id="header-title">
-            <img src="" alt="logo-image" id="admin-logo-image">
-            <p>Clothing Admin</p>
-        </div>
+            <ul class="ul-header" id="center-menu">
+                <li><a href="#">View Store</a></li>
+                <li><a href="#">Switch User</a></li>
+                <li><a href="#">Logout</a></li>
+            </ul>
 
             <div id="right-nav">
                 <a href="../client/index.html">
@@ -33,199 +29,154 @@
             </div>
     </header>
 
-
-    <!-- ---------------- MAIN CONTENT ---------------- -->
-    <main>
-
-        <!-- ===== ADD / EDIT PRODUCT SECTION ===== -->
-        <section id="add-edit-admin-section">
-            <header id="add-edit-admin-header">
-                <h2 id="add-edit-admin-h2">Add/Edit Product</h2>
-            </header>
-
-            <form id="add-edit-form">
-
-                <div class="form1-div">
-
-                    <!-- LEFT COLUMN -->
-                    <div id="section1-div1">
-                        <label>Name *</label>
-                        <input type="text" placeholder="eg., Oversized Hoodie" id="name">
-
-                        <label>SKU</label>
-                        <input type="text" placeholder="eg., HD-OVR-001" id="sku">
-
-                        <label>Category *</label>
-                        <select id="selectcategory">
-                            <option value="" selected>Select a category...</option>
-                            <option value="Hoodies">Hoodies</option>
-                            <option value="T-Shirts">T-Shirts</option>
-                        </select>
-
-                        <input type="text" placeholder="Add category name" id="addcategory">
-                        <button id="addcategorybtn" class="addbtn-category">Add</button>
-
-                        <label>Color</label>
-                        <input type="text" placeholder="eg., Red, Blue, Green" id="color">
-
-                        <label>Thickness</label>
-                        <input type="text" placeholder="eg., Light, Medium, Heavy" id="thickness">
-                    </div>
-
-                    <!-- RIGHT COLUMN -->
-                    <div id="section1-div1">
-                        <label>Price (USD) *</label>
-                        <input type="number" placeholder="eg., 39.99" id="price" step="any">
-
-                        <label>Quantity *</label>
-                        <input type="number" placeholder="eg., 50" id="quantity">
-
-                        <label>Status *</label>
-                        <select id="Status">
-                            <option value="Published">Published</option>
-                            <option value="Out of Stock">Out of Stock</option>
-                            <option value="Draft">Draft</option>
-                            <option value="Discounted">Discounted</option>
-                        </select>
-
-                        <label>Size</label>
-                        <select id="selectsize">
-                            <option value="Any" selected>Any</option>
+        <main>
+            <section id="add-edit-admin-section">
+                <header id="add-edit-admin-header">
+                    <h2 id="add-edit-admin-h2">Add/Edit Product</h2>
+                </header>
+                <form action="" id="add-edit-form">
+                    <div class="form1-div">
+                        <div id="section1-div1">
+                                <label for="">Name *</label>
+                                <input type="text" placeholder="eg., Oversized Hoodie" id="name">
+                                <label for="">SKU</label>
+                                <input type="text" placeholder="eg., HD-OVR-001" id="sku">
+                                <label for="">Category *</label>
+                            <select id="selectcategory">
+                                <option value="" selected>Select a category...</option>
+                                <option value="Hoodies">Hoodies</option>
+                                <option value="T-Shirts">T-Shirts</option>
+                            </select>
+                                <input type="text" placeholder="Add category name" id="addcategory">
+                                <button id="addcategorybtn" class="addbtn-category">Add</button>
+                                <label for="">color</label>
+                                <input type="text" placeholder="eg., Red, Blue, Green" id="color">
+                                <label for="">Thickness</label>
+                                <input type="text" placeholder="eg., Light, Medium, Heavy" id="thickness">
+                        </div>
+                        <div id="section1-div1">
+                                <label for="">Price (USD) *</label>
+                                <input type="number" placeholder="eg., 39.99" step="any" id="price">
+                                <label for="">Quantity *</label>
+                                <input type="number" placeholder="eg., 50" id="quantity">
+                                <label for="">Status *</label>
+                            <select id="Status">
+                                <option value="Published">Published</option>
+                                <option value="Out of Stock">Out of Stock</option>
+                                <option value="Draft">Draft</option>
+                                <option value="Discounted">Discounted</option>
+                            </select>
+                            <label for="">size</label>
+                              <select name="" id="selectsize">
+                            <option value="Any"selected>Any</option>
                             <option value="Small">Small</option>
-                            <option value="Medium">Medium</option>
-                            <option value="Large">Large</option>
-                            <option value="X-Large">X-Large</option>
-                        </select>
-
-                        <label>Fit</label>
-                        <select id="selectfit">
-                            <option value="Regular">Regular</option>
+                                <option value="Medium">Medium</option>
+                                 <option value="Large">Large</option>
+                                    <option value="X-Large">X-Large</option>
+                              </select>
+                              <label for="">Fit</label>
+                                <select name="" id="selectfit">
+                            <option value="Regular" selected>Regular</option>
                             <option value="Slim">Slim</option>
-                            <option value="Oversized">Oversized</option>
-                        </select>
-
-                        <label>Fabric</label>
-                        <input type="text" placeholder="eg., Cotton, Polyester, Blend" id="fabric">
+                                    <option value="Oversized">Oversized</option>
+                                </select>
+                                <label for="">Fabric</label>
+                                <input type="text" placeholder="eg., Cotton, Polyester, Blend" id="fabric">
+                        </div>
+                                <label for="">Upload Image</label>
+                        <div id="image-upload-container">
+                                <p>Drag & Drop an image here or click to upload</p>
+                                <input type="file" id="image-upload-input" accept="image/*" style="display:none;">
+                                <img id="preview-image" src="" alt="Preview" style="display:none; max-width:200px; margin-top:10px;">
+                        </div>
+                        </div>           
                     </div>
-
-                    <!-- IMAGE UPLOAD -->
-                    <div id="image-upload-container">
-                        <label>Upload Image</label>
-                        <p>Drag & Drop an image here or click to upload</p>
-                        <input type="file" id="image-upload-input" accept="image/*" style="display:none;">
-                        <img id="preview-image" src="" alt="Preview" style="display:none; max-width:200px; margin-top:10px;">
+                    <div id="section1-div1" class="divlabel">
+                        <label for="">Catchy Title/Short Description</label>
+                        <input type="text" id="description" placeholder="eg., Cozy fleece hoodie for all seasons">
+                        <label for="">Read more (long discription)</label>
+                        <textarea name="" id="readmore" placeholder="Fabric, fit, care, and story behined the product..."></textarea>
                     </div>
+                        <footer id="form1-footer">
+                            <button id="resetbtn">Reset</button>
+                            <button id="addbtn">Add item</button>
+                        </footer>
 
-                </div> <!-- end form1-div -->
-
-
-                <!-- ===== DESCRIPTION SECTION FIXED (VERTICAL) ===== -->
-                <div id="desc-section">
-                    <label>Catchy Title / Short Description</label>
-                    <input type="text" id="description" placeholder="eg., Cozy fleece hoodie for all seasons">
-
-                    <label>Read More (long description)</label>
-                    <textarea id="readmore" placeholder="Fabric, fit, care, and story behind the product..."></textarea>
-                </div>
+                </form>
+            </section>
 
 
-                <!-- FORM BUTTONS -->
-                <footer id="form1-footer">
-                    <button id="resetbtn">Reset</button>
-                    <button id="addbtn">Add item</button>
-                </footer>
-
-            </form>
-        </section>
-
-
-        <!-- ===== PRODUCT LIST SECTION ===== -->
-        <section id="product-section">
-            <header id="product-admin-header">
-                <h2 id="product-admin-h2">Products</h2>
-            </header>
-
-            <form id="form2">
-
-                <div class="form1-div">
-                    <div id="section1-div1">
-                        <label>Filter by Category</label>
-                        <select id="adminfiltercategory">
-                            <option value="Hoodies">Hoodies</option>
-                            <option value="T-Shirts">T-Shirts</option>
-                        </select>
+            <section id="product-section">
+                <header id="product-admin-header">
+                    <h2 id="product-admin-h2">Products</h2>
+                </header>
+                <form action="" id="form2">
+                    <div class="form1-div">
+                        <div id="section1-div1">
+                            <label for="">Fillter by Category</label>
+                            <select id="adminfiltercategory">
+                                
+                                <option value="Hoodies">Hoodies</option>
+                                <option value="T-Shirts">T-Shirts</option>
+                            </select>
+                        </div>
+                        <div id="section1-div1">
+                            <label for="">Fillter by Status</label>
+                            <select id="filterStatus">
+                                <option value="All">All</option>
+                                <option value="Published">Published</option>
+                                <option value="Out of Stock">Out of Stock</option>
+                                <option value="Draft">Draft</option>
+                                <option value="Discounted">Discounted</option>
+                            </select>
+                        </div>
                     </div>
+                        <table id="product-table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Name</th>
+                                    <th>Category</th>
+                                    <th>Price (USD)</th>
+                                    <th>Qty</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="product-table-body">
+                                <!-- Product rows will be dynamically added here -->
+                            </tbody>
+                        </table>
+                        <div id="pagination" style="display:flex; gap:10px; margin-top:20px;"></div>
 
-                    <div id="section1-div1">
-                        <label>Filter by Status</label>
-                        <select id="filterStatus">
-                            <option value="All">All</option>
-                            <option value="Published">Published</option>
-                            <option value="Out of Stock">Out of Stock</option>
-                            <option value="Draft">Draft</option>
-                            <option value="Discounted">Discounted</option>
-                        </select>
-                    </div>
-                </div>
+                </form>
+            </section>
 
-                <table id="product-table">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Name</th>
-                            <th>Category</th>
-                            <th>Price (USD)</th>
-                            <th>Qty</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody id="product-table-body">
-                        <!-- JS Will Fill -->
-                    </tbody>
-                </table>
-
-                <div id="pagination" style="display:flex; gap:10px; margin-top:20px;"></div>
-
-            </form>
-        </section>
-
-    </main>
-
-
-    <!-- FIXED ACTION BUTTONS -->
-    <div class="fixed-buttons">
-        <button class="btnupdate">Update</button>
-        <button class="delete">Remove</button>
-    </div>
-
-
-    <!-- FOOTER -->
-    <div class="form1-div" id="footer-div">
-        <div id="section1-div1">
-            <h2>About us</h2>
-            <p>Clothing Admin is your go-to platform for managing your online clothing store with ease and efficiency.</p>
+        </main>
+            <div class="fixed-buttons">
+            <button class="btnupdate">Update</button>
+            <button class="delete">Remove</button>
+            </div>
+        <div class="form1-div" id="footer-div">
+            <div id="section1-div1">
+                <h2>About us</h2>
+                <p>Clothing Admin is your go-to platform for managing your online clothing store with ease and efficiency.</p>
+            </div>
+            <div id="section1-div1">
+                <h2>Contact</h2>
+                <p>Address:RHU Campus,Lebanon</p>
+                <a href="mailto:clothing@gmail.com">Email: clothing@gmail.com</a>
+                <a href="tel:+96170123456">Phone: +961 70 123 456</a>
+            </div>
+            <div id="section1-div1">
+                <h2>Follow us</h2>
+                <a href="#">Facebook</a>
+                <a href="#">Twitter</a>
+                <a href="#">Instagram</a>
+            </div>
         </div>
-
-        <div id="section1-div1">
-            <h2>Contact</h2>
-            <p>Address: RHU Campus, Lebanon</p>
-            <a href="mailto:clothing@gmail.com">Email: clothing@gmail.com</a>
-            <a href="tel:+96170123456">Phone: +961 70 123 456</a>
-        </div>
-
-        <div id="section1-div1">
-            <h2>Follow us</h2>
-            <a href="#">Facebook</a>
-            <a href="#">Twitter</a>
-            <a href="#">Instagram</a>
-        </div>
-    </div>
-
-    <footer id="mainfooter">
-        <p>&copy; 2024 Clothing Admin. All rights reserved.</p>
-    </footer>
-
-    <script src="adminscript.js"></script>
-
+        <footer id="mainfooter">
+            <p>&copy; 2024 Clothing Admin. All rights reserved.</p>
+        </footer>
+                    <script src="adminscript.js"></script>
 </body>
 </html>

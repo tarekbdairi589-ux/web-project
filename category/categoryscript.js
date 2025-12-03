@@ -539,39 +539,9 @@ let CheckOutBtn = document.getElementById("CheckOutBtn");
 CheckOutBtn.addEventListener("click", () => {
   saveCartToLocalStorage();  // SAVE THE CART FIRST
 
-<<<<<<< HEAD
-
-    checkoutBtn.addEventListener("click", () => {
-        window.location.href = "../checkout/cart.html";
-    });
-    $("#AccountInfoBtn").click(function () {
-    window.location.href = "../profile/orders/account/account.html"; 
-});
- $("#OrdersBtn").click(function () {
-        window.location.href = "../profile/orders/orders.html";
-    });
-$(document).ready(function () {
-
-    // OPEN PROFILE SIDEBAR
-    $("#userLogo").on("click", function () {
-        console.log("User logo clicked"); // To check if JS works
-        $("#ProfileSideBar").css("right", "0");
-        $("#Overlay").fadeIn(200);
-    });
-
-    // CLOSE PROFILE SIDEBAR
-    $("#CloseProfileBtn, #Overlay").on("click", function () {
-        $("#ProfileSideBar").css("right", "-300px");
-        $("#Overlay").fadeOut(200);
-    });
-
-});
-
-=======
   // Redirect to checkout page
   window.location.href = "../checkout/cart.html"; 
 });
->>>>>>> bce4c37da5c823230e4afdd10d3468b28c06d144
 
 $(document).ready(function () {
     loadCategoryButtons();
@@ -579,5 +549,4 @@ $(document).ready(function () {
     loadCartFromLocalStorage();
     loadSizeFilter();
 });
-
 

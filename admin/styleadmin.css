@@ -294,18 +294,6 @@ textarea {
         flex-direction: column;
     }
 }
-.addbtn-category {
-    padding: 6px 14px;
-    margin-left: 6px;
-    background: #007bff;
-    color: white;
-    border-radius: 8px;
-    border: none;
-    font-weight: 600;
-    cursor: pointer;
-    transition: 0.3s ease-in-out;
-    box-shadow: 0 0 8px rgba(0, 110, 255, 0.4);
-}
 
 /* Category Button */
 .addbtn-category {
@@ -401,59 +389,4 @@ textarea {
 
 .fixed-buttons .delete:hover {
     box-shadow: 0 0 12px #ff4c4c;
-}
-
-#product-table th {
-    color: white !important;
-}
-
-#product-table td {
-    color: white !important;
-}
-
-#product-table th, 
-#product-table td {
-    border-color: rgba(255, 255, 255, 0.3);
-}
-
-#pagination {
-    display: flex;
-    gap: 10px;
-    margin-top: 20px;
-}
-
-#pagination button,
-#pagination span {
-    padding: 8px 14px;
-    border-radius: 8px;
-    font-weight: bold;
-    font-size: 14px;
-    cursor: pointer;
-    border: none;
-    color: white;
-    background: #007bff;
-    transition: 0.3s ease;
-}
-
-#pagination span {
-    display: inline-block;
-    background: #0056c7; 
-}
-
-#pagination button:hover,
-#pagination span:hover {
-    background: #0095ff;
-    box-shadow: 0 0 10px #0095ff;
-}
-
-#pagination .active-page {
-    background: #0095ff !important;
-    box-shadow: 0 0 10px #0095ff;
-}
-
-#pagination button:disabled {
-    background: #3a3a3a;
-    color: #777;
-    cursor: not-allowed;
-    box-shadow: none;
 }
