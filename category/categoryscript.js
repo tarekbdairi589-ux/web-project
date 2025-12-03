@@ -23,9 +23,9 @@ function loadCartFromLocalStorage() {
   newCard.setAttribute("data-size", item.size);
   newCard.setAttribute("data-color", item.color);
   newCard.innerHTML = `
-    <div class="ListingImg"><img src="${item.imgSrc}" alt="${item.title}" /></div>
+    <div class="ListingImg"><img src="${item.image}" alt="${item.Title}" /></div>
     <div class="ListingContent">
-      <h3 class="ListingTitle">${item.title}</h3>
+      <h3 class="ListingTitle">${item.Title}</h3>
 
       <p class="ListingSizeColor">Size: ${item.size}, Color: ${item.color}</p>
       <div class="ListingBtns">
@@ -57,7 +57,7 @@ function saveCartToLocalStorage() {
   document.querySelectorAll(".ListingCard").forEach(card => {
     cartArray.push({
       title: card.querySelector(".ListingTitle").textContent,
-      desc: card.querySelector(".ListingDescription").textContent,
+      desc: card.querySelector(".ListingDescription")?.textContent || "",
       price: parseFloat(card.querySelector(".ListingPrice").textContent.replace("$", "")),
       qty: parseInt(card.querySelector(".NumberOfProducts").textContent),
       imgSrc: card.querySelector(".ListingImg img").src,
@@ -361,7 +361,8 @@ $(".CloseProduct").click(function () {
 
 $("#Overlay").click(function () {
     $(".ProductModal").removeClass("active");
-    $("#Overlay").removeClass("active");let CartBtn = document.getElementById("Cart-Btn");
+    $("#Overlay").removeClass("active");
+    let CartBtn = document.getElementById("Cart-Btn");
 let CartSideBar = document.getElementById("CartSideBar");
 let Overlay = document.getElementById("Overlay");
 let CloseBtn = document.getElementById("CloseBtn");
@@ -534,12 +535,13 @@ let footer2 = document.querySelector("#footer");
 ContactUsNav.addEventListener("click", () => {
     footer2.scrollIntoView({ behavior: "smooth" });
 });
-let checkoutBtn = document.getElementById("CheckOutBtn");
+let CheckOutBtn = document.getElementById("CheckOutBtn");
+CheckOutBtn.addEventListener("click", () => {
+  saveCartToLocalStorage();  // SAVE THE CART FIRST
 
-
-    checkoutBtn.addEventListener("click", () => {
-        window.location.href = "../checkout/cart.html";
-    });
+  // Redirect to checkout page
+  window.location.href = "../checkout/cart.html"; 
+});
 
 $(document).ready(function () {
     loadCategoryButtons();

@@ -1,4 +1,4 @@
-/* RESET */
+
 * {
     margin: 0;
     padding: 0;
@@ -14,13 +14,11 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-
-    /* SAME GRADIENT AS CLIENT */
     background: linear-gradient(to bottom, #000000 0%, #050533 35%, #00008B 70%, #0000FF 100%);
     color: white;
 }
 
-/* NAVBAR */
+
 .NavBar {
     position: fixed;
     top: 0;
@@ -63,7 +61,7 @@ body {
     text-shadow: 0 0 5px #4FF2FF;
 }
 
-/* SEARCH + CART */
+
 .Search-Cart {
     display: flex;
     align-items: center;
@@ -96,7 +94,6 @@ body {
     height: 35px;
 }
 
-/* PAGE TOP HEADER */
 #headertitle {
     margin-top: 110px;
     padding: 20px 40px;
@@ -109,7 +106,7 @@ body {
     font-size: 2.3rem;
 }
 
-/* FILTER SECTION */
+
 .category {
     margin: 20px auto;
     width: 95%;
@@ -145,7 +142,7 @@ select:hover {
     box-shadow: 0 0 10px #4FF2FF;
 }
 
-/* PRODUCT GRID (MATCH CLIENT: 3 PER ROW) */
+
 main {
     width: 100%;
     max-width: 1200px;
@@ -170,7 +167,7 @@ main {
     gap: 20px;
 }
 
-/* CARD (IDENTICAL TO CLIENT) */
+
 .Card {
     flex: 1 1 calc(33.33% - 20px);
     max-width: calc(33.33% - 20px);
@@ -189,7 +186,7 @@ main {
     transform: translateY(-4px);
 }
 
-/* IMAGE */
+
 .ProductImg {
     width: 100%;
     height: 290px;
@@ -205,7 +202,7 @@ main {
     object-fit: cover;
 }
 
-/* CONTENT */
+
 .ProductContent {
     border-top: 1px solid #2D2D57;
     padding: 15px;
@@ -225,7 +222,7 @@ main {
     color: #D1D1D1;
 }
 
-/* ROW (PRICE + BUTTONS) */
+
 .row {
     display: flex;
     justify-content: space-between;
@@ -260,7 +257,7 @@ main {
     box-shadow: 0 0 10px #4FF2FF;
 }
 
-/* FOOTER — SAME AS CLIENT */
+
 footer {
     margin-top: auto;
     background: linear-gradient(to top, #000020, #000033 50%, rgba(0,0,0,0.4));
@@ -299,12 +296,12 @@ footer {
     padding-top: 10px;
     border-top: 1px solid rgba(255,255,255,0.2);
 }
-/* --- CART SIDEBAR (SAME AS CLIENT) --- */
+
 
 #CartSideBar {
     position: fixed;
     top: 0;
-    right: -400px;               /* hidden by default */
+    right: -400px;               
     width: 350px;
     height: 100%;
     background: rgba(10, 15, 35, 0.85);
@@ -317,7 +314,7 @@ footer {
 }
 
 #CartSideBar.open {
-    right: 0;                    /* slide in */
+    right: 0;                 
 }
 
 #CloseBtn {
@@ -392,7 +389,7 @@ footer {
     background-color: #6DA6FF;
 }
 
-/* CART FOOTER */
+
 #CheckOutBtn {
     width: 100%;
     background-color: #3D7BFF;
@@ -408,7 +405,7 @@ footer {
     box-shadow: 0 0 10px #4FF2FF;
 }
 
-/* OVERLAY */
+
 #Overlay {
     position: fixed;
     top: 0;
@@ -425,9 +422,7 @@ footer {
     opacity: 1;
     pointer-events: auto;
 }
-/* ---------------------------- */
-/*        PRODUCT MODAL        */
-/* ---------------------------- */
+
 
 
 .ProductModal {
@@ -436,7 +431,7 @@ footer {
     left: 50%;
     transform: translate(-50%, -50%) scale(0.8);
     width: 90%;
-    max-width: 600px;
+    max-width: 800px; 
     background: rgba(10, 15, 35, 0.95);
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255,255,255,0.2);
@@ -447,47 +442,27 @@ footer {
     pointer-events: none;
     transition: 0.3s ease;
     z-index: 1001;
+
+    display: flex;     
+    gap: 20px;             
+    align-items: flex-start;
 }
+
 .ProductModal.active {
     opacity: 1;
     pointer-events: auto;
     transform: translate(-50%, -50%) scale(1);
 }
+
 .ProductModal img {
-    width: 100%;
+    width: 40%;         
     border-radius: 10px;
-    margin-bottom: 15px;
+    object-fit: cover;
 }
-.ProductModal .Title {
-    font-size: 22px;
-    margin-bottom: 10px;
-}
-.ProductModal .Description {
-    font-size: 14px;
-    margin-bottom: 15px;
-    color: #D1D1D1;
-}
-.ProductModal .Price {
-    font-size: 18px;
-    font-weight: bold;
-    margin-bottom: 20px;
-}
-.ProductModal .CloseModalBtn {
-    padding: 8px 16px;
-    background-color: #3D7BFF;
-    border: 1px solid #1F4CEB;
-    border-radius: 10px;
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
-}
-.ProductModal .CloseModalBtn:hover {
-    background-color: #6DA6FF;
-    box-shadow: 0 0 10px #4FF2FF;
-}
-#ModalDesc {
-  max-width: 100%;
-  word-wrap: break-word;
-  overflow-wrap: break-word;
-  
+
+.ProductModal .ModalContent {
+    width: 60%;        
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
