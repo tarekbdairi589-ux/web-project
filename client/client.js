@@ -6,14 +6,14 @@ document.addEventListener("DOMContentLoaded", () => {
     let arrowDiv = document.createElement("div");
     arrowDiv.classList.add("ArrowRight");
     let arrowImg = document.createElement("img");
-    arrowImg.src = "iconArrow.png"; // path to your arrow icon
+    arrowImg.src = "iconArrow.png"; 
     arrowImg.alt = "Back To Admin";
 
     arrowImg.addEventListener("click", () => {
-      window.location.href = "../admin/admin.html"; // adjust path
+      window.location.href = "../admin/admin.html"; 
     });
 
-    // Append image to div, then div to body
+    
     arrowDiv.appendChild(arrowImg);
     document.body.appendChild(arrowDiv);
  }
@@ -21,11 +21,11 @@ document.addEventListener("DOMContentLoaded", () => {
     let arrowDiv = document.createElement("div");
     arrowDiv.classList.add("ArrowRight");
     let arrowImg = document.createElement("img");
-    arrowImg.src = "iconArrow.png"; // path to your arrow icon
+    arrowImg.src = "iconArrow.png"; 
     arrowImg.alt = "Back To Admin";
 
     arrowImg.addEventListener("click", () => {
-      window.location.href = "../admin/admin.html"; // adjust path
+      window.location.href = "../admin/admin.html"; 
     });
 
     arrowDiv.appendChild(arrowImg);
@@ -35,10 +35,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
 if (isAdmin) {
     console.log("Admin mode active — shopping disabled.");
-        // 🔒 Hide "My Orders" button in profile sidebar for admin
+   
     let ordersBtn = document.getElementById("OrdersBtn");
     if (ordersBtn) {
-        ordersBtn.style.display = "none";   // hide it
+        ordersBtn.style.display = "none";  
     }
 
     let cartBtn = document.getElementById("Cart-Btn");
@@ -47,7 +47,6 @@ if (isAdmin) {
     e.preventDefault();
     alert("Admins cannot access the cart.");
 
-    // 🔒 Ensure sidebar stays closed after clicking OK
     if (CartSideBar) CartSideBar.classList.remove("open");
     if (Overlay) Overlay.classList.remove("active");
 

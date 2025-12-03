@@ -33,7 +33,7 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 12px 25px;
-  background: rgba(0, 0, 0, 0.6); /* semi-transparent */
+  background: rgba(0, 0, 0, 0.6); 
   backdrop-filter: blur(8px);
   border-bottom: 1px solid rgba(255,255,255,0.15);
 }
@@ -42,12 +42,12 @@ body {
 
 .logo {
     display: flex;
-    align-items: center;   /* centers logo + text vertically */
+    align-items: center;   
     gap: 10px;
 }
 
 .DripDistrict {
-    margin: 0;     /* REMOVE vertical pushing */
+    margin: 0;    
     margin-left: 10px;
 }
 
@@ -202,7 +202,7 @@ h3 {
     gap: 20px;
     justify-content: space-between;
 
-    align-items: stretch;   /* 🔥 FIX: all cards same height */
+    align-items: stretch;   
 }
 
 
@@ -215,7 +215,7 @@ h3 {
   flex-direction: column;
   cursor: pointer;
 
-  flex: 1 1 calc(33.33% - 20px);     /* ✅ 3 per row */
+  flex: 1 1 calc(33.33% - 20px);    
   max-width: calc(33.33% - 20px);
   height: 100%; 
 }
@@ -739,7 +739,7 @@ button:hover {
 }
 #DropDown {
   position: absolute;
-  top: 100%; /* places dropdown directly below the input */
+  top: 100%;
   left: 0;
   width: 320px;
   background: #fff;

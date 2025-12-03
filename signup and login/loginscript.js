@@ -1,8 +1,7 @@
-// === PASSWORD INPUT ELEMENTS ===
+
 let passlInput = document.getElementById('loginPassword');
 let passsInput = document.getElementById('signupPassword');
 
-// === HELPERS FOR USERS IN LOCAL STORAGE ===
 function getUsers() {
     let users = localStorage.getItem("users");
     if (!users) return [];
@@ -15,33 +14,26 @@ function saveUsers(users) {
 
 document.addEventListener('DOMContentLoaded', function () {
 
-    // STRUCTURE ELEMENTS
     let card = document.getElementById('log');
     let toSignup = document.getElementById('toSignup');
     let toLogin = document.getElementById('toLogin');
     let signupForm = document.getElementById('signupForm');
     let loginForm = document.getElementById('loginForm');
 
-    // Default page: LOGIN FORM
     card.classList.add('active-login');
 
-    // Switch to SIGNUP
     toSignup.onclick = function (e) {
         e.preventDefault();
         card.classList.remove('active-login');
         card.classList.add('active-signup');
     };
 
-    // Switch to LOGIN
     toLogin.onclick = function (e) {
         e.preventDefault();
         card.classList.remove('active-signup');
         card.classList.add('active-login');
     };
 
-    // ===============================
-    //       SIGNUP SUBMIT
-    // ===============================
     if (signupForm) {
         signupForm.addEventListener('submit', function (e) {
             e.preventDefault();
@@ -57,14 +49,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
             let users = getUsers();
 
-            // Check if user exists
+          
             let exists = users.find(u => u.username === fullName || u.email === email);
             if (exists) {
                 alert("This user already exists. Please login.");
                 return;
             }
 
-            // Save new user
+           
             users.push({
                 username: fullName,
                 email: email,
@@ -79,15 +71,12 @@ document.addEventListener('DOMContentLoaded', function () {
             card.classList.remove('active-signup');
             card.classList.add('active-login');
 
-            // Autofill login
+           
             let loginUserInput = document.getElementById('loginUsername');
             if (loginUserInput) loginUserInput.value = fullName;
         });
     }
 
-    // ===============================
-    //          LOGIN SUBMIT
-    // ===============================
     if (loginForm) {
         loginForm.addEventListener('submit', function (e) {
             e.preventDefault();
@@ -107,7 +96,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 localStorage.setItem("currentUser", "admin");
 
                  alert("Welcome Admin! Redirecting to admin page...");
-            window.location.href = "../admin/admin.html";   // <-- adjust path to your admin page
+            window.location.href = "../admin/admin.html";  
             return;
             }else{
                 localStorage.setItem("isAdmin","false");
@@ -125,11 +114,11 @@ document.addEventListener('DOMContentLoaded', function () {
                 return;
             }
 
-            // Mark user as logged in
+           
             localStorage.setItem("isLoggedIn", "true");
             localStorage.setItem("currentUser", found.username);
 
-            // 🔥 Save full userProfile used by Account Page
+
             let profile = {
                 name: found.username,
                 email: found.email,
@@ -143,11 +132,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // ===============================
-    //     NEW SHOW/HIDE PASSWORD
-    // ===============================
-
-    // LOGIN EYE ICON
     let loginToggle = document.getElementById("LoginTogglePass");
 
     if (loginToggle) {
@@ -162,7 +146,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // SIGNUP EYE ICON
     let signupToggle = document.getElementById("SignupTogglePass");
 
     if (signupToggle) {

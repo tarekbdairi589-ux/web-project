@@ -288,14 +288,14 @@ textarea {
     border-radius: 12px;
 }
 
-/* Responsive */
+
 @media(max-width: 900px) {
     .form1-div {
         flex-direction: column;
     }
 }
 
-/* Category Button */
+
 .addbtn-category {
     padding: 6px 14px;
     margin-left: 6px;
@@ -337,7 +337,7 @@ textarea {
     border-color: rgba(255, 255, 255, 0.3);
 }
 
-/* Pagination */
+
 #pagination {
     display: flex;
     gap: 10px;

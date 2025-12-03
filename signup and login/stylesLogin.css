@@ -10,13 +10,9 @@
 
 body {
     height: 100vh;
-    /* make body fill full screen height */
     display: flex;
-    /* activate flexbox layout */
     justify-content: center;
-    /* center horizontally */
     align-items: center;
-    /* center vertically */
     background-color: var(--bg);
 }
 
@@ -29,12 +25,9 @@ body {
     padding: 2rem;
     border-radius: 12px;
     flex-direction: column;
-    /* stack items vertically */
     align-items: stretch;
-    /* make them take full width */
     justify-content: flex-start;
     align-items: center;
-    /* center everything horizontally */
     text-align: center;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
     border: 1px solid var(--border);
@@ -48,7 +41,6 @@ body {
     padding: 20px;
 }
 
-/* base fields only (NOT checkboxes) */
 input[type="text"],
 input[type="password"],
 input[type="email"] {
@@ -57,7 +49,6 @@ input[type="email"] {
     border: 1px solid var(--border);
 }
 
-/* styled width/rounded/glow ONLY for text-like fields inside .login */
 .login input[type="text"],
 .login input[type="password"],
 .login input[type="email"] {
@@ -76,15 +67,12 @@ input[type="email"] {
 
 .login input::placeholder {
     color: #8b93a7;
-    /* softer gray-blue */
 }
 
 .btnlogin {
     padding: 10px;
     width: 100%;
-    /* makes the button stretch the full width of the div */
     padding: 12px;
-    /* gives it height and good spacing */
     background-color: var(--brand);
     color: #0b1220;
     border: none;
@@ -105,13 +93,11 @@ input[type="email"] {
 
 .login label {
     color: #a9c5ff;
-    /* soft glowing blue-white */
     font-weight: 600;
 }
 
 .login h2 {
     color: #ffffff;
-    /* bright white for the header */
     letter-spacing: 1px;
 }
 
@@ -124,9 +110,7 @@ input[type="email"] {
 .btnsignup {
     padding: 10px;
     width: 100%;
-    /* makes the button stretch the full width of the div */
     padding: 12px;
-    /* gives it height and good spacing */
     background-color: var(--brand);
     color: #0b1220;
     border: none;
@@ -137,7 +121,6 @@ input[type="email"] {
     margin-top: 10px;
 }
 
-/* show one form at a time */
 .login-form,
 .signup-form {
     display: none;
@@ -159,17 +142,14 @@ input[type="email"] {
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    /* right side under the input */
     gap: 8px;
-    width: 260px;
-    /* match the input width */
+    width: 260px;  
     margin: 6px auto 10px;
-    /* center the row; small spacing */
     color: #cfe0ff;
     font-size: 14px;
 }
 
-/* remove big borders/glow from the checkbox itself */
+
 .showpass input[type="checkbox"] {
     width: auto;
     height: auto;
@@ -178,7 +158,7 @@ input[type="email"] {
     outline: none;
     background: transparent;
     accent-color: var(--brand);
-    /* nice blue check (supported browsers) */
+   
 }
 .PasswordRow {
     display: flex;
@@ -190,11 +170,10 @@ input[type="email"] {
     width: 20px;
     height: 20px;
     cursor: pointer;
-    filter: invert(100%); /* keep white on dark background */
-    transition: 0.25s ease; /* smooth hover animation */
+    filter: invert(100%); 
+    transition: 0.25s ease; 
 }
 
-/* Glow on hover */
 .EyeIcon:hover {
     filter: drop-shadow(0 0 6px white) invert(100%);
     transform: scale(1.15);

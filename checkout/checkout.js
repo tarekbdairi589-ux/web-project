@@ -12,14 +12,13 @@ $(document).ready(function () {
             return;
         }
 
-        // Load previous orders
-        let orders = JSON.parse(localStorage.getItem("orders")) || [];
+                let orders = JSON.parse(localStorage.getItem("orders")) || [];
 
-        // Calculate total
+        
         let total = 0;
         cart.forEach(i => total += i.price * i.qty);
 
-        // Create new order object
+        
         let newOrder = {
             orderId: Date.now(),
             date: new Date().toLocaleString(),
@@ -27,17 +26,17 @@ $(document).ready(function () {
             total: total
         };
 
-        // Save the new order
+        
         orders.push(newOrder);
         localStorage.setItem("orders", JSON.stringify(orders));
 
         alert("Order Confirmed! Thank you ❤️");
 
-        // clear cart data
+       
         localStorage.removeItem("cart");
         localStorage.setItem("cartCount", "0");
 
-        // Redirect to client page
+        
         window.location.href = "../client/index.html";
     });
 });
