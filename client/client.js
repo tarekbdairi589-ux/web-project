@@ -100,6 +100,10 @@ let CloseBtn = document.getElementById("CloseBtn");
 let ProfileSideBar = document.getElementById("ProfileSideBar");
 let CloseProfileBtn = document.getElementById("CloseProfileBtn");
 let userLogo = document.getElementById("userLogo");
+let btnsInArrivlas = document.getElementById("BtnsInNewArrivals");
+btnsInArrivlas.addEventListener('click',function(){
+  window.location.href="../category/category.html";
+})
 
 function saveCartToLocalStorage() {
   let cartArray = [];
@@ -218,7 +222,8 @@ function RenderProducts(){
       card.setAttribute("data-thickness", p.thickness);
       card.setAttribute("data-color", p.color);
       card.setAttribute("data-category", p.category);
-      card.setAttribute("data-shortDesc",p.description)
+      card.setAttribute("data-shortDesc",p.description);
+      card.setAttribute("data-quantity",p.quantity);
       card.innerHTML=
       `<div class="ProductImg">
         <img src="${p.image}" alt="${p.name} ${p.category}">
@@ -312,6 +317,7 @@ document.querySelectorAll(".Card .ProductImg img").forEach(img =>{
       thickness: card.getAttribute("data-thickness"),
       color: card.getAttribute("data-color"),
       category: card.getAttribute("data-category"), 
+      quantity: parseInt(card.getAttribute("data-quantity"))
 
 
     }
@@ -327,6 +333,7 @@ document.querySelectorAll(".Card .ProductImg img").forEach(img =>{
       let price = card.querySelector(".price").textContent;
       let size = card.querySelector(".sizeSelect").value;
       let imgSrc = card.querySelector(".ProductImg img").src;
+      let quantity = parseInt(card.getAttribute("data-quantity"));
 
       document.getElementById("ModalTitle").textContent = title;
       document.getElementById("ModalDesc").textContent = desc;
@@ -341,6 +348,7 @@ document.querySelectorAll(".Card .ProductImg img").forEach(img =>{
       ProductModal.setAttribute("data-category",card.dataset.category);
       ProductModal.setAttribute("data-shortDesc",card.dataset.shortDesc);
       ProductModal.setAttribute("data-longDesc",desc);
+      ProductModal.setAttribute("data-quantity",quantity);
 
       let modalSizeSelect = document.getElementById("ModalsizeSelect");
     modalSizeSelect.innerHTML = "";
@@ -376,23 +384,37 @@ document.querySelectorAll(".Card .ProductImg img").forEach(img =>{
       let price = parseFloat(priceText.replace("$", ""));
       let imgSrc = card.querySelector(".ProductImg img").src;
       let size = card.querySelector(".sizeSelect").value;
+      let availabestock = parseInt(card.getAttribute("data-quantity"));
       let qty = 1;
 
       let productsListing = document.querySelector(".ProductsListing");
       let existingCards = productsListing.querySelectorAll(".ListingCard");
 
       let found = false;
+      let block = false;
       existingCards.forEach(listCard => {
         let existingTitle = listCard.querySelector(".ListingTitle").textContent;
         let existingSize = listCard.querySelector(".ListingSize").textContent.replace("Size: ", "");
         if (existingTitle === title && existingSize === size) {
           let qtySpan = listCard.querySelector(".NumberOfProducts");
-          qtySpan.textContent = parseInt(qtySpan.textContent) + qty;
+          let currentqty = parseInt(qtySpan.textContent);
+          if(currentqty+qty>availabestock){
+             alert("Not enough stock available!");
+             block=true;
+          return;
+          }
+          qtySpan.textContent = currentqty + qty;
           found = true;
         }
       });
 
+      if(block)
+        return;
       if (!found) {
+        if (qty > availabestock) {
+        alert("Not enough stock available!");
+        return;
+      }
         let newCard = document.createElement("div");
         newCard.classList.add("ListingCard");
         newCard.innerHTML = `
@@ -426,10 +448,16 @@ document.querySelectorAll(".Card .ProductImg img").forEach(img =>{
 
 let qtyValue =  document.getElementById("QtyValue");
 let Modalplus = document.getElementById("QtyPlus");
+let Modalminus = document.getElementById("QtyMinus");
 Modalplus.addEventListener('click',()=>{
-    qtyValue.textContent=parseInt(qtyValue.textContent)+1;
+  let current = parseInt(qtyValue.textContent);
+  let availabestock = parseInt(ProductModal.getAttribute("data-quantity"));
+  if(availabestock>current){
+    qtyValue.textContent = current + 1;
+  }
+    
 });
-let Modalminus=document.getElementById("QtyMinus");
+
 Modalminus.addEventListener('click',()=>{
     let current = parseInt(qtyValue.textContent);
     if(current>1){
@@ -452,20 +480,38 @@ document.querySelector(".ProductModal .AddItemBtn").addEventListener("click", ()
     qty: parseInt(document.getElementById("QtyValue").textContent),
     imgSrc: document.getElementById("ModalImg").src
   };
-
+  let availabestock = parseInt(ProductModal.getAttribute("data-quantity"));
   let productsListing = document.querySelector(".ProductsListing");
   let existingCards = productsListing.querySelectorAll(".ListingCard");
   let found = false;
+  let block = false;
+  if(product.qty>availabestock){
+     alert("Not enough stock available!");
+    return; 
+  }
 
   existingCards.forEach(card => {
     let existingTitle = card.querySelector(".ListingTitle").textContent;
     let existingSize = card.querySelector(".ListingSize").textContent.replace("Size:","").trim();
     if (existingTitle === product.title && existingSize === product.size) {
       let qtySpan = card.querySelector(".NumberOfProducts");
-      qtySpan.textContent = parseInt(qtySpan.textContent) + product.qty;
+      let currentqty = parseInt(qtySpan.textContent);
+      if(currentqty+product.qty>availabestock){
+         alert("Not enough stock available!");
+         found=true;
+         return;
+      }
+      qtySpan.textContent = currentqty + product.qty;
       found = true;
     }
   });
+  if(!found){
+    if(product.qty>availabestock){
+      alert(" Not enough stock available!");
+      return;
+
+    }
+  }
 
   if (!found) {
     let newCard = document.createElement("div");
@@ -515,7 +561,8 @@ document.querySelector(".ProductDetailsLink").addEventListener('click',(e)=>{
   fabric: ProductModal.getAttribute("data-fabric"),
   thickness: ProductModal.getAttribute("data-thickness"),
   color: ProductModal.getAttribute("data-color"),
-  category: ProductModal.getAttribute("data-category")
+  category: ProductModal.getAttribute("data-category"),
+  quantity:ProductModal.getAttribute("data-quantity")
 };
 
   goToProductPage(product);
@@ -585,14 +632,15 @@ let matches = products.filter(p=>
      result.addEventListener("click", () => {
        let selectee = {
     title: p.name || "Untitled",
-    imgSrc: p.image || "",
+    imgSrc: p.image|| "",
     desc: p.readmore,
     price: p.price  ,
-    category: p.category || "",
-    color: p.color,
-    fabric: p.fabric || "",
-    fit: p.selectfit || "",
-    thickness: p.thickness || ""
+    category: p.category ,
+    color: p.color|| "",
+    fabric: p.fabric ,
+    fit: p.selectfit ||"",
+    thickness: p.thickness || "",
+    quantity:parseInt(p.quantity)
   };
 
   goToProductPage(selectee);
@@ -620,17 +668,30 @@ $(".ProductsListing").on("click", ".minus", function(){
   let current = parseInt(qtySpan.text());
   if(current > 1){
     qtySpan.text(current - 1);
+    
   };
   updateCartState();
   saveCartToLocalStorage();
 });
-
+console.log("Attaching sidebar plus handler...");
 $(".ProductsListing").on("click", ".plus", function(){
   let qtySpan = $(this).siblings(".NumberOfProducts");
   let current = parseInt(qtySpan.text());
-  qtySpan.text(current + 1);
-  updateCartState();
+  let card = $(this).closest(".ListingCard");
+  let title = card.find(".ListingTitle").text();
+  let products = JSON.parse(localStorage.getItem("products")) || [];
+  let product = products.find(p => p.name === title );
+  let availabestock = parseInt(product.quantity);
+  if(current<availabestock){
+    qtySpan.text(current + 1);
+     updateCartState();
   saveCartToLocalStorage();
+  }
+  else{
+    return;
+  }
+  
+  
 });
 
 $(".ProductsListing").on("click", ".RemoveProduct", function(){
