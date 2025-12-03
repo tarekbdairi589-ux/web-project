@@ -204,8 +204,13 @@ $("#CloseProfileBtn,#Overlay").on("click", function() {
 });
 let qty = 1;
   $("#QtyPlus").on("click", function(){
-    qty++;
-    $("#QtyValue").text(qty);
+     let product = JSON.parse(localStorage.getItem("selectedProduct"));
+     let availabestock = parseInt(product.quantity);
+     if(qty<availabestock){
+      qty++;
+      $("#QtyValue").text(qty);
+     }
+    
   });
   $("#QtyMinus").on("click", function(){
     if(qty > 1) qty--;
@@ -343,9 +348,17 @@ $(".ProductsListing").on("click", ".minus", function(){
 $(".ProductsListing").on("click", ".plus", function(){
   let qtySpan = $(this).siblings(".NumberOfProducts");
   let current = parseInt(qtySpan.text());
-  qtySpan.text(current + 1);
-  updateCartState();
-  saveCartToLocalStorage();
+   let card = $(this).closest(".ListingCard");
+  let title = card.find(".ListingTitle").text().trim();
+   let products = JSON.parse(localStorage.getItem("products")) || [];
+  let product = products.find(p =>
+    p.name.trim() === title)
+    let availableStock = parseInt(product.quantity)
+   if (current < availableStock) {
+    qtySpan.text(current + 1);
+    updateCartState();
+    saveCartToLocalStorage();
+  }
 });
 
 $(".ProductsListing").on("click", ".RemoveProduct", function(){
