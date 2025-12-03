@@ -1,55 +1,31 @@
 $(document).ready(function () {
 
-    // Redirect if not logged in
     if (!localStorage.getItem("isLoggedIn")) {
-        window.location.href = "signup and login/SandL.html";
+        window.location.href = "../../signup and login/SandL.html";
         return;
     }
 
     let currentUser = localStorage.getItem("currentUser");
     let isAdmin = localStorage.getItem("isAdmin") === "true";
 
-    let userProfile;
-    let users = JSON.parse(localStorage.getItem("users") || "[]");
+    let userProfile = JSON.parse(localStorage.getItem("userProfile"));
 
-    // If ADMIN is logged in → Show admin identity
-    if (isAdmin && currentUser === "admin") {
+    if (isAdmin) {
         userProfile = {
             name: "Admin",
             email: "admin@dripdistrict.com",
             password: "●●●●●●●",
-            address: "Admin Control Panel"
+            address: "Admin Panel"
         };
-
-        // Disable Edit Button for Admin
         $("#EditAccountBtn").hide();
-    } 
-    else {
-        // Normal registered user
-        userProfile = JSON.parse(localStorage.getItem("userProfile"));
-        
-        if (!userProfile) {
-            // fallback if somehow profile not created yet
-            userProfile = {
-                name: currentUser,
-                email: `${currentUser}@example.com`,
-                password: "password123",
-                address: "No address saved yet."
-            };
-        }
     }
 
-
-    //-------------------------------------
-    // 🟦 REFRESH VIEW
-    //-------------------------------------
     function refreshView() {
         $("#AccNameText").text(userProfile.name);
         $("#AccEmailText").text(userProfile.email);
         $("#AccPasswordText").text("●●●●●●●");
         $("#AccAddressText").text(userProfile.address);
 
-        // Fill form if NORMAL USER
         if (!isAdmin) {
             $("#AccNameInput").val(userProfile.name);
             $("#AccEmailInput").val(userProfile.email);
@@ -60,24 +36,13 @@ $(document).ready(function () {
 
     refreshView();
 
+    $("#EditAccountBtn").on("click", function () {
+        $("#AccountView").hide();
+        $("#AccountEdit").show();
+    });
 
-    //-------------------------------------
-    // 🟦 EDIT MODE (Only For User)
-    //-------------------------------------
-    if (!isAdmin) {
-        $("#EditAccountBtn").on("click", function () {
-            $("#AccountView").hide();
-            $("#AccountEdit").show();
-        });
-    }
-
-
-    //-------------------------------------
-    // 🟦 SAVE ACCOUNT INFO (Only For User)
-    //-------------------------------------
     $("#SaveAccountBtn").on("click", function () {
-
-        if (isAdmin) return; // Just in case
+        if (isAdmin) return;
 
         userProfile.name = $("#AccNameInput").val().trim();
         userProfile.email = $("#AccEmailInput").val().trim();
@@ -86,64 +51,30 @@ $(document).ready(function () {
 
         localStorage.setItem("userProfile", JSON.stringify(userProfile));
 
-        users = users.map(u => {
-            if (u.username === currentUser) {
-                return {
-                    username: userProfile.name,
-                    email: userProfile.email,
-                    password: userProfile.password
-                };
-            }
-            return u;
-        });
-
-        localStorage.setItem("users", JSON.stringify(users));
-
-        currentUser = userProfile.name;
-        localStorage.setItem("currentUser", currentUser);
-
         refreshView();
         $("#AccountEdit").hide();
         $("#AccountView").show();
-
-        alert("Account information updated successfully!");
+        alert("Updated Successfully!");
     });
 
-
-    //-------------------------------------
-    // 🟦 CANCEL EDIT
-    //-------------------------------------
     $("#CancelAccountBtn").on("click", function () {
         refreshView();
         $("#AccountEdit").hide();
         $("#AccountView").show();
     });
 
-
-    //-------------------------------------
-    // 🟦 BACK TO STORE
-    //-------------------------------------
     $("#BackToStoreBtn").on("click", function () {
-        window.location.href = "index.html";
+        window.location.href = "../../client/index.html";
     });
 
-
-    //-------------------------------------
-    // 🟦 PASSWORD TOGGLE (USER ONLY)
-    //-------------------------------------
-    if (!isAdmin) {
-        $("#TogglePassIcon").on("click", function () {
-            let passInput = $("#AccPasswordInput");
-            let icon = $("#TogglePassIcon");
-
-            if (passInput.attr("type") === "password") {
-                passInput.attr("type", "text");
-                icon.attr("src", "view.png");
-            } else {
-                passInput.attr("type", "password");
-                icon.attr("src", "hide.png");
-            }
-        });
-    }
-
+    $("#TogglePassIcon").on("click", function () {
+        let passInput = $("#AccPasswordInput");
+        if (passInput.attr("type") === "password") {
+            passInput.attr("type", "text");
+            $(this).attr("src", "view.png");
+        } else {
+            passInput.attr("type", "password");
+            $(this).attr("src", "hide.png");
+        }
+    });
 });

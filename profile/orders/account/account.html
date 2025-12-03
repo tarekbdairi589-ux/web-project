@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Account Information</title>
 
+    <!-- FIXED PATHS -->
     <link rel="stylesheet" href="account.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="account.js" defer></script>
@@ -17,32 +18,17 @@
 
         <h1 class="PageTitle">Account Information</h1>
 
-        <!-- Read-only view -->
+        <!-- VIEW MODE -->
         <div id="AccountView" class="AccountCard">
-            <div class="InfoRow">
-                <span class="InfoLabel">Name:</span>
-                <span id="AccNameText"></span>
-            </div>
-
-            <div class="InfoRow">
-                <span class="InfoLabel">Email:</span>
-                <span id="AccEmailText"></span>
-            </div>
-
-            <div class="InfoRow">
-                <span class="InfoLabel">Password:</span>
-                <span id="AccPasswordText"></span>
-            </div>
-
-            <div class="InfoRow">
-                <span class="InfoLabel">Address:</span>
-                <span id="AccAddressText"></span>
-            </div>
+            <div class="InfoRow"><span class="InfoLabel">Name:</span><span id="AccNameText"></span></div>
+            <div class="InfoRow"><span class="InfoLabel">Email:</span><span id="AccEmailText"></span></div>
+            <div class="InfoRow"><span class="InfoLabel">Password:</span><span id="AccPasswordText"></span></div>
+            <div class="InfoRow"><span class="InfoLabel">Address:</span><span id="AccAddressText"></span></div>
 
             <button id="EditAccountBtn" class="AccountBtn">Edit</button>
         </div>
 
-        <!-- Edit mode -->
+        <!-- EDIT MODE -->
         <div id="AccountEdit" class="AccountCard" style="display:none;">
             <div class="InfoRow">
                 <span class="InfoLabel">Name:</span>
@@ -57,10 +43,9 @@
             <div class="InfoRow">
                 <span class="InfoLabel">Password:</span>
                 <div class="PasswordRow">
-    <input id="AccPasswordInput" type="password">
-    <img id="TogglePassIcon" src="hide.png" alt="Show" class="EyeIcon">
-</div>
-
+                    <input id="AccPasswordInput" type="password">
+                    <img id="TogglePassIcon" src="hide.png" alt="Show" class="EyeIcon">
+                </div>
             </div>
 
             <div class="InfoRow">
