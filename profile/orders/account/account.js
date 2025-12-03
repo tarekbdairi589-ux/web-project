@@ -64,7 +64,7 @@ $(document).ready(function () {
     });
 
     $("#BackToStoreBtn").on("click", function () {
-        window.location.href = "../index.html";
+        window.location.href = "index.html";
     });
 
     $("#TogglePassIcon").on("click", function () {
