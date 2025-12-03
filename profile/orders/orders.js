@@ -48,7 +48,7 @@ $(document).ready(function () {
     });
 
     $("#BackToStoreBtn").click(function () {
-    window.location.href = "../../client/index.html"; // adjust path if needed
+    window.location.href = "../../index.html"; // adjust path if needed
 });
 
 

@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let arrowDiv = document.createElement("div");
     arrowDiv.classList.add("ArrowRight");
     let arrowImg = document.createElement("img");
-    arrowImg.src = "iconArrow.png"; 
+    arrowImg.src = "../client/iconArrow.png"; 
     arrowImg.alt = "Back To Admin";
 
     arrowImg.addEventListener("click", () => {
@@ -17,20 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
     arrowDiv.appendChild(arrowImg);
     document.body.appendChild(arrowDiv);
  }
- if(localStorage.getItem("isAdmin")==="true"){ 
-    let arrowDiv = document.createElement("div");
-    arrowDiv.classList.add("ArrowRight");
-    let arrowImg = document.createElement("img");
-    arrowImg.src = "iconArrow.png"; 
-    arrowImg.alt = "Back To Admin";
-
-    arrowImg.addEventListener("click", () => {
-      window.location.href = "../admin/admin.html"; 
-    });
-
-    arrowDiv.appendChild(arrowImg);
-    document.body.appendChild(arrowDiv);
- }
+ 
  let isAdmin = localStorage.getItem("isAdmin") === "true";
 
 if (isAdmin) {

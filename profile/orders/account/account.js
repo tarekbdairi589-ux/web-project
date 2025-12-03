@@ -124,7 +124,7 @@ $(document).ready(function () {
     // 🟦 BACK TO STORE
     //-------------------------------------
     $("#BackToStoreBtn").on("click", function () {
-        window.location.href = "../../../client/index.html";
+        window.location.href = "../../../index.html";
     });
 
 

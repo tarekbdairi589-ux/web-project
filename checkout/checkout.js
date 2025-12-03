@@ -37,7 +37,7 @@ $(document).ready(function () {
         localStorage.setItem("cartCount", "0");
 
         
-        window.location.href = "../client/index.html";
+        window.location.href = "..index.html";
     });
 });
 

@@ -450,8 +450,6 @@ $("#Overlay").on("click", function() {
     $("#Overlay").removeClass("active");
 });
 
-// Account Info redirect based on role
-// Profile button in Products page
 $(".ProfileBtn:eq(0)").on("click", function () {
     window.location.href = "../profile/orders/account/account.html";
 });
