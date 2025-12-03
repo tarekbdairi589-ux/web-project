@@ -88,7 +88,7 @@ let CloseProfileBtn = document.getElementById("CloseProfileBtn");
 let userLogo = document.getElementById("userLogo");
 let btnsInArrivlas = document.getElementById("BtnsInNewArrivals");
 btnsInArrivlas.addEventListener('click',function(){
-  window.location.href="../category/category.html";
+  window.location.href="category/category.html";
 })
 
 function saveCartToLocalStorage() {
