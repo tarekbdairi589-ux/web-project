@@ -4,6 +4,16 @@ $(function(){
 } catch (e) {
   console.warn("Cart load failed:", e);
 }
+function normalizeSize(size) {
+    if (!size) return "M";
+    let s = size.toLowerCase();
+    if (s.includes("small")) return "S";
+    if (s.includes("medium")) return "M";
+    if (s.includes("large")) return "L";
+    if (s.includes("x")) return "XL";
+    return size.toUpperCase();
+}
+
 
   let product = JSON.parse(localStorage.getItem("selectedProduct"));
   console.log("Selected Product : ", product);

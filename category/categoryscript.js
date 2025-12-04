@@ -1,3 +1,14 @@
+let isAdmin = localStorage.getItem("isAdmin") === "true";
+function normalizeSize(size) {
+    if (!size) return "M";
+    let s = size.toLowerCase();
+    if (s.includes("small")) return "S";
+    if (s.includes("medium")) return "M";
+    if (s.includes("large")) return "L";
+    if (s.includes("x")) return "XL";
+    return size.toUpperCase();
+}
+
 let products = JSON.parse(localStorage.getItem("products")) || [];
 let categories = JSON.parse(localStorage.getItem("categories")) || [];
 window.addEventListener("storage", (event) => {
@@ -10,7 +21,6 @@ window.addEventListener("storage", (event) => {
         loadCategoryProducts();
     }
 });
-
 function loadCartFromLocalStorage() {
   let savedCart = JSON.parse(localStorage.getItem("cart")) || [];
   let productsListing = document.querySelector(".ProductsListing");
@@ -18,29 +28,30 @@ function loadCartFromLocalStorage() {
   productsListing.innerHTML = ""; // Clear existing
 
   savedCart.forEach(item => {
-  let newCard = document.createElement("div");
-  newCard.classList.add("ListingCard");
-  newCard.setAttribute("data-size", item.size);
-  newCard.setAttribute("data-color", item.color);
-  newCard.innerHTML = `
-    <div class="ListingImg"><img src="${item.image}" alt="${item.Title}" /></div>
-    <div class="ListingContent">
-      <h3 class="ListingTitle">${item.Title}</h3>
+    let newCard = document.createElement("div");
+    newCard.classList.add("ListingCard");
 
-      <p class="ListingSizeColor">Size: ${item.size}, Color: ${item.color}</p>
-      <div class="ListingBtns">
-        <div class="Increment-decrementbtn">
-          <button class="PlusMinusBtn minus">-</button>
-          <span class="NumberOfProducts">${item.qty}</span>
-          <button class="PlusMinusBtn plus">+</button>
-        </div>
-        <button class="RemoveProduct">Remove</button>
+    newCard.innerHTML = `
+      <div class="ListingImg">
+        <img src="${item.image}" alt="${item.name}" />
       </div>
-    </div>
-    <div class="ListingPrice">$${item.price.toFixed(2)}</div>
-  `;
-  productsListing.appendChild(newCard);
-});
+      <div class="ListingContent">
+        <h3 class="ListingTitle">${item.name}</h3>
+        <p class="ListingSize">Size: ${item.size}</p>
+        <div class="ListingBtns">
+          <div class="Increment-decrementbtn">
+            <button class="PlusMinusBtn minus">-</button>
+            <span class="NumberOfProducts">${item.qty}</span>
+            <button class="PlusMinusBtn plus">+</button>
+          </div>
+          <button class="RemoveProduct">Remove</button>
+        </div>
+      </div>
+      <div class="ListingPrice">$${item.price.toFixed(2)}</div>
+    `;
+
+    productsListing.appendChild(newCard);
+  });
 
 
   updateCartState(); // Refresh count and subtotal
@@ -56,33 +67,46 @@ function saveCartToLocalStorage() {
 
   document.querySelectorAll(".ListingCard").forEach(card => {
     cartArray.push({
-      title: card.querySelector(".ListingTitle").textContent,
-      desc: card.querySelector(".ListingDescription")?.textContent || "",
-      price: parseFloat(card.querySelector(".ListingPrice").textContent.replace("$", "")),
+      name: card.querySelector(".ListingTitle").textContent,
       qty: parseInt(card.querySelector(".NumberOfProducts").textContent),
-      imgSrc: card.querySelector(".ListingImg img").src,
-      size: card.getAttribute("data-size") || "Default",
-      color: card.getAttribute("data-color") || "Default"
+      price: parseFloat(card.querySelector(".ListingPrice").textContent.replace("$", "")),
+      image: card.querySelector(".ListingImg img").src,
+      size: card.getAttribute("data-size") || "M"
     });
   });
 
   localStorage.setItem("cart", JSON.stringify(cartArray));
 }
 
+
+
 function updateItemCount(count) {
     $('.shownumitem').text(`${count} item${count !== 1 ? 's' : ''}`);
-}
-function loadColorFilter() {
+}function loadColorFilter() {
     let colorSelect = $("#selectcolor");
     colorSelect.empty();
-    colorSelect.append('<option value="Any" selected>Any Color</option>');
+    colorSelect.append(`<option value="Any" selected>Any Color</option>`);
 
-    let uniqueColors = [...new Set(products.map(p => p.color).filter(c => c))];
+    let allColors = [];
+
+    products.forEach(p => {
+        if (!p.color) return;
+
+        if (Array.isArray(p.color)) {
+            p.color.forEach(c => allColors.push(c.trim()));
+        } else if (typeof p.color === "string") {
+            allColors.push(p.color.trim());
+        }
+    });
+
+    let uniqueColors = [...new Set(allColors)];
 
     uniqueColors.forEach(color => {
         colorSelect.append(`<option value="${color}">${color}</option>`);
     });
 }
+
+
 
 // Load categories into category buttons
 function loadCategoryButtons() {
@@ -117,7 +141,9 @@ function loadCategoryProducts(filterCategory = "All") {
         let matchSearch = (!search || productName.includes(search));
         let matchSize = (sizeFilter === "Any" || (p.size || []).includes(sizeFilter));
         let matchPrice = (p.price <= maxPrice);
-        let matchColor = (colorFilter === "Any" || (p.color || "Any") === colorFilter);
+        let colors = Array.isArray(p.color) ? p.color : [p.color];
+        let matchColor = (colorFilter === "Any" || colors.includes(colorFilter));
+
 
         return matchCat && matchSearch && matchSize && matchPrice&& matchColor;
     });
@@ -139,7 +165,7 @@ function loadCategoryProducts(filterCategory = "All") {
     container.empty();
 
     filtered.forEach(p => {
-        let img = p.image || "https://via.placeholder.com/200x200?text=No+Image";
+        let img = p.image ;
 
         let card = `
         <div class="Card">
@@ -147,7 +173,10 @@ function loadCategoryProducts(filterCategory = "All") {
             <div class="ProductContent">
                 <div class="Title">${p.name}</div>
                 <div class="ReadMore">${p.description || ""}</div>
-                
+                <div class="SizeWrap">
+                    <label>Size:</label>
+                      <select class="sizeSelect"></select>
+                </div>
                 <div class="row">
                     <div class="price">$${p.price.toFixed(2)}</div>
                     <div class="RowBtns">
@@ -160,6 +189,17 @@ function loadCategoryProducts(filterCategory = "All") {
         `;
 
         container.append(card);
+        let lastCard = container.children().last();
+let sizeSelect = lastCard.find(".sizeSelect");
+sizeSelect.empty();
+
+let sizes = Array.isArray(p.size) ? p.size : [p.size || "M"];
+sizes.forEach(s => {
+    let n = normalizeSize(s);
+    sizeSelect.append(`<option value="${n}">${n}</option>`);
+
+});
+
     });
 }
 $("#searchinput, #selectsize, #range, #pricerange, #selectcolor").on("input change", function () {
@@ -193,33 +233,33 @@ $(document).on("click", ".AddItemBtn", function () {
     window.location.href = "../signup and login/SandL.html";
     return;
   }
+  if(isAdmin){
+    return;
+  }
 
   let card = $(this).closest(".Card");
   let title = card.find(".Title").text();
-
-
   let product = products.find(p => p.name === title);
-  if (!product) return alert("Product not found!");
+  
+
+  let size = normalizeSize(card.find(".sizeSelect").val());
+  let color = Array.isArray(product.color) ? product.color[0] : (product.color || "");
 
   let productsListing = document.querySelector(".ProductsListing");
   let existingCards = productsListing.querySelectorAll(".ListingCard");
-
-
-  let size = product.size.length > 1 ? prompt(`Select size: ${product.size.join(", ")}`, product.size[0]) : product.size[0];
-  let color = product.color.length > 1 ? prompt(`Select color: ${product.color.join(", ")}`, product.color[0]) : product.color[0];
-
-  // Check if already in cart
   let found = false;
-  existingCards.forEach(card => {
-    let existingTitle = card.querySelector(".ListingTitle").textContent;
-    let existingSize = card.getAttribute("data-size") || "Default";
-    let existingColor = card.getAttribute("data-color") || "Default";
 
-    if (existingTitle === title && existingSize === size && existingColor === color) {
-      let qtySpan = card.querySelector(".NumberOfProducts");
+  existingCards.forEach(existing => {
+    let existingTitle = existing.querySelector(".ListingTitle").textContent;
+    let existingSize = normalizeSize(existing.querySelector(".ListingSize").textContent.replace("Size: ", ""));
+    size = normalizeSize(size);
+
+
+    if (existingTitle === title && existingSize === size) {
+      let qtySpan = existing.querySelector(".NumberOfProducts");
       let currentQty = parseInt(qtySpan.textContent);
       if (currentQty + 1 > product.quantity) {
-        alert(`Cannot add more than ${product.quantity} items.`);
+        alert("Not enough stock!");
       } else {
         qtySpan.textContent = currentQty + 1;
       }
@@ -228,18 +268,13 @@ $(document).on("click", ".AddItemBtn", function () {
   });
 
   if (!found) {
-    if (product.quantity < 1) return alert("Product out of stock!");
-
     let newCard = document.createElement("div");
     newCard.classList.add("ListingCard");
-    newCard.setAttribute("data-size", size);
-    newCard.setAttribute("data-color", color);
     newCard.innerHTML = `
-      <div class="ListingImg"><img src="${product.image || 'https://via.placeholder.com/200'}" alt="${title}" /></div>
+      <div class="ListingImg"><img src="${product.image || 'https://via.placeholder.com/200'}"></div>
       <div class="ListingContent">
         <h3 class="ListingTitle">${title}</h3>
-    
-        <p class="ListingSizeColor">Size: ${size}, Color: ${color}</p>
+        <p class="ListingSize">Size: ${size}</p>
         <div class="ListingBtns">
           <div class="Increment-decrementbtn">
             <button class="PlusMinusBtn minus">-</button>
@@ -251,13 +286,17 @@ $(document).on("click", ".AddItemBtn", function () {
       </div>
       <div class="ListingPrice">$${product.price.toFixed(2)}</div>
     `;
+    newCard.setAttribute("data-size", size);
     productsListing.appendChild(newCard);
   }
 
   updateCartState();
+  saveCartToLocalStorage();
   CartSideBar.classList.add("open");
   Overlay.classList.add("active");
 });
+
+
 
 function updateCartState() {
   let totalQty = 0;
@@ -295,38 +334,66 @@ function updateCartState() {
   saveCartToLocalStorage();
 }
 
-// Open modal
+// Open modal when clicking Read More
 $(document).on("click", ".ReadMoreBtn", function() {
     let card = $(this).closest(".Card");
     let productName = card.find(".Title").text();
 
-    // Find product in localStorage by name
     let product = products.find(p => p.name === productName);
     if (!product) return;
 
-    // Set modal info
+    
     $("#ModalTitle").text(product.name);
-    $("#ModalDesc").text(product.readmore || "No description available.");
+    $("#ModalDesc").text(product.readmore );
     $("#ModalPrice").text(`$${product.price.toFixed(2)}`);
-    $("#ModalImg").attr("src", product.image || "https://via.placeholder.com/200x200");
+    $("#ModalImg").attr("src", product.image || "");
 
-    // Populate size dropdown dynamically
+
+    
     let sizeSelect = $("#ModalSize");
     sizeSelect.empty();
-    product.size.forEach(s => sizeSelect.append(`<option value="${s}">${s}</option>`));
+    (Array.isArray(product.size) ? product.size : [product.size || "M"]).forEach(size => {
+        sizeSelect.append(`<option value="${size}">${size}</option>`);
+    });
 
+    
+    $(".ProductModal")
+        .attr("data-color", product.color)
+        .attr("data-fit", product.fit)
+        .attr("data-fabric", product.fabric)
+        .attr("data-thickness", product.thickness)
+        .attr("data-category", product.category)
+        .attr("data-quantity", product.quantity);
 
-    let colorSelect = $("#ModalColor");
-    colorSelect.empty();
-    product.color.forEach(c => colorSelect.append(`<option value="${c}">${c}</option>`));
-
-    // Show max quantity (sum of stock for that product)
     $("#MaxQty").text(product.quantity);
+    $("#QtyValue").text("1");
 
-    $("#QtyValue").text(1); // default quantity
     $(".ProductModal").addClass("active");
     $("#Overlay").addClass("active");
 });
+$("#SeeProductDetails").click(function(e) {
+    e.preventDefault();
+
+    let product = {
+        title: $("#ModalTitle").text(),
+        desc: $("#ModalDesc").text(), 
+        price: parseFloat($("#ModalPrice").text().replace("$","")),
+        imgSrc: $("#ModalImg").attr("src"),
+        size: normalizeSize($("#ModalSize").val()),
+        color: $(".ProductModal").attr("data-color"),
+        fit: $(".ProductModal").attr("data-fit"),
+        fabric: $(".ProductModal").attr("data-fabric"),
+        thickness: $(".ProductModal").attr("data-thickness"),
+        category: $(".ProductModal").attr("data-category"),
+        quantity: parseInt($(".ProductModal").attr("data-quantity"))
+    };
+
+    localStorage.setItem("selectedProduct", JSON.stringify(product));
+    window.location.href = "../Products-Detailss/Products.html";
+});
+
+
+
 
 
 
@@ -441,19 +508,20 @@ $(".ProductsListing").on("click", ".plus", function () {
 $(".ProductsListing").on("click", ".RemoveProduct", function () {
   $(this).closest(".ListingCard").remove();
   updateCartState();
-});
-$("#AddToCartModal").click(function() {
+});$("#AddToCartModal").click(function() {
+  if(isAdmin){
+    return;
+  }
     let title = $("#ModalTitle").text();
-    let size = $("#ModalSize").val();
-    let color = $("#ModalColor").val();
+    let size = normalizeSize($("#ModalSize").val());
     let qty = parseInt($("#QtyValue").text());
+    let imgSrc = $("#ModalImg").attr("src");
 
     let product = products.find(p => p.name === title);
     if (!product) return;
 
-    // Check max available
     if (qty > product.quantity) {
-        alert(`Cannot add more than ${product.quantity} items for this product!`);
+        alert("Not enough stock available!");
         return;
     }
 
@@ -463,17 +531,19 @@ $("#AddToCartModal").click(function() {
 
     existingCards.forEach(card => {
         let existingTitle = card.querySelector(".ListingTitle").textContent;
-        let existingSize = card.getAttribute("data-size") || "Default";
-        let existingColor = card.getAttribute("data-color") || "Default";
+        let existingSize = card.querySelector(".ListingSize").textContent.replace("Size: ", "");
 
-        if (existingTitle === title && existingSize === size && existingColor === color) {
+        if (existingTitle === title && existingSize === size) {
             let qtySpan = card.querySelector(".NumberOfProducts");
             let currentQty = parseInt(qtySpan.textContent);
+
             if (currentQty + qty > product.quantity) {
-                alert(`Cannot add more than ${product.quantity} items.`);
-            } else {
-                qtySpan.textContent = currentQty + qty;
+                alert("Not enough stock available!");
+                found = true;
+                return;
             }
+
+            qtySpan.textContent = currentQty + qty;
             found = true;
         }
     });
@@ -481,14 +551,14 @@ $("#AddToCartModal").click(function() {
     if (!found) {
         let newCard = document.createElement("div");
         newCard.classList.add("ListingCard");
-        newCard.setAttribute("data-size", size);
-        newCard.setAttribute("data-color", color);
+
         newCard.innerHTML = `
-          <div class="ListingImg"><img src="${product.image || 'https://via.placeholder.com/200'}" alt="${title}" /></div>
+          <div class="ListingImg">
+            <img src="${imgSrc}" alt="${title}">
+          </div>
           <div class="ListingContent">
             <h3 class="ListingTitle">${title}</h3>
-
-            <p class="ListingSizeColor">Size: ${size}, Color: ${color}</p>
+            <p class="ListingSize">Size: ${size}</p>
             <div class="ListingBtns">
               <div class="Increment-decrementbtn">
                 <button class="PlusMinusBtn minus">-</button>
@@ -500,15 +570,19 @@ $("#AddToCartModal").click(function() {
           </div>
           <div class="ListingPrice">$${product.price.toFixed(2)}</div>
         `;
+
         productsListing.appendChild(newCard);
     }
 
     updateCartState();
+    saveCartToLocalStorage();
+
     $(".ProductModal").removeClass("active");
-    $("#Overlay").removeClass("active");
+    Overlay.classList.remove("active");
     CartSideBar.classList.add("open");
-    Overlay.classList.add("active");
 });
+
+
 function loadSizeFilter() {
     let sizeSelect = $("#selectsize");
     sizeSelect.empty();
@@ -537,6 +611,9 @@ ContactUsNav.addEventListener("click", () => {
 });
 let CheckOutBtn = document.getElementById("CheckOutBtn");
 CheckOutBtn.addEventListener("click", () => {
+  if(isAdmin){
+    return;
+  }
   saveCartToLocalStorage();  // SAVE THE CART FIRST
 
   // Redirect to checkout page
@@ -546,7 +623,8 @@ CheckOutBtn.addEventListener("click", () => {
 $(document).ready(function () {
     loadCategoryButtons();
     loadCategoryProducts();
-    loadCartFromLocalStorage();
+    loadColorFilter();
     loadSizeFilter();
+    loadCartFromLocalStorage();
 });
 

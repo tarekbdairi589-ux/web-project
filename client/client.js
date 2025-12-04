@@ -100,7 +100,7 @@ function saveCartToLocalStorage() {
       qty: parseInt(card.querySelector(".NumberOfProducts").textContent),
       price: parseFloat(card.querySelector(".ListingPrice").textContent.replace("$","")),
       image: card.querySelector(".ListingImg img").src,
-      size: card.querySelector(".ListingSize").textContent.replace("Size: ", "")
+      size: formatSizeLabel(card.querySelector(".ListingSize").textContent.replace("Size: ", ""))
     });
   });
 
@@ -142,7 +142,14 @@ function loadCartFromLocalStorage(){
 
 let CheckOutBtn = document.getElementById("CheckOutBtn");
 
-CheckOutBtn.addEventListener("click", () => {
+CheckOutBtn.addEventListener("click", (e) => {
+  let cartItems = document.querySelectorAll(".ListingCard").length;
+
+  if (cartItems === 0) {
+    e.preventDefault();
+    return;
+  }
+
   saveCartToLocalStorage();  
 
   window.location.href = "checkout/cart.html"; 
@@ -236,10 +243,14 @@ let sizes = typeof p.size === "string" ? [p.size] : p.size;
 
 if (sizes && sizes.length > 0) {
   sizes.forEach(s => {
-    let option = document.createElement("option");
-    option.value = s;
-    option.textContent = formatSizeLabel(s);
-    sizeSelect.appendChild(option);
+   let formatted = formatSizeLabel(s);
+
+  let option = document.createElement("option");
+  option.value = formatted;
+  option.textContent = formatted;
+  sizeSelect.appendChild(option);
+
+    
   });
 } else {
   let option = document.createElement("option");
@@ -369,7 +380,7 @@ document.querySelectorAll(".Card .ProductImg img").forEach(img =>{
       let priceText = card.querySelector(".price").textContent.trim();
       let price = parseFloat(priceText.replace("$", ""));
       let imgSrc = card.querySelector(".ProductImg img").src;
-      let size = card.querySelector(".sizeSelect").value;
+      let size = formatSizeLabel(card.querySelector(".sizeSelect").value);
       let availabestock = parseInt(card.getAttribute("data-quantity"));
       let qty = 1;
 
@@ -563,6 +574,11 @@ backToTopBtn.addEventListener("click", () => {
     });
 });
  userLogo.addEventListener("click", () => {
+  let isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+  if(!isLoggedIn){
+    window.location.href="../signup and login/SandL.html";
+    return;
+  }
     ProfileSideBar.classList.add("open");
     Overlay.classList.add("active");
 });
@@ -646,7 +662,7 @@ document.addEventListener("click", function (e) {
 
 $(document).ready(function () {
     $("#OrdersBtn").click(function () {
-        window.location.href = "profile/orders/orders.html";
+        window.location.href = "./profile/orders/orders.html";
     });
 
 $(".ProductsListing").on("click", ".minus", function(){
