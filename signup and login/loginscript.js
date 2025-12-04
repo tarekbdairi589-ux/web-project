@@ -128,7 +128,7 @@ document.addEventListener('DOMContentLoaded', function () {
             localStorage.setItem("userProfile", JSON.stringify(profile));
 
             alert("Login successful! Redirecting to store...");
-            window.location.href = "..index.html";
+            window.location.href = "../index.html";
         });
     }
 

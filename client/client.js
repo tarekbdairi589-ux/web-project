@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let arrowDiv = document.createElement("div");
     arrowDiv.classList.add("ArrowRight");
     let arrowImg = document.createElement("img");
-    arrowImg.src = "../client/iconArrow.png"; 
+    arrowImg.src = "client/iconArrow.png"; 
     arrowImg.alt = "Back To Admin";
 
     arrowImg.addEventListener("click", () => {
