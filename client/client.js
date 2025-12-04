@@ -646,7 +646,7 @@ document.addEventListener("click", function (e) {
 
 $(document).ready(function () {
     $("#OrdersBtn").click(function () {
-        window.location.href = "../profile/orders/orders.html";
+        window.location.href = "profile/orders/orders.html";
     });
 
 $(".ProductsListing").on("click", ".minus", function(){
