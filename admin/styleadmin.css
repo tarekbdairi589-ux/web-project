@@ -33,7 +33,6 @@ button {
     cursor: pointer;
 }
 
-/* Header */
 #admin-header {
     display: flex;
     justify-content: space-between;
@@ -87,7 +86,6 @@ button {
     gap: 10px;
 }
 
-/* Main */
 main {
     padding: 40px;
     display: flex;
@@ -155,7 +153,6 @@ textarea {
     min-height: 120px;
 }
 
-/* Image Upload */
 #image-upload-container {
     border: 2px dashed rgba(255, 255, 255, 0.25);
     padding: 22px;
@@ -176,7 +173,6 @@ textarea {
     font-size: 14px;
 }
 
-/* Form Footer */
 #form1-footer {
     display: flex;
     justify-content: flex-end;
@@ -210,7 +206,6 @@ textarea {
     box-shadow: 0 0 12px #009dff;
 }
 
-/* Product Table */
 #product-table {
     width: 100%;
     border-collapse: collapse;
@@ -228,7 +223,6 @@ textarea {
     color: #d0e1ff;
 }
 
-/* Fixed Buttons */
 .fixed-buttons {
     position: fixed;
     bottom: 25px;
@@ -259,7 +253,6 @@ textarea {
     box-shadow: 0 0 12px #ff4c4c;
 }
 
-/* Footer */
 #footer-div {
     background: rgba(0, 0, 0, 0.35);
     backdrop-filter: blur(5px);

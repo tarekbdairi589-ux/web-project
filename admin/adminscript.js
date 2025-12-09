@@ -266,7 +266,6 @@ input.addEventListener("change", () => {
     }
 });
 
-// Drag & Drop
 container.addEventListener("dragover", e => {
     e.preventDefault();
     container.classList.add("dragover");
@@ -282,7 +281,7 @@ container.addEventListener("drop", e => {
     container.classList.remove("dragover");
     let file = e.dataTransfer.files[0];
     if (file) {
-        input.files = e.dataTransfer.files; // update input so form can submit
+        input.files = e.dataTransfer.files; 
         let reader = new FileReader();
         reader.onload = e => {
             preview.src = e.target.result;
@@ -293,8 +292,6 @@ container.addEventListener("drop", e => {
 });
 function loadCategoryProducts(filterCategory = 'All') {
     let products = JSON.parse(localStorage.getItem('products')) || [];
-
-    // Get filter values from UI
     let search = $('#searchinput').val().trim().toLowerCase() || '';
     let sizeFilter = $('#selectsize').val() || 'Any';
     let maxPrice = parseFloat($('#range').val()) || Infinity;

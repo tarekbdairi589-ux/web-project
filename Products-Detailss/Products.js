@@ -181,7 +181,6 @@ $(document).ready(function () {
     $dropDown.show();
   });
 
-  // Close dropdown on outside click
   $(document).on("click", function (e) {
     if (!$searchInput.is(e.target) && !$dropDown.is(e.target) && $dropDown.has(e.target).length === 0) {
       $dropDown.hide();
@@ -471,18 +470,13 @@ $("#OrdersBtn").on("click", function () {
     window.location.href = "../profile/orders/orders.html";
 });
 
-// ===========================================
-// 🔒 ADMIN MODE RESTRICTIONS (PRODUCT PAGE)
-// ===========================================
 let isAdmin = localStorage.getItem("isAdmin") === "true";
 
 if (isAdmin) {
     console.log("Admin mode active — Storefront disabled.");
 
-    // 1️⃣ Hide Login Button
     $("#LoginBtn").hide();
 
-    // 2️⃣ Disable Add to Cart Button
     $(".AddItemBtn")
         .prop("disabled", true)
         .css({
@@ -495,7 +489,6 @@ if (isAdmin) {
             alert("Admins cannot buy products.");
         });
 
-    // 3️⃣ Disable Cart Button
     $("#Cart-Btn")
         .off("click")
         .css("cursor", "not-allowed")
@@ -504,10 +497,10 @@ if (isAdmin) {
             alert("Admin cannot access cart.");
         });
 
-    // Also prevent opening sidebar by Overlay
+  
     $("#CloseBtn, #Overlay").off("click");
 
-    // 4️⃣ Disable Checkout Button (Inside Sidebar)
+   
     $("#CheckOutBtn")
         .off("click")
         .css("cursor", "not-allowed")
@@ -516,7 +509,7 @@ if (isAdmin) {
             alert("Admin cannot checkout.");
         });
 
-    // 5️⃣ Hide My Orders button from profile sidebar
+    
     $("#OrdersBtn").hide();
 }
 
