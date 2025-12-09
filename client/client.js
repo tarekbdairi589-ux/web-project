@@ -205,13 +205,13 @@ loginBtn.addEventListener("click", function () {
         if (isAdmin) {
             localStorage.removeItem("isAdmin");
             alert("Admin logged out!");
-            window.location.href = "../../signup and login/SandL.html";
+            window.location.href = "../signup and login/SandL.html";
         } else {
             alert("Logged out successfully!");
             window.location.reload(); 
         }
     } else {
-        window.location.href = "../../signup and login/SandL.html";
+        window.location.href = "../signup and login/SandL.html";
     }
 });
 
