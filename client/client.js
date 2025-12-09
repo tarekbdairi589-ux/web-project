@@ -103,15 +103,26 @@ function saveCartToLocalStorage() {
     });
   });
 
-  localStorage.setItem("cart", JSON.stringify(cartArray));
+  let currentUser = localStorage.getItem("currentUser");
+  if (currentUser) {
+    localStorage.setItem(`cart_${currentUser}`, JSON.stringify(cartArray));
+  }
 }
-function loadCartFromLocalStorage(){
-  let cartArray = JSON.parse(localStorage.getItem("cart"))||[];
-  let productsListing = document.querySelector(".ProductsListing")
-  productsListing.innerHTML="";
-  cartArray.forEach(item=>{
+
+function loadCartFromLocalStorage() {
+  let currentUser = localStorage.getItem("currentUser");
+  let cartArray = [];
+
+  if (currentUser) {
+    cartArray = JSON.parse(localStorage.getItem(`cart_${currentUser}`)) || [];
+  }
+
+  let productsListing = document.querySelector(".ProductsListing");
+  productsListing.innerHTML = "";
+
+  cartArray.forEach(item => {
     let newCard = document.createElement("div");
-     newCard.classList.add("ListingCard");
+    newCard.classList.add("ListingCard");
 
     newCard.innerHTML = `
       <div class="ListingImg">
@@ -137,6 +148,7 @@ function loadCartFromLocalStorage(){
 
   updateCartState();
 }
+
   
 
 let CheckOutBtn = document.getElementById("CheckOutBtn");
@@ -183,15 +195,26 @@ if (isLoggedIn) {
 }
 
 loginBtn.addEventListener("click", function () {
+    let isAdmin = localStorage.getItem("isAdmin") === "true";
+    let isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+
     if (isLoggedIn) {
         localStorage.removeItem("isLoggedIn");
         localStorage.removeItem("currentUser");
-        alert("Logged out successfully!");
-        window.location.reload();  
+
+        if (isAdmin) {
+            localStorage.removeItem("isAdmin");
+            alert("Admin logged out!");
+            window.location.href = "../signup and login/SandL.html";
+        } else {
+            alert("Logged out successfully!");
+            window.location.reload(); 
+        }
     } else {
-        window.location.href = "signup and login/SandL.html";
+        window.location.href = "../signup and login/SandL.html";
     }
 });
+
 function formatSizeLabel(size){
    let s = size.toLowerCase();
   if (s.includes("small")) return "S";
@@ -263,7 +286,6 @@ if (sizes && sizes.length > 0) {
      attachCardListeners();
 }
 
-
 function updateCartState() {
   let totalQty = 0;
   let subtotal = 0;
@@ -276,15 +298,20 @@ function updateCartState() {
     subtotal += qty * price;
   });
 
-  cartCount = totalQty;
-  localStorage.setItem("cartCount", cartCount.toString());
-  updateCartUI(cartCount);
+  let currentUser = localStorage.getItem("currentUser");
+  if (currentUser) {
+    localStorage.setItem(`cartCount_${currentUser}`, 
+      totalQty.toString());
+  }
+
+  updateCartUI(totalQty);
 
   let subtotalSpan = document.getElementById("CartSubtotal");
   if (subtotalSpan) {
     subtotalSpan.textContent = `$${subtotal.toFixed(2)}`;
   }
 }
+
 let ProductModal = document.querySelector(".ProductModal");
 let CloseProductBtn = document.querySelector(".CloseProduct");
 

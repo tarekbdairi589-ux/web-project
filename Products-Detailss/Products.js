@@ -4,6 +4,25 @@ $(function(){
 } catch (e) {
   console.warn("Cart load failed:", e);
 }
+let isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+
+if (!isLoggedIn) {
+  $(".AddItemBtn").prop("disabled", true)
+    .addClass("disabled-btn")
+    .css({
+      "opacity": "0.4",
+      "cursor": "not-allowed",
+      "pointer-events": "none"
+    });
+
+  $("#CheckOutBtn").prop("disabled", true)
+    .css({
+      "opacity": "0.4",
+      "cursor": "not-allowed",
+      "pointer-events": "none"
+    });
+}
+
 function normalizeSize(size) {
     if (!size) return "M";
     let s = size.toLowerCase();
@@ -201,11 +220,18 @@ $("#CloseBtn , #Overlay").on("click", function() {
 
 
 
-$("#userLogo").on("click", function() {
-  $("#ProfileSideBar").addClass("open");
-  $("#Overlay").addClass("active");
-  
+$("#userLogo").on("click", function () {
+    let isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+
+    if (!isLoggedIn) {
+        window.location.href = "../signup and login/SandL.html";
+        return;
+    }
+
+    $("#ProfileSideBar").addClass("open");
+    $("#Overlay").addClass("active");
 });
+
 
 $("#CloseProfileBtn,#Overlay").on("click", function() {
   $("#ProfileSideBar").removeClass("open");
@@ -226,22 +252,27 @@ let qty = 1;
     $("#QtyValue").text(qty);
   });
 
+function updateCartState() {
+  let totalQty = 0;
+  let subtotal = 0;
 
- function updateCartState() {
-    let totalQty = 0;
-    let subtotal = 0;
+  $(".ListingCard").each(function () {
+    let qty = parseInt($(this).find(".NumberOfProducts").text());
+    let priceText = $(this).find(".ListingPrice").text();
+    let price = parseFloat(priceText.replace("$", ""));
+    totalQty += qty;
+    subtotal += qty * price;
+  });
 
-    $(".ListingCard").each(function () {
-      let qty = parseInt($(this).find(".NumberOfProducts").text());
-      let priceText = $(this).find(".ListingPrice").text();
-      let price = parseFloat(priceText.replace("$", ""));
-      totalQty += qty;
-      subtotal += qty * price;
-    });
-
-    $("#CartCount").text(totalQty);
-    $("#CartSubtotal").text(`$ ${subtotal.toFixed(2)}`);
+  let currentUser = localStorage.getItem("currentUser");
+  if (currentUser) {
+    localStorage.setItem(`cartCount_${currentUser}`, totalQty.toString());
   }
+
+  $("#CartCount").text(totalQty);
+  $("#CartSubtotal").text(`$ ${subtotal.toFixed(2)}`);
+}
+
 
   function saveCartToLocalStorage() {
   let cartArray = [];
@@ -254,11 +285,17 @@ let qty = 1;
       image: $(this).find(".ListingImg img").attr("src")
     });
   });
-  localStorage.setItem("cart", JSON.stringify(cartArray));
+
+  let currentUser = localStorage.getItem("currentUser");
+  if (currentUser) {
+    localStorage.setItem(`cart_${currentUser}`, JSON.stringify(cartArray));
+  }
 }
 
 function loadCartFromLocalStorage() {
-  let cartArray = JSON.parse(localStorage.getItem("cart")) || [];
+  let currentUser = localStorage.getItem("currentUser");
+  let cartArray = currentUser ? JSON.parse(localStorage.getItem(`cart_${currentUser}`)) || [] : [];
+
   let productsListing = $(".ProductsListing");
   productsListing.empty();
 
@@ -288,6 +325,7 @@ function loadCartFromLocalStorage() {
 
   updateCartState();
 }
+
 
 $(".AddItemBtn").on("click", function () {
  
@@ -444,10 +482,7 @@ $(".RecommendationSection").on('click','.RecommendedCard',function(){
 document.getElementById("CheckOutBtn").addEventListener("click", () => {
     window.location.href = "../checkout/cart.html";
 });
-$("#userLogo").on("click", function() {
-    $("#ProfileSideBar").addClass("open");
-    $("#Overlay").addClass("active");
-});
+
 
 $("#CloseProfileBtn").on("click", function() {
     $("#ProfileSideBar").removeClass("open");

@@ -22,9 +22,10 @@ window.addEventListener("storage", (event) => {
     }
 });
 function loadCartFromLocalStorage() {
-  let savedCart = JSON.parse(localStorage.getItem("cart")) || [];
-  let productsListing = document.querySelector(".ProductsListing");
+  let currentUser = localStorage.getItem("currentUser");
+  let savedCart = currentUser ? JSON.parse(localStorage.getItem(`cart_${currentUser}`)) || [] : [];
 
+  let productsListing = document.querySelector(".ProductsListing");
   productsListing.innerHTML = ""; 
 
   savedCart.forEach(item => {
@@ -53,9 +54,9 @@ function loadCartFromLocalStorage() {
     productsListing.appendChild(newCard);
   });
 
-
   updateCartState();
 }
+
 function clearCart() {
   document.querySelector(".ProductsListing").innerHTML = "";
   localStorage.removeItem("cart");
@@ -75,7 +76,10 @@ function saveCartToLocalStorage() {
     });
   });
 
-  localStorage.setItem("cart", JSON.stringify(cartArray));
+  let currentUser = localStorage.getItem("currentUser");
+  if (currentUser) {
+    localStorage.setItem(`cart_${currentUser}`, JSON.stringify(cartArray));
+  }
 }
 
 
@@ -293,7 +297,6 @@ $(document).on("click", ".AddItemBtn", function () {
 });
 
 
-
 function updateCartState() {
   let totalQty = 0;
   let subtotal = 0;
@@ -305,7 +308,11 @@ function updateCartState() {
     subtotal += qty * price;
   });
 
-  localStorage.setItem("cartCount", totalQty.toString());
+  let currentUser = localStorage.getItem("currentUser");
+  if (currentUser) {
+    localStorage.setItem(`cartCount_${currentUser}`, totalQty.toString());
+  }
+
   document.getElementById("CartCount").textContent = totalQty;
 
   let subtotalSpan = document.getElementById("CartSubtotal");
@@ -328,6 +335,7 @@ function updateCartState() {
 
   saveCartToLocalStorage();
 }
+
 
 $(document).on("click", ".ReadMoreBtn", function() {
     let card = $(this).closest(".Card");
