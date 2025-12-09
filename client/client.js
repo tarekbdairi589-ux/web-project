@@ -75,6 +75,20 @@ if (isAdmin) {
 });
 
 let isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+// Disable Add to Cart buttons if NOT logged in
+if (!isLoggedIn) {
+  document.querySelectorAll(".AddItemBtn").forEach(btn => {
+    btn.disabled = true;
+    btn.style.opacity = "0.4";
+    btn.style.cursor = "not-allowed";
+    btn.addEventListener("click", function(e) {
+      e.preventDefault();
+      alert("Please login first to add items to cart!");
+      window.location.href = "signup and login/SandL.html";
+    });
+  });
+}
+
 let cartCount = parseInt(localStorage.getItem("cartCount") || "0");
 
 let cartCountSpan = document.getElementById("CartCount");
