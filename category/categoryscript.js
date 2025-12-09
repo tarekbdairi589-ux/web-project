@@ -503,7 +503,7 @@ $(".ProductsListing").on("click", ".RemoveProduct", function () {
   $(this).closest(".ListingCard").remove();
   updateCartState();
 });$("#AddToCartModal").click(function() {
-  if(isAdmin){
+  if(isAdmin || !isLoggedIn){
     return;
   }
     let title = $("#ModalTitle").text();

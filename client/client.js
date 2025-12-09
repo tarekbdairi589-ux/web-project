@@ -602,7 +602,7 @@ backToTopBtn.addEventListener("click", () => {
  userLogo.addEventListener("click", () => {
   let isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
   if(!isLoggedIn){
-    window.location.href="../signup and login/SandL.html";
+    window.location.href = "../signup and login/SandL.html";
     return;
   }
     ProfileSideBar.classList.add("open");
